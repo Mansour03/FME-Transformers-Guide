@@ -1,0 +1,1839 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موسوعة محولات FME | القائمة الجانبية والشرح العربي الشامل</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Tajawal:wght@400;500;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0e17;
+            --bg-secondary: #111827;
+            --bg-sidebar: #0f172a;
+            --bg-card: rgba(17, 24, 39, 0.75);
+            --bg-card-hover: rgba(30, 41, 59, 0.9);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-glow: rgba(6, 182, 212, 0.35);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent-cyan: #06b6d4;
+            --accent-blue: #3b82f6;
+            --accent-emerald: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-purple: #8b5cf6;
+            --accent-orange: #f97316;
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+            --font-main: 'Tajawal', 'Cairo', system-ui, -apple-system, sans-serif;
+            --font-heading: 'Cairo', 'Tajawal', sans-serif;
+            --font-code: 'JetBrains Mono', Consolas, monospace;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-sidebar: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.9);
+            --bg-card-hover: #ffffff;
+            --border-color: #e2e8f0;
+            --border-glow: rgba(6, 182, 212, 0.4);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            min-height: 100vh;
+        }
+
+        /* Subtle Background */
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 60% 10%, rgba(6, 182, 212, 0.09) 0%, transparent 40%),
+                radial-gradient(circle at 10% 80%, rgba(139, 92, 246, 0.06) 0%, transparent 40%),
+                linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            background: rgba(10, 14, 23, 0.88);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 100;
+            padding: 14px 0;
+            transition: all 0.3s ease;
+        }
+
+        [data-theme="light"] header {
+            background: rgba(255, 255, 255, 0.88);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 0 24px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .brand-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .brand-logo {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, #f97316, #ea580c);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 900;
+            font-size: 18px;
+            box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4);
+            flex-shrink: 0;
+        }
+
+        .brand-text h1 {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        [data-theme="light"] .brand-text h1 {
+            background: linear-gradient(135deg, #0f172a, #334155);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-text span {
+            font-size: 0.8rem;
+            color: var(--accent-orange);
+            font-weight: 600;
+            display: block;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 8px 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: var(--font-main);
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .theme-toggle-btn {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 8px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: var(--font-main);
+            font-size: 0.88rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.25s ease;
+        }
+
+        .theme-toggle-btn:hover {
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+        }
+
+        /* App Layout: Sidebar + Main Content */
+        .app-layout {
+            display: flex;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 24px 24px 60px;
+            gap: 28px;
+            align-items: flex-start;
+        }
+
+        /* Sidebar (Right side in RTL) */
+        .sidebar {
+            width: 310px;
+            flex-shrink: 0;
+            position: sticky;
+            top: 86px;
+            height: calc(100vh - 106px);
+            overflow-y: auto;
+            background: var(--bg-sidebar);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 16px 10px;
+            box-shadow: var(--card-shadow);
+            scrollbar-width: thin;
+            scrollbar-color: var(--border-color) transparent;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 10px;
+        }
+
+        .sidebar-header {
+            padding: 8px 12px 14px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 10px;
+        }
+
+        .sidebar-title {
+            font-family: var(--font-heading);
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .sidebar-subtitle {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* Sidebar Categories List */
+        .sidebar-menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .sidebar-item {
+            position: relative;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 14px;
+            border-radius: 12px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+            user-select: none;
+        }
+
+        .sidebar-link:hover {
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-primary);
+        }
+
+        .sidebar-link.active {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.15), rgba(59, 130, 246, 0.1));
+            color: var(--accent-orange);
+            border-color: rgba(249, 115, 22, 0.4);
+            font-weight: 800;
+        }
+
+        .sidebar-item-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            text-align: right;
+        }
+
+        .sidebar-item-en {
+            font-family: var(--font-code);
+            font-size: 0.95rem;
+            line-height: 1.2;
+        }
+
+        .sidebar-link.active .sidebar-item-en {
+            color: var(--accent-orange);
+        }
+
+        .sidebar-item-ar {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        .sidebar-link.active .sidebar-item-ar {
+            color: var(--text-primary);
+        }
+
+        .sidebar-badge {
+            font-size: 0.75rem;
+            font-family: var(--font-code);
+            padding: 2px 8px;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-secondary);
+        }
+
+        .sidebar-badge.highlight {
+            background: rgba(249, 115, 22, 0.2);
+            color: var(--accent-orange);
+            font-weight: 800;
+        }
+
+        .sidebar-badge.dimmed {
+            font-size: 0.7rem;
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px dashed var(--border-color);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            min-width: 0; /* Prevents overflow in flexbox */
+        }
+
+        /* Top Hero Banner in Main Content */
+        .category-hero-banner {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 28px;
+            margin-bottom: 24px;
+            backdrop-filter: blur(14px);
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-cat-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            color: var(--accent-cyan);
+            padding: 4px 14px;
+            border-radius: 9999px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .hero-cat-title {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            line-height: 1.25;
+        }
+
+        .hero-cat-desc {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            max-width: 850px;
+            line-height: 1.65;
+            margin-bottom: 16px;
+        }
+
+        .hero-meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding-top: 14px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .hero-stat-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.88rem;
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .hero-doc-btn {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--accent-cyan);
+            padding: 6px 14px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .hero-doc-btn:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(6, 182, 212, 0.1);
+        }
+
+        /* Search & Sub-categories Bar */
+        .search-controls {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 20px;
+            backdrop-filter: blur(14px);
+            margin-bottom: 24px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .search-input-wrap {
+            position: relative;
+            margin-bottom: 14px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 14px 50px 14px 20px;
+            font-size: 1.05rem;
+            font-family: var(--font-main);
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: 14px;
+            color: var(--text-primary);
+            outline: none;
+            transition: all 0.25s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        .clear-search-btn {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: none;
+            padding: 4px;
+        }
+
+        .sub-categories-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .sub-cat-pill {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 7px 14px;
+            border-radius: 10px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .sub-cat-pill:hover {
+            color: var(--text-primary);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .sub-cat-pill.active {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(59, 130, 246, 0.2));
+            color: var(--accent-cyan);
+            border-color: var(--accent-cyan);
+        }
+
+        .sub-cat-count {
+            background: rgba(255, 255, 255, 0.08);
+            font-size: 0.72rem;
+            padding: 2px 6px;
+            border-radius: 9999px;
+            font-family: var(--font-code);
+        }
+
+        /* Results Counter Row */
+        .results-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 22px;
+            margin-bottom: 50px;
+        }
+
+        .transformer-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: var(--card-shadow);
+            backdrop-filter: blur(12px);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .transformer-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .transformer-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--border-glow);
+            box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.4), 0 0 25px rgba(6, 182, 212, 0.15);
+        }
+
+        .transformer-card:hover::before {
+            opacity: 1;
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .card-category-tag {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .card-category-tag.cat-3d {
+            color: var(--accent-cyan);
+            border-color: rgba(6, 182, 212, 0.3);
+            background: rgba(6, 182, 212, 0.1);
+        }
+
+        .card-category-tag.cat-attributes {
+            color: var(--accent-orange);
+            border-color: rgba(249, 115, 22, 0.3);
+            background: rgba(249, 115, 22, 0.1);
+        }
+
+        .card-category-tag.cat-calculated {
+            color: var(--accent-emerald);
+            border-color: rgba(16, 185, 129, 0.3);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .copy-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.2s ease;
+        }
+
+        .copy-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .card-name-en {
+            font-family: var(--font-code);
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--accent-cyan);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-name-ar {
+            font-family: var(--font-heading);
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-top: 4px;
+        }
+
+        .card-tagline {
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+            margin: 12px 0 16px;
+            line-height: 1.6;
+        }
+
+        .card-usecase {
+            background: rgba(255, 255, 255, 0.03);
+            border-right: 3px solid var(--accent-orange);
+            padding: 10px 14px;
+            border-radius: 4px 8px 8px 4px;
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        [data-theme="light"] .card-usecase {
+            background: #f8fafc;
+        }
+
+        .card-usecase strong {
+            color: var(--accent-orange);
+            display: block;
+            margin-bottom: 3px;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+        }
+
+        .card-ports-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 18px;
+        }
+
+        .port-pill {
+            font-size: 0.75rem;
+            font-family: var(--font-code);
+            padding: 3px 8px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+        }
+
+        .card-details-btn {
+            width: 100%;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 11px 16px;
+            border-radius: 12px;
+            font-family: var(--font-main);
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.25s ease;
+        }
+
+        .card-details-btn:hover {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            border-color: transparent;
+            color: white;
+            box-shadow: 0 8px 20px rgba(6, 182, 212, 0.3);
+        }
+
+        /* Workflows Section */
+        .section-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 34px 28px;
+            backdrop-filter: blur(12px);
+            margin-bottom: 40px;
+        }
+
+        .section-box-header {
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .section-box-header h2 {
+            font-family: var(--font-heading);
+            font-size: 1.85rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .section-box-header p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .workflows-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .workflow-box {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 22px;
+        }
+
+        .workflow-box-top {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .workflow-num {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(6, 182, 212, 0.15);
+            color: var(--accent-cyan);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+        }
+
+        .workflow-box h3 {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .pipeline-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .pipeline-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            padding: 10px 12px;
+            border-radius: 10px;
+            font-size: 0.88rem;
+        }
+
+        .pipeline-badge {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--accent-cyan);
+            color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 900;
+            font-family: var(--font-code);
+            flex-shrink: 0;
+        }
+
+        .pipeline-name {
+            font-family: var(--font-code);
+            color: var(--accent-cyan);
+            font-weight: 700;
+        }
+
+        .pipeline-desc {
+            color: var(--text-secondary);
+            font-size: 0.82rem;
+        }
+
+        /* Comparison Table */
+        .table-scroll {
+            overflow-x: auto;
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+        }
+
+        .comp-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: right;
+            font-size: 0.92rem;
+        }
+
+        .comp-table th {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            padding: 14px;
+            font-weight: 800;
+            border-bottom: 2px solid var(--border-color);
+            font-family: var(--font-heading);
+        }
+
+        .comp-table td {
+            padding: 14px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        .comp-table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text-primary);
+        }
+
+        .comp-tool-tag {
+            font-family: var(--font-code);
+            font-weight: 800;
+            color: var(--accent-cyan);
+            background: rgba(6, 182, 212, 0.1);
+            padding: 3px 8px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        /* Modal Dialog */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-container {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-glow);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 820px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            transform: scale(0.95);
+            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 32px;
+            position: relative;
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: scale(1);
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            background: rgba(255, 255, 255, 0.08);
+            border: none;
+            color: var(--text-primary);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: background 0.2s ease;
+        }
+
+        .modal-close-btn:hover {
+            background: var(--accent-orange);
+            color: white;
+        }
+
+        .modal-header {
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .modal-badge-group {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .modal-badge {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            background: rgba(6, 182, 212, 0.1);
+            padding: 4px 12px;
+            border-radius: 9999px;
+        }
+
+        .modal-title {
+            font-family: var(--font-code);
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--text-primary);
+        }
+
+        .modal-subtitle {
+            font-family: var(--font-heading);
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--accent-orange);
+            margin-top: 4px;
+        }
+
+        .modal-section {
+            margin-bottom: 24px;
+        }
+
+        .modal-section-title {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .modal-text {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .modal-callout {
+            background: rgba(249, 115, 22, 0.1);
+            border-right: 4px solid var(--accent-orange);
+            border-radius: 4px 12px 12px 4px;
+            padding: 14px 18px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            margin: 16px 0;
+        }
+
+        .modal-callout.tip {
+            background: rgba(16, 185, 129, 0.1);
+            border-right-color: var(--accent-emerald);
+        }
+
+        .ports-list, .params-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .port-item, .param-item {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+        }
+
+        .port-item strong, .param-item strong {
+            color: var(--accent-cyan);
+            font-family: var(--font-code);
+            margin-left: 6px;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #10b981;
+            color: white;
+            font-weight: 700;
+            padding: 12px 24px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 34px 0;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.92rem;
+        }
+
+        footer a {
+            color: var(--accent-cyan);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 1080px) {
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                height: 100vh;
+                z-index: 200;
+                transform: translateX(100%);
+                border-radius: 0;
+                width: 320px;
+                padding-top: 24px;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.8);
+            }
+
+            .sidebar-backdrop {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.6);
+                backdrop-filter: blur(4px);
+                z-index: 150;
+            }
+
+            .sidebar-backdrop.active {
+                display: block;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .app-layout {
+                padding: 14px 14px 40px;
+            }
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-cat-title {
+                font-size: 1.8rem;
+            }
+            .modal-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-pattern"></div>
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="brand-group">
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <span>☰ الفئات</span>
+                </button>
+                <div class="brand-logo">FME</div>
+                <div class="brand-text">
+                    <h1>موسوعة محولات FME الجغرافية</h1>
+                    <span>FME Transformers Comprehensive Master Guide</span>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <button class="theme-toggle-btn" id="themeToggleBtn" title="تبديل المظهر النهاري/الليلي">
+                    <span id="themeIcon">☀️</span>
+                    <span id="themeText">الوضع النهاري</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container Layout: Sidebar + Content -->
+    <div class="app-layout">
+        <!-- Sidebar Navigation (Exact Categories as in the Documentation) -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-title">
+                    <span>فئات محولات FME</span>
+                    <span style="font-size: 0.8rem; color: var(--accent-cyan); font-family: var(--font-code);">FME Form</span>
+                </div>
+                <div class="sidebar-subtitle">اختر فئة للانتقال واستعراض أدواتها</div>
+            </div>
+
+            <ul class="sidebar-menu" id="sidebarMenu">
+                <!-- Dynamically populated from official_sidebar_categories -->
+            </ul>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Dynamic Category Hero Banner -->
+            <div class="category-hero-banner" id="categoryHeroBanner">
+                <!-- Dynamically updated based on selected category -->
+            </div>
+
+            <!-- Search & Sub-Categories Filter Controls -->
+            <section class="search-controls">
+                <div class="search-input-wrap">
+                    <input type="text" id="searchInput" class="search-input" placeholder="ابحث باسم المحول بالإنجليزي (مثل Extruder, AttributeManager, AreaCalculator) أو بالعربي أو بالوظيفة..." autocomplete="off">
+                    <svg class="search-icon" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    <button id="clearSearchBtn" class="clear-search-btn" title="مسح نص البحث">✕</button>
+                </div>
+
+                <div class="sub-categories-row" id="subCategoriesRow">
+                    <!-- Populated dynamically based on selected active category -->
+                </div>
+            </section>
+
+            <!-- Results Info Bar -->
+            <div class="results-bar">
+                <span id="resultsCount">عرض المحولات (95)</span>
+                <span id="activeFilterDesc">الفئة النشطة: الكل</span>
+            </div>
+
+            <!-- Cards Grid -->
+            <div class="cards-grid" id="transformersGrid">
+                <!-- Populated dynamically by JS -->
+            </div>
+
+            <!-- Integrated Workflows Section -->
+            <section class="section-box">
+                <div class="section-box-header">
+                    <h2>🗺️ مسارات عمل متكاملة بين الفئات (Integrated Workflows)</h2>
+                    <p>كيف تتكامل محولات 3D مع إدارة الـ Attributes والحسابات المشتقة في مشاريع الـ GIS الواقعية؟</p>
+                </div>
+
+                <div class="workflows-grid">
+                    <div class="workflow-box">
+                        <div class="workflow-box-top">
+                            <div class="workflow-num">1</div>
+                            <h3>من كاداستر مسطح إلى مدينة 3D ذكية بحساب المساحات</h3>
+                        </div>
+                        <p style="color: var(--text-secondary); font-size: 0.88rem;">
+                            استخراج المساقط، حساب مساحتها، اشتقاق الارتفاع، وبثقها إلى كتل ثلاثية الأبعاد مكسوة بالخامات.
+                        </p>
+                        <div class="pipeline-list">
+                            <div class="pipeline-item">
+                                <span class="pipeline-badge">1</span>
+                                <div><span class="pipeline-name">AreaCalculator</span><div class="pipeline-desc">حساب مساحة مسقط المبنى بالمتر المربع.</div></div>
+                            </div>
+                            <div class="pipeline-item">
+                                <span class="pipeline-badge">2</span>
+                                <div><span class="pipeline-name">ExpressionEvaluator</span><div class="pipeline-desc">حساب الارتفاع: `عدد الطوابق * 3.2 م`.</div></div>
+                            </div>
+                            <div class="pipeline-item">
+                                <span class="pipeline-badge">3</span>
+                                <div><span class="pipeline-name">3DForcer & Extruder</span><div class="pipeline-desc">بثق الكتلة بالارتفاع المحسوب.</div></div>
+                            </div>
+                            <div class="pipeline-item">
+                                <span class="pipeline-badge">4</span>
+                                <div><span class="pipeline-name">AppearanceSetter</span><div class="pipeline-desc">تطبيق صور الواجهات والخامات على المبنى.</div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="workflow-box">
+                        <div class="workflow-box-top">
+                            <div class="workflow-num">2</div>
+                            <h3>تنظيف وتوحيد جداول الـ GIS قبل التصدير</h3>
+                        </div>
+                        <p style="color: var(--text-secondary); font-size: 0.88rem;">
+                            تجهيز ملفات الكاد والـ Shapefiles القديمة ومطابقتها لمعايير الـ Enterprise Geodatabase.
+                        </p>
+                        <div class="pipeline-list">
+                            <div class="pipeline-item">
+                                <span class="pipeline-badge">1</span>
+                                <div><span class="pipeline-name">BulkAttributeRemover</span><div class="pipeline-desc">حذف الحقول الفنية غير المطلوبة (مثل `autocad_*`).</div></div>
+                            </div>
+                            <div class="pipeline-item">
+                                <span class="pipeline-badge">2</span>
+                                <div><span class="pipeline-name">NullAttributeMapper</span><div class="pipeline-desc">معالجة الحقول الفارغة واستبدالها بقيم نظامية.</div></div>
+                            </div>
+                            <div class="pipeline-item">
+                                <span class="pipeline-badge">3</span>
+                                <div><span class="pipeline-name">AttributeManager</span><div class="pipeline-desc">إعادة تسمية وترتيب وتوحيد أنواع الحقول.</div></div>
+                            </div>
+                            <div class="pipeline-item">
+                                <span class="pipeline-badge">4</span>
+                                <div><span class="pipeline-name">DateTimeStamper</span><div class="pipeline-desc">إضافة الطابع الزمني للتوثيق والتدقيق الجغرافي.</div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="workflow-box">
+                        <div class="workflow-box-top">
+                            <div class="workflow-num">3</div>
+                            <h3>حساب تكاليف شبكات البنية التحتية مع الإسناد الخطي</h3>
+                        </div>
+                        <p style="color: var(--text-secondary); font-size: 0.88rem;">
+                            قياس أطوال شبكات المياه والصرف، توليد نقاط الكيلومترات، وحساب التكاليف الإجمالية.
+                        </p>
+                        <div class="pipeline-list">
+                            <div class="pipeline-item">
+                                <span class="pipeline-badge">1</span>
+                                <div><span class="pipeline-name">LengthCalculator (3D)</span><div class="pipeline-desc">حساب الطول المائل الحقيقي للأنابيب مع المناسيب.</div></div>
+                            </div>
+                            <div class="pipeline-item">
+                                <span class="pipeline-badge">2</span>
+                                <div><span class="pipeline-name">MeasureGenerator</span><div class="pipeline-desc">توليد قيم الإسناد الخطي (M-Values) وعلامات الكيلومتر.</div></div>
+                            </div>
+                            <div class="pipeline-item">
+                                <span class="pipeline-badge">3</span>
+                                <div><span class="pipeline-name">ExpressionEvaluator</span><div class="pipeline-desc">حساب تكلفة التوريد والحفر: `الطول * سعر المتر`.</div></div>
+                            </div>
+                            <div class="pipeline-item">
+                                <span class="pipeline-badge">4</span>
+                                <div><span class="pipeline-name">Counter</span><div class="pipeline-desc">توليد معرّف تسلسلي فريد ID لكل خط في الشبكة.</div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Smart Comparison Table Section -->
+            <section class="section-box">
+                <div class="section-box-header">
+                    <h2>⚖️ مصفوفة المقارنات الذكية لإزالة الالتباس</h2>
+                    <p>دليلك السريع للتمييز بين الأدوات التي تتشابه في الأسماء أو تشترك في وظائف عامة متقاربة</p>
+                </div>
+
+                <div class="table-scroll">
+                    <table class="comp-table">
+                        <thead>
+                            <tr>
+                                <th>المحول الأول</th>
+                                <th>المحول الثاني</th>
+                                <th>وجه الاختلاف الجوهري</th>
+                                <th>متى تختار الأول؟ ومتى تختار الثاني؟</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="comp-tool-tag">AttributeManager</span></td>
+                                <td><span class="comp-tool-tag">AttributeCreator</span></td>
+                                <td><strong>AttributeManager</strong> لوحة شاملة لإنشاء وتعديل وحذف وإعادة تسمية وترتيب الأعمدة؛ بينما <strong>AttributeCreator</strong> يركز فقط على إنشاء حقول جديدة.</td>
+                                <td>اختر <strong>AttributeManager</strong> لإعادة تنظيم هيكل الجدول بالكامل؛ واختر <strong>AttributeCreator</strong> لمجرد إضافة عمود أو عمودين بسرعة.</td>
+                            </tr>
+                            <tr>
+                                <td><span class="comp-tool-tag">AttributeKeeper</span></td>
+                                <td><span class="comp-tool-tag">AttributeRemover</span></td>
+                                <td><strong>AttributeKeeper</strong> تحدد له ما تريد الإبقاء عليه ويحذف الباقي؛ بينما <strong>AttributeRemover</strong> تحدد له الحقول المراد حذفها تحديداً.</td>
+                                <td>اختر <strong>AttributeKeeper</strong> عندما تريد الإبقاء على 3 حقول وحذف 50 حقلاً؛ واختر <strong>AttributeRemover</strong> لحذف حقل أو اثنين فقط.</td>
+                            </tr>
+                            <tr>
+                                <td><span class="comp-tool-tag">AreaCalculator</span></td>
+                                <td><span class="comp-tool-tag">StatisticsCalculator</span></td>
+                                <td><strong>AreaCalculator</strong> يحسب مساحة كل مضلع على حدة ويخزنها في سجله؛ بينما <strong>StatisticsCalculator</strong> يجمع مساحات كل المعالم ليحسب المجموع والمتوسط والحد الأقصى.</td>
+                                <td>اختر <strong>AreaCalculator</strong> لمعرفة مساحة كل قطعة أرض؛ واستخدم <strong>StatisticsCalculator</strong> بعده لحساب إجمالي مساحات الحي ومعدلها.</td>
+                            </tr>
+                            <tr>
+                                <td><span class="comp-tool-tag">Counter</span></td>
+                                <td><span class="comp-tool-tag">ModuloCounter</span></td>
+                                <td><strong>Counter</strong> عداد تسلسلي تصاعدي لا نهائي (1, 2, 3...)؛ بينما <strong>ModuloCounter</strong> يدور ويتكرر ضمن نطاق دوري (1 إلى 5 ثم يعود لـ 1).</td>
+                                <td>اختر <strong>Counter</strong> لتوليد معرف فريد ID؛ واختر <strong>ModuloCounter</strong> لتوزيع المهام على فرق مسح أو دوريات بالتساوي.</td>
+                            </tr>
+                            <tr>
+                                <td><span class="comp-tool-tag">ListExploder</span></td>
+                                <td><span class="comp-tool-tag">AttributeExploder</span></td>
+                                <td><strong>ListExploder</strong> يفكك عناصر مصفوفة القائمة (List) إلى معالم؛ بينما <strong>AttributeExploder</strong> يفكك حقول الجدول العادية (Columns) إلى صفوف Name/Value.</td>
+                                <td>اختر <strong>ListExploder</strong> لتحويل قائمة شقق المبنى لسجلات؛ واختر <strong>AttributeExploder</strong> لتدوير الجدول وتطبيعه للرسوم البيانية.</td>
+                            </tr>
+                            <tr>
+                                <td><span class="comp-tool-tag">3DForcer</span></td>
+                                <td><span class="comp-tool-tag">Extruder</span></td>
+                                <td><strong>3DForcer</strong> يرفع المعلم كما هو لمنسوب Z (يظل مسطحاً)؛ بينما <strong>Extruder</strong> يسحبه رأسياً ليصنع جدراناً ومجسماً صلب بمساحة وحجم.</td>
+                                <td>اختر <strong>3DForcer</strong> لوضع النقاط أو الطرق على منسوبها؛ واختر <strong>Extruder</strong> لصناعة مباني ومجسمات كاملة الجدران.</td>
+                            </tr>
+                            <tr>
+                                <td><span class="comp-tool-tag">SolidBuilder</span></td>
+                                <td><span class="comp-tool-tag">CSGBuilder</span></td>
+                                <td><strong>SolidBuilder</strong> يجمع وجوهاً منفصلة ليغلقها في مجسم؛ بينما <strong>CSGBuilder</strong> يطبق عمليات منطقية (اتحاد، تقاطع، طرح) بين مجسمين صلبين موجودين.</td>
+                                <td>اختر <strong>SolidBuilder</strong> لبناء المبنى من وجوهه؛ واختر <strong>CSGBuilder</strong> لحفر نفق داخل جبل أو طرح مسار ماسورة من كتلة.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal Dialog -->
+    <div class="modal-overlay" id="detailModal">
+        <div class="modal-container">
+            <button class="modal-close-btn" id="modalCloseBtn" title="إغلاق">✕</button>
+            
+            <div class="modal-header">
+                <div class="modal-badge-group">
+                    <span class="modal-badge" id="modalMainCategory">الفئة الرئيسية</span>
+                    <span class="modal-badge" id="modalCategory">التصنيف الفرعي</span>
+                </div>
+                <div class="modal-title" id="modalName">TransformerName</div>
+                <div class="modal-subtitle" id="modalNameAr">الاسم العربي للمحول</div>
+            </div>
+
+            <div class="modal-section">
+                <div class="modal-section-title">
+                    <span>📖 شرح الوظيفة ببساطة</span>
+                </div>
+                <p class="modal-text" id="modalSimpleDesc"></p>
+            </div>
+
+            <div class="modal-section">
+                <div class="modal-section-title">
+                    <span>🎯 السيناريو والتطبيق العملي في نظم المعلومات الجغرافية (GIS)</span>
+                </div>
+                <div class="modal-callout" id="modalGisCase"></div>
+            </div>
+
+            <div class="modal-section">
+                <div class="modal-section-title">
+                    <span>🔌 منافذ الدخل والخرج (Ports Breakdown)</span>
+                </div>
+                <div class="ports-list" id="modalPortsList"></div>
+            </div>
+
+            <div class="modal-section">
+                <div class="modal-section-title">
+                    <span>⚙️ أهم الإعدادات والمعاملات (Key Parameters)</span>
+                </div>
+                <div class="params-list" id="modalParamsList"></div>
+            </div>
+
+            <div class="modal-section">
+                <div class="modal-section-title">
+                    <span>💡 نصيحة الخبراء لتفادي الأخطاء (Pro Tip)</span>
+                </div>
+                <div class="modal-callout tip" id="modalProTip"></div>
+            </div>
+
+            <div style="margin-top: 24px; display: flex; gap: 12px; justify-content: flex-end;">
+                <button class="card-details-btn" style="width: auto;" id="modalCopyBtn">
+                    <span>📋 نسخ اسم المحول لـ FME</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <span>✓ تم نسخ اسم المحول للحافظة بنجاح!</span>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>
+                تم إعداد هذا الدليل الشامل استناداً إلى الوثائق الرسمية لبرنامج <strong>Safe Software FME Form</strong>.
+            </p>
+            <p style="margin-top: 6px;">
+                مرجع متكامل يغطي كافة الفئات والأدوات المعيارية لنظم المعلومات الجغرافية.
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        const transformersData = [{"id": "3DForcer", "name": "3DForcer", "name_ar": "محول المعالم إلى 3D (فرض الارتفاع Z)", "category": "coord_transform", "category_ar": "رفع وتعديل الإحداثيات", "icon": "cube-transparent", "tagline": "يحول البيانات ثنائية الأبعاد (2D) إلى ثلاثية الأبعاد (3D) عبر فرض أو تعديل إحداثي الارتفاع Z.", "simple_desc": "الأداة الأساسية والأكثر استخداماً في FME لتحويل الطبقات المسطحة (X, Y) إلى طبقات ثلاثية الأبعاد (X, Y, Z). يمكنك إعطاء المعلم ارتفاعاً ثابتاً (مثل 50 متر)، أو قراءة الارتفاع من حقل في جدول البيانات (Attribute)، أو حسابه بمعادلة رياضية.", "gis_use_case": "رفع حدود قطع الأراضي (Parcels) أو مباني المخطط الكاداسترالي إلى مناسيبها الحقيقية المذكورة في جدول الـ GIS تمهيداً لعمل التحليلات المكانية ثلاثية الأبعاد.", "input_ports": ["Input: أي معالم هندسية (نقاط، خطوط، مضلعات)."], "output_ports": ["Output: نفس المعالم مضافاً إليها إحداثي Z لكل نقطة."], "rejected_port": "لا يوجد منفذ رفض افتراضي، يتم تمرير جميع المعالم مع تحديث إحداثياتها.", "key_params": ["Elevation: قيمة الارتفاع (رقم ثابت، سمة Attribute، أو معادلة رياضية).", "Dimension to Set: تحديد ما إذا كان التطبيق على المحور Z أو تعديل الأبعاد الهندسية."], "pro_tip": "إذا كانت المعالم تحتوي بالفعل على قيم Z وتريد استبدالها بالكامل، فإن 3DForcer سيعيد كتابة قيم Z القديمة بالقيمة الجديدة المحددة فوراً.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "3DAffiner", "name": "3DAffiner", "name_ar": "محول المصفوفات التآلفية 3D (تكبير، تدوير، إزاحة)", "category": "coord_transform", "category_ar": "رفع وتعديل الإحداثيات", "icon": "arrows-pointing-out", "tagline": "يطبق تحويلاً تآلفياً رياضياً (مصفوفة 4×4) لتعديل المقاييس والإزاحة والدوران في الفضاء ثلاثي الأبعاد.", "simple_desc": "أداة رياضية فائقة القوة تتيح إجراء أي تحويل هندسي خطي معقد عبر مصفوفة تحويل 3D Affine Matrix. تسمح بالتحكم الدقيق في: التكبير/التصغير (Scaling)، الإزاحة (Translation X, Y, Z)، الدوران حول المحاور (Rotation)، والقص/الإمالة (Shearing).", "gis_use_case": "مطابقة النماذج الهندسية والمعمارية (Revit / SketchUp / CAD) مع نظام الإحداثيات الجغرافية الحقيقي للمشروع (Georeferencing) بدقة ميليمترية.", "input_ports": ["Input: أي معالم ثلاثية الأبعاد."], "output_ports": ["Output: المعالم بعد تطبيق مصفوفة التحويل."], "rejected_port": "تُرفض المعالم إذا كانت معاملات المصفوفة غير صالحة رياضياً.", "key_params": ["Coefficients (a-l): معاملات المصفوفة التي تحدد اتجاهات ومقاييس المحاور الثلاثة.", "Offset (d, h, l): إزاحات المحاور X, Y, Z على التوالي."], "pro_tip": "يمكن استخدام مخرجات برامج الرفع المساحي التي توفر مصفوفات التحويل المباشرة لربط نماذج الـ BIM بمواقعها الجغرافية الصحيحة في FME.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "3DArcReplacer", "name": "3DArcReplacer", "name_ar": "مستبدل الأقواس ثلاثية الأبعاد", "category": "coord_transform", "category_ar": "رفع وتعديل الإحداثيات", "icon": "arrow-path", "tagline": "يستبدل هندسة المعلم بقوس دائري ثلاثي الأبعاد دقيق هندسياً.", "simple_desc": "يقوم بإنشاء قوس هندسي ثلاثي الأبعاد حقيقي بدلاً من المعلم الأصلي، بناءً على نقطة مركز ثلاثية الأبعاد، ونصف قطر، وزوايا البداية والمجال، ومستوى الميل في الفضاء.", "gis_use_case": "نمذجة قطاعات الأنفاق الدائرية تحت الأرض، مسارات خطوط السكك الحديدية المنحنية مع الميل الرأسي، وأقواس الكباري الخرسانية.", "input_ports": ["Input: معالم نقطية أو خطية تحمل معاملات القوس."], "output_ports": ["Output: أقواس ثلاثية الأبعاد حقيقية."], "rejected_port": "تُرفض المعالم إذا كانت أنصاف الأقطار غير صالحة أو غير معرفة.", "key_params": ["Center X, Y, Z: إحداثيات نقطة مركز القوس.", "Radius: نصف القطر للقوس.", "Start & Sweep Angles: زاوية البداية وزاوية الامتداد للقوس."], "pro_tip": "الأقواس الناتجة تكون أقواس حقيقية (True Arcs)؛ إذا كنت تصدر إلى نسق لا يدعم الأقواس الحقيقية، مررها بعد ذلك عبر محول ArcStroker لتحويلها لخطوط مقسمة.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "3DInterpolator", "name": "3DInterpolator", "name_ar": "مستوفي الارتفاعات للمسارات الخطية", "category": "coord_transform", "category_ar": "رفع وتعديل الإحداثيات", "icon": "chart-bar", "tagline": "يحسب ويستوفي قيم الارتفاع Z على طول الخطوط ثلاثية الأبعاد بتدرج انحداري منتظم.", "simple_desc": "إذا كان لديك مسار خطي يحتوي على منسوب معروف في نقطة البداية ومنسوب آخر معروف في نقطة النهاية، تقوم هذه الأداة بتوزيع وحساب الارتفاعات الوسيطة على كل نقطة في الخط بنسبة وتناسب منتظم.", "gis_use_case": "حساب مناسيب خطوط شبكات الصرف الصحي أو مواسير المياه والانحدار الهيدروليكي المنتظم بين غرف التفتيش (Manholes).", "input_ports": ["Input: خطوط فردية غير مجمعة."], "output_ports": ["Output: خطوط ثلاثية الأبعاد بمناسيب مستوفاة بدقة."], "rejected_port": "الخطوط التي تفتقد قيم الارتفاع المرجعية أو المعالم غير الخطية.", "key_params": ["Start / End Z: تحديد كيفية قراءة الارتفاع الأولي والنهائي (من الهندسة أو السمات).", "Interpolation Mode: أسلوب الاستيفاء الرياضي الخطي."], "pro_tip": "تأكد من فك تجميع المسارات (Deaggregate) قبل استخدام المحول لأن الأداة تعمل على الخطوط البسيطة (Non-aggregated lines).", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "3DRotator", "name": "3DRotator", "name_ar": "مدور المعالم ثلاثي الأبعاد", "category": "coord_transform", "category_ar": "رفع وتعديل الإحداثيات", "icon": "arrow-path-rounded-square", "tagline": "يدور المعالم في الفضاء ثلاثي الأبعاد حول أي محور بزاوية محددة وفق قاعدة اليد اليمنى.", "simple_desc": "يتيح تدوير أي جسم ثلاثي الأبعاد حول محور محدد (مثل المحور Z للدوران الأفقي، أو المحورين X و Y للميل الرأسي)، أو حول محور مخصص يتم تعريفه بمتجه بين نقطتين في الفضاء.", "gis_use_case": "توجيه عناصر الأثاث الحضري 3D (أعمدة الإنارة، كاميرات المراقبة، اللوحات الإرشادية، نماذج الأشجار ثلاثية الأبعاد) لتتطابق مع زاوية ميل الشارع وحركة المرور.", "input_ports": ["Input: أي معالم ثلاثية الأبعاد."], "output_ports": ["Output: المعالم بعد تدويرها."], "rejected_port": "لا يوجد منفذ رفض طالما كانت الزاوية والمحور محددين.", "key_params": ["Rotation Angle: زاوية الدوران بالدرجات.", "Axis of Rotation: المحور (X, Y, Z, أو Custom Vector).", "Origin Point: نقطة الارتكاز التي يدور المعلم حولها (X, Y, Z)."], "pro_tip": "الدوران يتبع قاعدة اليد اليمنى (Right-Hand Rule)؛ لذا تأكد من إشارة الزاوية (موجبة عكس عقارب الساعة، وسالبة مع عقارب الساعة).", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "3DSlicer", "name": "3DSlicer", "name_ar": "قاطع ومشرّح المجسمات والسطوح 3D", "category": "coord_transform", "category_ar": "رفع وتعديل الإحداثيات", "icon": "scissors", "tagline": "يقسم ويشطر المجسمات والسطوح وسحب النقاط بواسطة مستوى قطع مستوٍ إلى أجزاء أمامية وخلفية.", "simple_desc": "يعمل بمثابة منشار ليزري قاطع؛ تحدد له مستوى قطع مستوٍ (موقع وزاوية اتجاه)، فيقوم بفصل المجسمات أو الأسطح أو سحب النقاط التي تقطع هذا المستوى إلى قسمين: ما يقع أمام المستوى (Front) وما يقع خلفه (Back).", "gis_use_case": "عمل قطاعات رأسية وأفقية للمباني لاستعراض الطوابق المختلفة، أو عمل قطاعات عرضية جيولوجية في باطن الأرض لطبقات التربة والصخور.", "input_ports": ["Input: مجسمات صلبة، سطوح، شبكات، أو سحب نقطية."], "output_ports": ["Front: الأجزاء الواقعة في النصف الأمامي من مستوى القطع.", "Back: الأجزاء الواقعة في النصف الخلفي من مستوى القطع.", "Outside: المعالم التي لا تتقاطع نهائياً مع مستوى القطع."], "rejected_port": "المعالم ذات الهندسة غير المدعومة أو المنهارة.", "key_params": ["Cutting Plane: نقطة تمر بالمستوى ومتجه التعامد (Origin + Normal Vector).", "Cap Sliced Geometry: خيار إغلاق الوجوه المقطوعة لإنشاء مجسمات محكمة الإغلاق."], "pro_tip": "تفعيل خيار إغلاق السطوح (Cap Sliced Solids) يضمن بقاء النصفين مجسمات صلبة (Watertight Solids) صالحة لحساب الحجم.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "ElevationExtractor", "name": "ElevationExtractor", "name_ar": "مستخرج قيم الارتفاع Z إلى جدول البيانات", "category": "coord_transform", "category_ar": "رفع وتعديل الإحداثيات", "icon": "table-cells", "tagline": "يستخرج قيمة المنسوب Z من الرؤوس الهندسية ويحفظها كسمة رقمية (Attribute).", "simple_desc": "يقوم بقراءة إحداثي Z المخزن داخل هندسة المعلم وحفظه في عمود جديد بجدول البيانات (Attribute). يمكنك استخراج منسوب النقطة الأولى، أو المتوسط، أو الحد الأدنى والأقصى.", "gis_use_case": "استخراج مناسيب النقاط المساحية من ملفات AutoCAD أو Shapefiles ثلاثية الأبعاد لإدراجها في تقارير جدولية وتصديرها إلى Excel.", "input_ports": ["Input: معالم ثلاثية الأبعاد تحتوي على إحداثيات Z."], "output_ports": ["Output: نفس المعالم مع إضافة السمة الجدولية لقيمة الارتفاع."], "rejected_port": "المعالم ثنائية الأبعاد (2D) التي لا تحتوي على قيمة Z أصلاً.", "key_params": ["Elevation Attribute: اسم العمود الجديد المراد تخزين الارتفاع فيه (افتراضياً _elevation).", "Mode: نقطة الاستخراج (First Vertex, All, Point Elevation)."], "pro_tip": "الأداة المعاكسة تماماً لـ 3DForcer؛ فإذا كان 3DForcer ينقل الرقم من الجدول للهندسة، فإن ElevationExtractor يقرأ الرقم من الهندسة ويضعه في الجدول.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "DimensionExtractor", "name": "DimensionExtractor", "name_ar": "مستخرج أبعاد الصندوق المحيط ثلاثي الأبعاد", "category": "coord_transform", "category_ar": "رفع وتعديل الإحداثيات", "icon": "arrows-pointing-in", "tagline": "يحسب الصندوق المحيط بالمعلم ويستخرج أبعاده (الطول والعرض والارتفاع) كسمات جدولية.", "simple_desc": "يحسب الصندوق الحاوي ثلاثي الأبعاد (3D Bounding Box) لأي معلم أو مجسم، ويستخرج قياساته: العرض (Delta X)، الطول (Delta Y)، الارتفاع (Delta Z)، والحدود الدنيا والقصوى (MinX, MaxX, MinY, MaxY, MinZ, MaxZ).", "gis_use_case": "تحديد المباني التي تتجاوز الارتفاع القانوني المسموح به في المدينة عبر فلترة قيمة Delta Z الناتجة.", "input_ports": ["Input: أي معالم ثلاثية الأبعاد."], "output_ports": ["Output: المعالم محملة بخصائص وأبعاد الصندوق المحيط."], "rejected_port": "المعالم بدون هندسة (Null Geometries).", "key_params": ["Prefix: بادئة أسماء السمات الجديدة لتجنب تداخل الأسماء.", "Dimension Type: ثنائي الأبعاد أو ثلاثي الأبعاد (3D Bounding Box)."], "pro_tip": "مفيد جداً في فحص جودة البيانات (QA/QC) للتأكد من عدم وجود مباني بارتفاعات شاذة أو سالبة.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "Extruder", "name": "Extruder", "name_ar": "أداة البثق الرأسي (تحويل المساقط إلى كتل 3D)", "category": "solids_extrude", "category_ar": "البثق وتكوين المجسمات", "icon": "building-office-2", "tagline": "يسحب ويبثق المضلعات والخطوط رأسياً لتحويلها إلى كتل ومجسمات صلبة ثلاثية الأبعاد.", "simple_desc": "المحول الأشهر لصناعة المباني ثلاثية الأبعاد؛ يأخذ مسقط المبنى ثنائي الأبعاد (Building Footprint) ويبثقه في الفضاء على طول متجه محدد (غالباً باتجاه المحور Z) بمسافة معينة تمثل ارتفاع المبنى، لينتج كتلة مجسمة صلبة ومغلقة.", "gis_use_case": "توليد نماذج المدن ثلاثية الأبعاد بمستوى التفاصيل الأول (LOD1 City Models) من طبقات الأراضي والمباني في خرائط نظم المعلومات الجغرافية.", "input_ports": ["Input: مضلعات مغلقة، خطوط، أو نقاط."], "output_ports": ["Output: مجسمات ثلاثية الأبعاد (Solids) إذا كان المدخل مضلعاً، أو جدران سطحية (Surfaces) إذا كان المدخل خطاً."], "rejected_port": "المعالم ذات الهندسة غير الصالحة للبثق.", "key_params": ["Direction: اتجاه البثق (غالباً Z Vector لتكوين الارتفاع الرأسي).", "Distance: مسافة البثق (يمكن قراءتها مباشرة من عمود الارتفاع بالجدول).", "Extrusion Type: خيار البثق ككتلة صلبة مغلقة (Solid) أو أسطح خارجية فقط."], "pro_tip": "لإنشاء مباني مغلقة من الأعلى والأسفل (Watertight Solids)، تأكد أن المضلعات المدخلة مغلقة تماماً وليست خطوطاً مفتوحة.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "SolidBuilder", "name": "SolidBuilder", "name_ar": "بانِي المجسمات الصلبة المغلقة (Watertight Solids)", "category": "solids_extrude", "category_ar": "البثق وتكوين المجسمات", "icon": "cube", "tagline": "يجمع الوجوه والأسطح المتجاورة لتكوين مجسمات صلبة محكمة الإغلاق مع تفريغ التجاويف.", "simple_desc": "يقوم بتجميع أسطح ووجوه متفرقة (أرضيات، جدران، أسقف) لإنشاء مجسم صلب متكامل ومغلق تماماً (Closed Solid). كما يمتلك قدرة فريدة على قطع وتفريغ التجاويف الداخلية (Voids) داخل المجسمات.", "gis_use_case": "بناء مجسمات البنية التحتية، والغرف الداخلية، والمباني المغلقة بالكامل لتصديرها لصيغ BIM و IFC وحساب أحجامها بدقة.", "input_ports": ["Input: وجوه، أسطح، ومجسمات يراد تجميعها أو تفريغ تجاويف منها."], "output_ports": ["Solid: المجسمات الصلبة المغلقة المكتملة بنجاح.", "Unused: الأسطح التي لم تُكمل مجسماً صلب مغلقاً، أو المجسمات المكررة."], "rejected_port": "المعالم غير السطحية أو التي لا يمكن تجميعها في فراغ مغلق.", "key_params": ["Group By: تجميع المعالم حسب كود المبنى (Building ID) لضمان بناء كل مبنى بمعزل عن غيره.", "Tolerance: نسبة السماحية الهندسية بين حواف الوجوه المتجاورة."], "pro_tip": "إذا خرجت بعض أسطحك من منفذ Unused، فهذا يعني وجود فجوة أو نقص في أحد الوجوه يمنع إغلاق المجسم هندسياً؛ استخدم PlanarityFilter لفحص استواء وجوهك.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "SolidDissolver", "name": "SolidDissolver", "name_ar": "مذيب ومدمج المجسمات الصلبة المتلاصقة", "category": "solids_extrude", "category_ar": "البثق وتكوين المجسمات", "icon": "squares-plus", "tagline": "يدمج المجسمات الصلبة المتلاصقة ويزيل الجدران والحدود الفاصلة المشتركة بينها.", "simple_desc": "إذا كان لديك عدة كتل مجسمة صلبة متجاورة أو متداخلة، تقوم هذه الأداة بدمجها في كتلة واحدة صلبة موحدة مع إزالة جميع الأوجه والجدران الداخلية المشتركة بينها تلقائياً.", "gis_use_case": "دمج أجزاء المبنى المتلاصقة (مثل البرج الرئيسي مع الملحق التجاري) في كتلة صلبة واحدة لتسهيل حساب مساحات الواجهات الخارجية.", "input_ports": ["Input: مجسمات صلبة (Solids) متلاصقة أو متداخلة."], "output_ports": ["Solid: المجسم المدمج الموحد الخالي من الحواجز الداخلية."], "rejected_port": "المعالم غير الصلبة أو التي تفشل في الدمج الهندسي.", "key_params": ["Group By: دمج المجسمات بناءً على معيار أو سمة معينة (مثل رقم المشروع).", "Tolerance: نسبة التسامح في تطابق الأوجه المتلاصقة."], "pro_tip": "يوفر استهلاك كروت الشاشة والذاكرة في العوارض ثلاثية الأبعاد عبر التخلص من آلاف الوجوه المخفية داخل الكتل.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "CSGBuilder", "name": "CSGBuilder", "name_ar": "بانِي المجسمات التركيبية (العمليات البولينية 3D)", "category": "solids_extrude", "category_ar": "البثق وتكوين المجسمات", "icon": "circle-stack", "tagline": "يطبق العمليات المنطقية البولينية (اتحاد، تقاطع، طرح) بين المجسمات الصلبة لبناء أشكال معقدة.", "simple_desc": "يتيح بناء هياكل هندسية معقدة عبر دمج مجسمين: الاتحاد (Union) لدمجهما معاً، التقاطع (Intersection) لاستخراج الحجم المشترك فقط، أو الطرح (Difference) لحفر واقتطاع شكل من الآخر.", "gis_use_case": "حفر مسار نفق دائري داخل كتلة جبلية، أو اقتطاع مسار كابلات وأنابيب من كتل خرسانية في مشاريع الطرق والجسور.", "input_ports": ["A: المجسم الأساسي (المطلوب الحفر فيه أو دمجه).", "B: المجسم الثانوي (أداة القطع أو الجزء المضاف)."], "output_ports": ["Output: شجرة مجسمات تركيبية (CSG Feature)."], "rejected_port": "المعالم غير الصلبة أو ذات الهندسة المنهارة.", "key_params": ["Operation: نوع العملية البولينية (Union, Intersection, Difference).", "Group By: تنفيذ العمليات البولينية للأجسام المرتبطة برقم تعريف محدد."], "pro_tip": "المخرج يكون كائن CSG؛ لعرضه أو تصديره إلى ملفات مثل OBJ أو IFC أو SketchUp، يجب تمريره بعدها عبر محول CSGEvaluator.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "CSGEvaluator", "name": "CSGEvaluator", "name_ar": "مقيّم شجرة المجسمات التركيبية (تحويل CSG إلى كتل حقيقية)", "category": "solids_extrude", "category_ar": "البثق وتكوين المجسمات", "icon": "check-badge", "tagline": "يحسب ويقيم شجرة عمليات الـ CSG ليحولها إلى مجسمات صلبة حقيقية ومصمتة (B-Rep Solids).", "simple_desc": "الرفيق الإلزامي لمحرك CSGBuilder؛ يأخذ العلاقات الرياضية والعمليات البولينية المجردة، ويقوم بحسابها فعلياً لينتج مجسمات صلبة حقيقية محددة بالوجوه والحواف (Boundary Representation - B-Rep).", "gis_use_case": "تجهيز النماذج ثلاثية الأبعاد المعقدة للتصدير إلى منصات العرض الجغرافي الويب (Cesium, ArcGIS Online, Unreal Engine).", "input_ports": ["Input: معالم تحمل شجرة تركيبية ناتجة من CSGBuilder."], "output_ports": ["Output: مجسمات صلبة نهائية صالحة للعرض والحساب."], "rejected_port": "المعالم التي تفشل حساباتها الرياضية بسبب أخطاء في تداخل السطوح.", "key_params": ["Evaluate Mode: خيارات الدقة الحسابية للتقييم الهندسي."], "pro_tip": "إذا كنت تواجه بطئاً في المعالجة، تأكد من تبسيط هندسة المجسمات المدخلة قبل تطبيق عمليات الـ CSG عليها.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "FaceReplacer", "name": "FaceReplacer", "name_ar": "مستبدل الوجوه ثلاثية الأبعاد", "category": "solids_extrude", "category_ar": "البثق وتكوين المجسمات", "icon": "square-2-stack", "tagline": "يحول المضلعات والمنحنيات المغلقة إلى وجوه هندسية مسطحة ثلاثية الأبعاد (Faces).", "simple_desc": "يقوم باستبدال هندسة المضلع أو المسار المغلق بوجه مستوٍ ثلاثي الأبعاد حقيقي (Face Geometry). هذا الوجه هو الوحدة البنائية الأساسية لبناء المجسمات والشبكات وتطبيق الخامات وصور الإكساء عليها.", "gis_use_case": "تحويل مضلعات الجدران والأسقف الناتجة من ملفات الكاد إلى وجوه هندسية قبل تجميعها بواسطة SolidBuilder.", "input_ports": ["Input: مضلعات مغلقة ثنائية أو ثلاثية الأبعاد."], "output_ports": ["Output: وجوه ثلاثية الأبعاد (3D Faces)."], "rejected_port": "المعالم المفتوحة أو غير القابلة للتحويل إلى وجوه مسطحة.", "key_params": ["Preserve Appearance: الحفاظ على الخامات المطبقة مسبقاً على السطح."], "pro_tip": "الوجوه الناتجة تكون مسطحة تماماً (Planar)؛ إذا كان مضلعك ملتوياً في الفضاء، فسيقوم المحول بحساب أفضل مستوى مستوٍ مناسب له.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "PlanarityFilter", "name": "PlanarityFilter", "name_ar": "مرشح استواء الأسطح والوجوه (Planar vs Non-Planar)", "category": "solids_extrude", "category_ar": "البثق وتكوين المجسمات", "icon": "funnel", "tagline": "يفحص الأسطح والوجوه للتأكد مما إذا كانت نقاطها تقع على مستوى رياضي واحد مسطح.", "simple_desc": "أداة جوهرية لضبط جودة النماذج ثلاثية الأبعاد؛ تفحص الأسطح والمضلعات، وترسل السطوح المسطحة تماماً إلى منفذ Planar، بينما تعزل السطوح الملتوية أو المشوهة في منفذ NotPlanar مع إمكانية تحديد نسبة سماحية (Tolerance).", "gis_use_case": "فحص ملفات المباني ثلاثية الأبعاد المستوردة من مصادر خارجية قبل إدخالها في عمليات الـ Solid Modeling لمنع انهيار النماذج.", "input_ports": ["Input: مضلعات، وجوه، أو أسطح ثلاثية الأبعاد."], "output_ports": ["Planar: الوجوه المسطحة تماماً ضمن نسبة السماحية المحددة.", "NotPlanar: الوجوه غير المستوية (الملتوية هندسياً).", "<Rejected>: المعالم ذات الهندسة غير المدعومة مثل المجسمات والراستر."], "rejected_port": "المعالم غير السطحية مثل النقاط المفردة والمجسمات الصلبة.", "key_params": ["Thickness Mode: نمط فحص السمك (Automatic, Custom, Ignore).", "Thickness: الحد الأقصى للانحراف المسموح به عن المستوى المسطح بوحدات الخريطة."], "pro_tip": "الوجوه التي تخرج في منفذ NotPlanar يمكنك تقسيمها إلى مثلثات عبر Triangulator ليصبح كل مثلث مسطحاً بنسبة 100% تلقائياً.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "SurfaceFootprintReplacer", "name": "SurfaceFootprintReplacer", "name_ar": "مستخرج المسقط الأفقي والظل الأرضي (2D Footprint)", "category": "solids_extrude", "category_ar": "البثق وتكوين المجسمات", "icon": "sun", "tagline": "يستبدل المجسم ثلاثي الأبعاد بمسقطه الأفقي أو ظله ثنائي الأبعاد المسطح على الأرض.", "simple_desc": "يقوم بإسقاط إضاءة افتراضية من الأعلى أو بزاوية اتجاهية مخصصة على السطح أو المجسم ثلاثي الأبعاد، ليولد بدلاً منه مضلع المسقط الأرضي المسطح أو بصمة الظل (2D Footprint) مع حذف الفجوات والتجاويف الداخلية.", "gis_use_case": "استخراج مساقط المباني (Footprints) ثنائية الأبعاد من ملفات نماذج معمارية ثلاثية الأبعاد (Revit / SketchUp / CityGML) لتحديث الخريطة العقارية الأساسية للمدينة.", "input_ports": ["Input: أي معالم سطحية أو مجسمات ثلاثية الأبعاد."], "output_ports": ["Footprint: مضلعات المسقط الأفقي على مستوى الأرض.", "<Rejected>: المعالم الخالية من الهندسة (Null)."], "rejected_port": "المعالم التي لا تمتلك هندسة صالحة.", "key_params": ["Shadow Mode: نمط الإسقاط (Overhead Shadow رأسي من الأعلى، Drop Shadow بزاوية محددة، Perpendicular Shadow).", "Light Source Vector: متجه مصدر الضوء في حالة اختيار الإسقاط المائل."], "pro_tip": "إذا كنت تريد تحديث خرائط الأساس بالبصمات الدقيقة للمباني المعقدة ذات البروزات والشرفات، فإن خيار Overhead Shadow يعطيك المحيط الخارجي الأقصى بدقة متناهية.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "AppearanceSetter", "name": "AppearanceSetter", "name_ar": "محدد ومطبق الخامات والمظهر المتقدم (Textures & Materials)", "category": "appearance_textures", "category_ar": "المظهر والخامات والإكساء", "icon": "paint-brush", "tagline": "يطبق الخامات والصور الواقعية والألوان وخصائص الانعكاس والشفافية على الأسطح والمجسمات.", "simple_desc": "المحول الرئيسي لكسوة المباني والمجسمات؛ يطبق صور الواجهات (Textures) والألوان واللمعان على الوجه الأمامي أو الخلفي للمجسم، مع إمكانية حساب إحداثيات الإسقاط (UV Texture Coordinates) تلقائياً لتظهر الخامات بمظهر واقعي ومتقن.", "gis_use_case": "إكساء واجهات المباني بصور حقيقية للطوب والزجاج والجرانيت لإنشاء نماذج التوائم الرقمية للمدن (3D Digital Twins).", "input_ports": ["Geometry: الأسطح أو المجسمات المراد إكساؤها.", "Appearance: معالم الخامات أو الصور المراد تطبيقها."], "output_ports": ["Output: المجسمات بعد إلباسها الخامات.", "Unused: الخامات التي لم يتم ربطها بأي مجسم."], "rejected_port": "المعالم غير القابلة لحمل الخامات مثل الراستر النقي.", "key_params": ["Set Appearance On: تطبيق على الوجه الأمامي (Front)، الخلفي (Back)، أو الاثنين معاً.", "Texture Mapping Type: طريقة إسقاط الصورة (Top View, Surface Normal, etc.).", "Appearance Source: من معالم مدخلة عبر المنفذ أو من معاملات الأداة مباشرة."], "pro_tip": "للحصول على دقة مثالية في تكرار بلاط الأسطح أو قرميد السقف، استخدم TextureCoordinateSetter قبل هذا المحول لضبط معاملات مقياس التكرار (Scale Factors).", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "TextureCoordinateSetter", "name": "TextureCoordinateSetter", "name_ar": "محدد إحداثيات الإكساء والنسيج (UV Mapping)", "category": "appearance_textures", "category_ar": "المظهر والخامات والإكساء", "icon": "photo", "tagline": "يحدد وينشئ إحداثيات الإكساء (UV Coordinates) على الأسطح لضبط كيفية تكرار وتمدد صور الخامات.", "simple_desc": "يحدد كيف تلتف صورة الخامة وتتكرر على المجسم الهندسي؛ يقوم بحساب إحداثيات U و V لكل رأس، مع إمكانية التحكم في مقاييس التكرار الأفقي والرأسي ونسبة الإزاحة، لمنع تشويه الصور ومطها غير المرغوب.", "gis_use_case": "ضبط تكرار صورة الرصيف، أو بلاط الأسفلت، أو واجهات الطوب بحيث يكون حجم كل طوبة على المجسم مطابقاً للواقع بالسنتيمتر.", "input_ports": ["Input: أسطح ووجوه ثلاثية الأبعاد."], "output_ports": ["Output: نفس الأسطح محملة بإحداثيات UV دقيقة."], "rejected_port": "الأنواع الهندسية غير المدعومة مثل المجسمات المصمتة غير المقسمة لوجوه.", "key_params": ["Texture Mapping Type: من الأعلى (From Top View) أو عمودي على السطح (Surface Normal).", "Width / Height Scale Factor: معامل تكبير وتكرار الخامة بالأمتار.", "Horizontal / Vertical Offset: إزاحة نقطة بداية صورة الخامة."], "pro_tip": "اختر Surface Normal عند التعامل مع جدران رأسية وأسقف مائلة لكي تنضبط إحداثيات الخامة تلقائياً مع زاوية ميل الجدار.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "AppearanceExtractor", "name": "AppearanceExtractor", "name_ar": "مستخرج الخامات وصور النسيج المستقلة", "category": "appearance_textures", "category_ar": "المظهر والخامات والإكساء", "icon": "arrow-down-tray", "tagline": "يستخرج الخامات وصور النسيج والمواد المطبقة على أوجه المجسم ويحولها إلى معالم مستقلة.", "simple_desc": "يقوم بفصل المظهر عن الهيكل الهندسي؛ يقرأ الصور والألوان والمواد المطبقة على الوجهين الأمامي والخلفي، ويخرجها كمعالم مظهر مستقلة وصور راستر منفصلة يمكن التعديل عليها أو حفظها في ملفات مستقلة.", "gis_use_case": "استخراج صور واجهات المباني المحفوظة داخل ملفات CityGML أو SketchUp لتنظيفها، ضغط حجمها، أو تعديلها في برامج تحرير الصور.", "input_ports": ["Input: مجسمات أو أسطح ثلاثية الأبعاد تحمل خامات."], "output_ports": ["Output: المعالم الهندسية الأصلية.", "Appearance: معالم خصائص المظهر المستخرجة.", "Raster: صور النسيج والواجهات (Textures) كمعالم راستر مستقلة."], "rejected_port": "المعالم التي لا تحمل أي خامات أو مظاهر.", "key_params": ["Extract From: استخراج من الوجه الأمامي (Front)، الخلفي (Back)، أو كليهما.", "Geometry XQuery: استهداف أجزاء معينة فقط من المجسم دون غيرها."], "pro_tip": "استخدمه مع RasterResizer لتقليل دقة صور الواجهات الكبيرة جداً لتسريع عرض النماذج ثلاثية الأبعاد على الويب.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "AppearanceMerger", "name": "AppearanceMerger", "name_ar": "دامج وناقل الخامات بين المعالم", "category": "appearance_textures", "category_ar": "المظهر والخامات والإكساء", "icon": "arrows-right-left", "tagline": "يطبق وينقل مظهر وخامة معلم مصدري (Supplier) إلى معالم مستهدفة (Requestor).", "simple_desc": "يعمل مثل أداة قطارة الألوان (Eyedropper)؛ يأخذ خامة ومظهر معلم مصدر ويقوم بنسخها وتطبيقها على معالم مستهدفة تشترك معه في سمة معينة (Match Attribute).", "gis_use_case": "توحيد خامات الأسقف أو واجهات المباني ذات النشاط الموحد (مثل إعطاء كل المحلات التجارية واجهة زجاجية محددة بناءً على كود النشاط).", "input_ports": ["Requestor: المعالم ثلاثية الأبعاد المراد تغيير مظهرها.", "Supplier: المعالم التي تحمل الخامات المراد نسخها."], "output_ports": ["Complete: المعالم التي تم تحديث مظهرها بنجاح.", "Incomplete: المعالم التي لم تجد خامة مطابقة لربطها بها."], "rejected_port": "المعالم ذات الهندسة التالفة.", "key_params": ["Join On: سمة المطابقة المشتركة بين المعلم والمظهر.", "Merge Type: تطبيق كامل أو تحديث للخصائص غير المعرفة فقط."], "pro_tip": "طريقة ممتازة لإدارة مكتبة خامات مركزية في ملف منفصل وربطها بالمباني أوتوماتيكياً عبر أكواد الـ GIS.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "AppearanceRemover", "name": "AppearanceRemover", "name_ar": "مزيل الخامات والمظهر", "category": "appearance_textures", "category_ar": "المظهر والخامات والإكساء", "icon": "trash", "tagline": "يجرد الأسطح والمجسمات من الخامات والألوان لتعود لهيكلها الخام أو للمظهر الموروث.", "simple_desc": "يزيل أي خامات أو مواد أو صور نسيج أو إحداثيات UV مرتبطة بالوجه الأمامي أو الخلفي للمعلم، مما يجعله يعود إلى لونه الافتراضي أو يرث مظهر العنصر الحاوي له.", "gis_use_case": "تخفيف حجم ملفات النماذج ثلاثية الأبعاد الضخمة قبل تصديرها للأجهزة المحمولة عبر إزالة صور الواجهات غير الضرورية.", "input_ports": ["Input: أي معالم ثلاثية الأبعاد."], "output_ports": ["Output: نفس المعالم مجردة تماماً من الخامات والمواد."], "rejected_port": "لا يوجد منفذ رفض افتراضي.", "key_params": ["Remove From: إزالة من الوجه الأمامي (Front)، الخلفي (Back)، أو كليهما.", "Remove Texture Coordinates: خيار حذف إحداثيات الـ UV أيضاً لتوفير المساحة."], "pro_tip": "خطوة أساسية عند الحاجة لتطبيق خامات جديدة موحدة من الصفر على مجسمات تم جمعها من مصادر متعددة غير متناسقة.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "AppearanceStyler", "name": "AppearanceStyler", "name_ar": "منسق ومصمم خصائص المظهر والمواد", "category": "appearance_textures", "category_ar": "المظهر والخامات والإكساء", "icon": "swatch", "tagline": "يحدد وينشئ تعريفات مظهر متقدمة (لون الانعكاس، اللمعان، الشفافية، والإضاءة المحيطة).", "simple_desc": "لوحة تحكم كاملة بتفاصيل المواد؛ تتيح إنشاء معالم مظهر جديدة وتحديد مواصفاتها الضوئية: لون الإضاءة المنتشرة (Diffuse)، لون الانعكاس اللامع (Specular)، الضوء المحيط (Ambient)، ونسبة الشفافية (Alpha Transparency).", "gis_use_case": "إنشاء مظهر زجاجي شفاف للمباني ذات الواجهات المفتوحة، أو مظهر معدني عاكس لصهاريج النفط وأبراج البترول.", "input_ports": ["Input: معالم يراد إضافة تعريف المظهر إليها."], "output_ports": ["Output: المعالم محملة بخصائص المظهر المصممة."], "rejected_port": "لا يوجد منفذ رفض.", "key_params": ["Diffuse Color: اللون الأساسي للخامة تحت الضوء المباشر.", "Specular Color & Shininess: لمعان السطح وانعكاس أشعة الشمس.", "Alpha: معامل الشفافية (من 0 شفاف بالكامل إلى 1 مصمت تماماً)."], "pro_tip": "لإظهار المسطحات المائية (بحيرات، أنهار ثلاثية الأبعاد) بمظهر واقعي، اضبط اللون على أزرق سماوي والشفافية Alpha على 0.6 مع رفع قيمة اللمعان.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "SurfaceSplitter", "name": "SurfaceSplitter", "name_ar": "فاصل وجهي الأسطح (أمامي وخلفي)", "category": "appearance_textures", "category_ar": "المظهر والخامات والإكساء", "icon": "arrows-right-left", "tagline": "يقسم السطح ثنائي الوجه (Double-Sided) إلى سطحين مستقلين: وجه أمامي ووجه خلفي.", "simple_desc": "الأسطح ثلاثية الأبعاد في FME يمكن أن تكون مزدوجة الوجه (تحمل خامة من الأمام وخامة مختلفة من الخلف). تقوم هذه الأداة بفصل هذا السطح إلى كائنين مستقلين: واحد عبر منفذ Front والآخر عبر منفذ Back.", "gis_use_case": "تخصيص الخامات للجدران المعمارية بحيث يكون الوجه الخارجي حجر طبيعي والوجه الداخلي دهان أبيض ناعم للغرف.", "input_ports": ["Input: أسطح ثلاثية الأبعاد مزدوجة الوجه."], "output_ports": ["Front: السطح المطابق للوجه الأمامي.", "Back: السطح المطابق للوجه الخلفي.", "<Rejected>: الأسطح أحادية الوجه أو غير الصالحة."], "rejected_port": "الأسطح الفردية أحادية الوجه التي لا تحتوي على جانبين.", "key_params": ["Preserve Traits: الحفاظ على السمات والخصائص الخاصة بكل وجه."], "pro_tip": "مفيد للغاية عند إعداد نماذج الـ BIM للتصدير إلى منصات الألعاب (Unity / Unreal) التي تتطلب أسطحاً أحادية الوجه لتفادي مشاكل الـ Backface Culling.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "SurfaceModeller", "name": "SurfaceModeller", "name_ar": "النواة الشاملة لنمذجة وتحليل التضاريس (العملاق الطوبوغرافي)", "category": "surfaces_terrain", "category_ar": "السطوح ونمذجة التضاريس", "icon": "globe-alt", "tagline": "المحرك الأقوى لنمذجة التضاريس؛ يولد شبكات TIN، خطوط كنتور، DEM، وإسقاط المعالم وحساب كميات الحفر والردم.", "simple_desc": "المحول المتكامل والأشمل في FME لكل ما يخص الأسطح الطبوغرافية؛ بمجرد تزويده بنقاط المناسيب وخطوط الانكسار (Breaklines)، يستطيع في خطوة واحدة توليد: شبكة المثلثات TIN، خطوط الكنتور Contours، شبكة الراستر DEM، مخطط فورونوي Voronoi، وإسقاط المعالم، وحساب كميات الحفر والردم (Cut & Fill).", "gis_use_case": "الدراسات الطبوغرافية المتكاملة لمشاريع السدود والمطارات وتسوية الأراضي وحساب كميات الأتربة المنقولة.", "input_ports": ["Points/Lines: نقاط المسح وخطوط المناسيب الأساسية.", "Breaklines: خطوط انكسار الانحدار (حواف الجبال، الأودية، مسارات السيول).", "DrapeFeatures: معالم ثنائية الأبعاد يراد إسقاطها على السطح الناتج."], "output_ports": ["TIN: شبكة المثلثات غير المنتظمة المتصلة.", "Contours: خطوط الكنتور مع سمة المنسوب لكل خط.", "DEM: شبكة راستر الارتفاعات الرقمية.", "Triangles: المثلثات كوجوه ثلاثية الأبعاد مفردة.", "DrapedFeatures: المعالم المسقطة مكتسبةً إحداثيات Z التضاريس.", "Voronoi: مخطط خلايا فورونوي المقابلة لتوزيع النقاط."], "rejected_port": "المدخلات التي تحتوي على أقل من 3 نقاط فريدة في الفضاء.", "key_params": ["Contour Interval: الفاصل الكنتوري (مثل كل 5 أمتار).", "Cell Size: دقة خلية الراستر لـ DEM.", "Triangulation Algorithm: خوارزمية ديلاوني الدقيقة للشبكات المثلثة."], "pro_tip": "لتفادي البطء في مجموعات البيانات الضخمة (ملايين النقاط)، استخدم TINGenerator إذا كنت بحاجة لشبكة TIN فقط، أو مرر النقاط عبر ThinNoChange لتقليل النقاط المتكررة أولاً.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "SurfaceDraper", "name": "SurfaceDraper", "name_ar": "مُسقط المعالم على الأسطح والتضاريس (الستارة الطوبوغرافية)", "category": "surfaces_terrain", "category_ar": "السطوح ونمذجة التضاريس", "icon": "map", "tagline": "يسقط المعالم ثنائية الأبعاد (شوارع، شبكات، مضلعات) فوق سطح 3D أو DEM لتكتسب ارتفاعات التضاريس الواقعية.", "simple_desc": "يعمل مثل ملاءة تسقط فوق تضاريس متموجة؛ يأخذ طبقات مسطحة 2D (مثل مسارات الطرق، أنابيب المرافق، حدود الغابات) ويسقطها فوق سطح 3D أو DEM، فتأخذ كل نقطة في المعلم المسقط ارتفاع السطح الواقع أسفلها بالضبط.", "gis_use_case": "تحويل شبكات الطرق والمسارات ثنائية الأبعاد إلى شبكات ثلاثية الأبعاد مطابقة لمنحنيات الجبال والوديان بدقة واقعية.", "input_ports": ["Points/Lines: المعالم ثنائية الأبعاد المطلوب إسقاطها.", "Surface: السطح المرجعي ثلاثي الأبعاد أو شبكة الـ DEM."], "output_ports": ["Draped: المعالم بعد إسقاطها واكتسابها إحداثيات Z التضاريس.", "Undraped: المعالم التي تقع خارج الحدود الجغرافية للسطح المرجعي."], "rejected_port": "المعالم التي لا تتقاطع مع السطح أو التي تحتوي على بيانات تالفة.", "key_params": ["Surface Elevation Mode: استخدام الارتفاع المباشر للسطح أو إضافة إزاحة رأسية (Vertical Offset).", "Interpolation Method: أسلوب الاستيفاء الرياضي (Bilinear أو Nearest Neighbor)."], "pro_tip": "إذا كنت تسقط خطوط أنابيب مياه وتريدها أن تكون تحت الأرض بمترين، حدد Vertical Offset بقيمة (-2).", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "TINGenerator", "name": "TINGenerator", "name_ar": "مولد شبكات المثلثات غير المنتظمة (TIN Generator)", "category": "surfaces_terrain", "category_ar": "السطوح ونمذجة التضاريس", "icon": "sparkles", "tagline": "ينشئ شبكة مثلثة طوبولوجية متصلة من نقاط المناسيب مع احترام خطوط الانكسار (Breaklines).", "simple_desc": "أداة متخصصة وسريعة لبناء شبكات الـ TIN (Triangulated Irregular Network) بدقة متناهية بناءً على خوارزمية ديلاوني؛ يربط نقاط الرفع المساحي لتكوين أسطح ثلاثية الأبعاد تمثل تضاريس الأرض مع حماية خطوط الانكسار لضمان عدم قطع حواف الوديان والمنحدرات.", "gis_use_case": "تكوين نموذج سطح الأرض الطبيعية (NGround) الدقيق لحسابات التصميم الهندسي للطرق وقنوات تصريف مياه الأمطار.", "input_ports": ["Points/Lines: نقاط المناسيب المساحية.", "Breaklines: خطوط انكسار التضاريس والحواف الجبلية."], "output_ports": ["TINSurface: السطح النهائي المتصل كشبكة TIN واحدة.", "Triangles: الوجوه المثلثة الفردية.", "TINPoints: نقاط الرؤوس ثلاثية الأبعاد المكونة للشبكة.", "TINEdges: خطوط أضلاع المثلثات كأشكال خطية ثلاثية الأبعاد."], "rejected_port": "المعالم ثنائية الأبعاد أو عندما يقل عدد النقاط عن 3 نقاط فريدة.", "key_params": ["Surface Tolerance: نسبة السماحية الهندسية لتقليل المثلثات غير الضرورية في المناطق المستوية.", "Breaklines Processing: تفعيل احترام خطوط الانكسار بدقة صارمة."], "pro_tip": "لإظهار خريطة التضاريس بتنسيق خفيف الوزن، استخدم منفذ Triangles ومرره إلى MeshBuilder لتكوين شبكة مجسمة واحدة سريعة الرندرة.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "SurfaceBuilder", "name": "SurfaceBuilder", "name_ar": "بانِي الأسطح ثلاثية الأبعاد المتصلة", "category": "surfaces_terrain", "category_ar": "السطوح ونمذجة التضاريس", "icon": "square-3-stack-3d", "tagline": "ينشئ أسطحاً ثلاثية الأبعاد متصلة وشبكات مستمرة من النقاط والخطوط ثلاثية الأبعاد.", "simple_desc": "يقوم بجمع النقاط والخطوط ثلاثية الأبعاد المترابطة ونسجها معاً لتشكيل سطح ثلاثي الأبعاد مركب ومستمر (Composite Surface).", "gis_use_case": "بناء أسطح المنحدرات الترابية والسدود الركامية من خطوط التصميم ثلاثية الأبعاد الصادرة من برامج Civil 3D.", "input_ports": ["Input: نقاط وخطوط ووجوه ثلاثية الأبعاد."], "output_ports": ["Surface: السطح المركب ثلاثي الأبعاد المتصل.", "<Rejected>: المعالم غير الصالحة لبناء السطح."], "rejected_port": "المدخلات غير المتصلة أو المعالم ثنائية الأبعاد الصرفة.", "key_params": ["Group By: بناء الأسطح بشكل مستقل لكل مجموعة (مثل كل قطاع طريق على حدة).", "Surface Type: نوع السطح المراد إنشاؤه."], "pro_tip": "تأكد من تنظيف تقاطعات الخطوط عبر Intersector قبل التمرير لـ SurfaceBuilder لضمان ربط السطوح بشكل صحيح.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "SurfaceDissolver", "name": "SurfaceDissolver", "name_ar": "مذيب وموحد الأوجه السطحية المستوية (Coplanar Dissolver)", "category": "surfaces_terrain", "category_ar": "السطوح ونمذجة التضاريس", "icon": "viewfinder-circle", "tagline": "يكتشف ويدمج الأوجه السطحية المتجاورة الواقعة على نفس المستوى الرياضي في وجوه موحدة كبيرة.", "simple_desc": "يقوم بفحص الأسطح المتجاورة، وإذا اكتشف أن هناك وجوهاً متعددة تشترك في نفس المستوى الأفقي أو المائل تماماً (Coplanar)، يدمجها في وجه واحد كبير ويزيل الخطوط الفاصلة الداخلية بينها، مع الحفاظ على السمات والخامات.", "gis_use_case": "تبسيط أسطح المباني والأرضيات ثلاثية الأبعاد والتخلص من آلاف المثلثات غير الضرورية في الأسطح المستوية تماماً.", "input_ports": ["Input: أسطح ثلاثية الأبعاد (Surfaces / Meshes)."], "output_ports": ["Surface: السطح بعد دمج أوجهه المستوية وتقليل تعقيده.", "<Rejected>: المعالم غير السطحية."], "rejected_port": "المعالم غير السطحية (مثل الخطوط والنقاط والمجسمات الصلبة المصمتة).", "key_params": ["Group By: دمج الأوجه بناءً على سمة معينة كمعرف المبنى أو نوع الخامة.", "Tolerance: زاوية السماحية لاعتبار الأوجه متحدة المستوى."], "pro_tip": "يقلل عدد المضلعات بنسبة تصل إلى 60% في المباني الحديثة ذات الجدران المستوية الكبيرة دون المساس إطلاقاً بالشكل الخارجي.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "SurfaceOnSurfaceOverlayer", "name": "SurfaceOnSurfaceOverlayer", "name_ar": "التراكب والتقاطع المكاني بين الأسطح ثلاثية الأبعاد", "category": "surfaces_terrain", "category_ar": "السطوح ونمذجة التضاريس", "icon": "document-duplicate", "tagline": "ينفذ تقاطع وتراكب مكاني بين أسطح ثلاثية الأبعاد وينقل السمات ويحدد مناطق التداخل والمساحات المشتركة.", "simple_desc": "مثل أداة Intersect ثنائية الأبعاد ولكن في الفضاء ثلاثي الأبعاد؛ يقاطع سطحين معاً، فيحدد الأجزاء المشتركة، ويقطع كل سطح عند حدود السطح الآخر، وينقل السمات الجدولية المتبادلة بين السطوح المتداخلة.", "gis_use_case": "مقارنة سطح التضاريس الطبيعي مع سطح التسوية التصميمي الجديد لمشروع صناعي، أو دراسة تداخل الطبقات الجيولوجية تحت الأرض.", "input_ports": ["Input: أسطح ثلاثية الأبعاد يراد مقاطعتها مع بعضها."], "output_ports": ["Output: الأسطح الناتجة مقسمة عند التقاطعات ومحملة بسمات التراكب وعدد التداخلات (_overlaps).", "<Rejected>: المعالم غير السطحية."], "rejected_port": "المعالم التي لا تمتلك هندسة سطحية معتمدة.", "key_params": ["Attributes to Accumulate: تحديد السمات المراد نقلها ودمجها بين الأسطح المتقاطعة.", "Tolerance: نسبة السماحية الهندسية لحساب التقاطع."], "pro_tip": "إذا كنت تريد فقط حساب مساحة التداخل دون تقسيم الأسطح، يمكنك فحص حقل _overlaps الناتج.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "DEMGenerator", "name": "DEMGenerator", "name_ar": "مولد نماذج الارتفاع الرقمية (Raster DEM Generator)", "category": "surfaces_terrain", "category_ar": "السطوح ونمذجة التضاريس", "icon": "chart-pie", "tagline": "يولد شبكة راستر تمثل نموذج الارتفاع الرقمي (DEM) من نقاط وخطوط المناسيب.", "simple_desc": "يأخذ نقاط الرفع المساحي بالـ GPS أو سحب النقاط أو خطوط الكنتور، ويقوم باستيفائها حسابياً لإنشاء طبقة راستر جغرافية شبكية (GeoTIFF DEM) تحمل كل خلية فيها قيمة منسوب الارتفاع بالأمتار.", "gis_use_case": "إنشاء نماذج الارتفاعات الرقمية الوطنية (National DEM) من مسوحات الـ LiDAR لخدمة مشاريع التخطيط العمراني وتصريف السيول.", "input_ports": ["Points/Lines: نقاط وخطوط ثلاثية الأبعاد تحمل مناسيب الارتفاع."], "output_ports": ["Raster: طبقة راستر نموذج الارتفاع الرقمي (DEM).", "TIN: شبكة الـ TIN المستخدمة وسيطاً في الحساب.", "<Rejected>: المعالم ثنائية الأبعاد أو المنهارة."], "rejected_port": "المدخلات غير الصالحة مساحياً.", "key_params": ["Cell Size X, Y: دقة الخلية المكانية للراستر بالأمتار (مثل 5x5 م).", "Interpolation Method: خوارزمية الاستيفاء (Linear, Quintic).", "Fill NoData: خيار ملء الفراغات التي تفتقر لنقاط مساحية."], "pro_tip": "اختر دقة خلية (Cell Size) متناسبة مع كثافة نقاط الرفع المساحي لتفادي تشويه التضاريس أو تضخيم حجم ملف الراستر بلا داعٍ.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "RasterDEMGenerator", "name": "RasterDEMGenerator", "name_ar": "مولد الـ DEM الراستر عالي الكفاءة", "category": "surfaces_terrain", "category_ar": "السطوح ونمذجة التضاريس", "icon": "photo", "tagline": "ينشئ راستر DEM مباشر من معالم الارتفاع النقطية والخطية بسرعة فائقة.", "simple_desc": "نسخة محسنة وسريعة جداً لبناء الـ DEM النقطي مباشرة من معالم الـ GIS المتجهة مع خيارات متقدمة لدمج النوافذ المكانية والتعامل مع البيانات الضخمة.", "gis_use_case": "توليد شبكات الارتفاع للمحافظات والمناطق الكبرى من بيانات الرفع الجوي في خطوة واحدة سريعة.", "input_ports": ["Input: معالم ثلاثية الأبعاد."], "output_ports": ["Output: طبقات راستر DEM جاهزة."], "rejected_port": "المعالم بدون إحداثيات Z.", "key_params": ["Cell Spacing: حجم البكسل بالأمتار.", "Interpolation Type: طريقة الاستيفاء التضاريسي."], "pro_tip": "ممتاز ومفضل عند معالجة مناطق شاسعة تتطلب أداءً عالياً في وقت قياسي.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "DEMDistanceCalculator", "name": "DEMDistanceCalculator", "name_ar": "حاسب المسافات الطبوغرافية الحقيقية عبر تضاريس DEM", "category": "surfaces_terrain", "category_ar": "السطوح ونمذجة التضاريس", "icon": "calculator", "tagline": "يحسب المسافة السطحية الحقيقية المائلة عبر تضاريس الـ DEM آخذاً بالاعتبار الصعود والهبوط.", "simple_desc": "المسافة المقاسة على الخريطة ثنائية الأبعاد (2D Planar Distance) تختلف كثيراً عن المسافة الحقيقية التي يمشيها الإنسان فوق الجبال والوديان؛ تحسب هذه الأداة الطول السطحي الفعلي المائل على امتداد تضاريس الـ DEM.", "gis_use_case": "حساب الأطوال الحقيقية لكابلات الكهرباء وخطوط أنابيب البترول الممتدة في المناطق الجبلية الوعرة لتقدير التكلفة بدقة واقعية.", "input_ports": ["Input: مسارات خطية ثنائية أو ثلاثية الأبعاد.", "DEM: راستر نموذج الارتفاع الرقمي للمنطقة."], "output_ports": ["Output: نفس المسارات الخطية مضافاً إليها سمة المسافة السطحية الحقيقية (_surface_distance)."], "rejected_port": "المعالم الواقعة خارج نطاق تغطية الـ DEM.", "key_params": ["Output Attribute: اسم السمة التي ستخزن المسافة الحقيقية.", "Elevation Multiplier: معامل مقياس الارتفاع إذا كانت الوحدات تحتاج للتحويل."], "pro_tip": "الفارق بين المسافة الأفقية والمسافة السطحية الحقيقية في المناطق شديدة الوعورة قد يتجاوز 25%، مما يغير تماماً تقديرات التكلفة للمشاريع الهندسية.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "RasterHillshader", "name": "RasterHillshader", "name_ar": "مولد الظلال التضاريسية ثلاثية الأبعاد (Hillshade)", "category": "surfaces_terrain", "category_ar": "السطوح ونمذجة التضاريس", "icon": "sun", "tagline": "يحسب زوايا الإضاءة الشمسية وينشئ صورة راستر ثلاثية الأبعاد للظلال والتضاريس.", "simple_desc": "يحاكي سقوط أشعة الشمس بزاوية وسمت محددين (Azimuth & Altitude) على سطح الـ DEM، لينتج خريطة تظليل رمادية ثلاثية الأبعاد مذهلة تبرز الجبال والوديان بوضوح فوتوغرافي.", "gis_use_case": "إنتاج خرائط الأساس الطبوغرافية الجذابة بصرياً وعرض تضاريس الطبيعة في تطبيقات الـ GIS.", "input_ports": ["Input: راستر DEM."], "output_ports": ["Output: راستر الـ Hillshade المظلل."], "rejected_port": "المدخلات غير الراستر.", "key_params": ["Azimuth: زاوية سمت الشمس (افتراضياً 315 شمال غرب).", "Altitude: زاوية ارتفاع الشمس عن الأفق (افتراضياً 45 درجة)."], "pro_tip": "دمج راستر الـ Hillshade بنسبة شفافية 40% فوق خريطة الارتفاعات الملونة يعطي نتائج خرائطية مذهلة ثلاثية الأبعاد.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "RasterSlopeCalculator", "name": "RasterSlopeCalculator", "name_ar": "حاسب درجات الانحدار واتجاه السفوح (Slope & Aspect)", "category": "surfaces_terrain", "category_ar": "السطوح ونمذجة التضاريس", "icon": "chart-bar", "tagline": "يحسب درجة انحدار التضاريس (بالدرجات أو النسبة المئوية) واتجاه ميل السفوح الجبلية.", "simple_desc": "يقوم بالاشتقاق الرياضي لشبكة الـ DEM في كل بكسل لتحديد زاوية الميل الرأسي (Slope) واتجاه ميل السفح الجغرافي (Aspect: شمال، جنوب، شرق، غرب).", "gis_use_case": "دراسات قابلية البناء، تحديد مخاطر الانهيارات الأرضية الجبلية، وتحديد مسارات الطرق الأقل استهلاكاً للوقود.", "input_ports": ["Input: راستر DEM."], "output_ports": ["Output: راستر يحمل قيم زوايا الانحدار لكل بكسل."], "rejected_port": "البيانات المتجهة غير المحولة لراستر.", "key_params": ["Slope Units: بالدرجات (Degrees) أو النسبة المئوية (Percent).", "Calculation: حساب Slope أو Aspect."], "pro_tip": "تحديد المناطق التي يزيد انحدارها عن 20% ضروري في لوائح التخطيط العمراني لمنع البناء عليها لخطورتها.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "PointCloudSurfaceBuilder", "name": "PointCloudSurfaceBuilder", "name_ar": "بانِي السطوح المباشر من سحب النقاط (LiDAR)", "category": "surfaces_terrain", "category_ar": "السطوح ونمذجة التضاريس", "icon": "sparkles", "tagline": "ينشئ شبكات أسطح TIN مباشرة وسريعة من سحب النقاط الكثيفة دون فك النقاط.", "simple_desc": "مصمم خصيصاً للتعامل مع بيانات المسح الليزري (LiDAR / Point Clouds) الضخمة؛ يقوم بتوليد شبكة سطحية مثلثة مستمرة مباشرة من السحابة دون الحاجة لفك مليارات النقاط وتفجير استهلاك الذاكرة.", "gis_use_case": "تحويل المسوحات الجوية بالليزر للأراضي والتلال إلى أسطح تضاريس هندسية قابلة للدمج في نظم المعلومات الجغرافية.", "input_ports": ["Input: معالم سحب النقاط (Point Cloud)."], "output_ports": ["Output: أسطح وشبكات TIN المتولدة."], "rejected_port": "المعالم غير النقطية.", "key_params": ["Surface Tolerance: نسبة التسامح للتحكم في كثافة المثلثات.", "Sampling: معدل أخذ العينات."], "pro_tip": "أسرع بنسبة 400% من فك سحابة النقاط عبر PointCloudCoercer ثم إدخالها في TINGenerator.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "SurfaceCurvatureCalculator", "name": "SurfaceCurvatureCalculator", "name_ar": "حاسب انحناء وتحدب الأسطح (Surface Curvature)", "category": "surfaces_terrain", "category_ar": "السطوح ونمذجة التضاريس", "icon": "variable", "tagline": "يحسب معدل انحناء وتحدب أو تقعر السطح ثلاثي الأبعاد في كل نقطة ويخزنها كسمة هندسية.", "simple_desc": "يقوم بالتحليل الرياضي لمشتقات السطح لحساب مدى تحدبه أو تقعره؛ يصنف المناطق إلى مقعرة تجمع المياه أو محدبة تصرفها، ويحسب معاملات الانحناء الغاوسي (Gaussian) والانحناء المتوسط (Mean Curvature).", "gis_use_case": "تحديد نقاط تجمع مياه الأمطار والسيول على أسطح التضاريس، أو دراسة تآكل التربة الجبلية بناءً على درجة تحدب السفوح.", "input_ports": ["Input: أسطح ثلاثية الأبعاد."], "output_ports": ["Output: الأسطح محملة بسمات قيم الانحناء الهندسي."], "rejected_port": "المعالم غير السطحية.", "key_params": ["Curvature Type: نوع الانحناء المطلوب (Mean, Gaussian, Minimum, Maximum).", "Output Attribute: اسم السمة الناتجة."], "pro_tip": "القيم السالبة للانحناء تشير غالباً إلى أحواض ومسارات تجمع هيدرولوجية، بينما القيم الموجبة تشير إلى قمم التلال المحدبة.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "SurfaceNormalCalculator", "name": "SurfaceNormalCalculator", "name_ar": "حاسب المتجه العمودي على الأسطح (Surface Normals)", "category": "surfaces_terrain", "category_ar": "السطوح ونمذجة التضاريس", "icon": "arrow-trending-up", "tagline": "يحسب المتجه العمودي على كل وجه (Nx, Ny, Nz) لتحديد اتجاه الوجه وزاوية انحداره.", "simple_desc": "يحسب المتجه العمودي على كل وجه أو سطح في الفضاء ثلاثي الأبعاد؛ هذا المتجه ضروري لمعرفة: إلى أين ينظر الوجه (شمال، جنوب، لأعلى)، وما هي زاوية ميله بدقة، وهو أساسي لحساب الإضاءة والظلال.", "gis_use_case": "تحديد أسطح المباني الموجهة نحو الجنوب بزوايا ميل مثالية لتركيب الألواح الشمسية الكهروضوئية (Solar Potential Analysis).", "input_ports": ["Input: أسطح ووجوه وشبكات ثلاثية الأبعاد."], "output_ports": ["Output: المعالم محملة بمتجهات التعامد ومحاور الزوايا."], "rejected_port": "المعالم غير السطحية.", "key_params": ["Calculate Mode: حساب المتجه لكل وجه (Per-Face) أو لكل نقطة رأسية (Per-Vertex).", "Store In: تخزين المتجه كسمات جدولية (Nx, Ny, Nz) أو كخواص هندسية (Traits)."], "pro_tip": "إذا كان المتجه الرأسي Nz يقترب من (1.0)، فهذا سطح أفقي تماماً موازي للأرض (مثل أسطح المباني المستوية)؛ وإذا كان يقترب من (0)، فهو جدار رأسي عمودي.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "VolumeCalculator", "name": "VolumeCalculator", "name_ar": "حاسب الحجم والمكعبات الهندسية (Volume Calculator)", "category": "meshes_analysis", "category_ar": "الشبكات وحساب الأحجام", "icon": "scale", "tagline": "يحسب الحجم الهندسي الدقيق (Volume) للمجسمات الصلبة ثلاثية الأبعاد بوحدات الخريطة المكعبة.", "simple_desc": "يقوم بحساب الحجم المغلق الحقيقي لأي مجسم صلب ثلاثي الأبعاد (Solid Geometry)، ويخزن الناتج في سمة جدولية بالأمتار المكعبة (m³) أو الأقدام المكعبة بحسب نظام إحداثيات الخريطة، مع إمكانية استخدام معامل ضرب (Multiplier).", "gis_use_case": "حساب السعة التخزينية لخزانات المياه وصوامع الغلال، وتقدير كميات الخرسانة المطلوبة للقواعد والجسور في مشاريع الـ BIM-GIS.", "input_ports": ["Input: مجسمات صلبة ثلاثية الأبعاد (Solids)."], "output_ports": ["Output: المعالم محملة بسمة الحجم المحسوب (افتراضياً _volume)."], "rejected_port": "المعالم غير الصلبة (الأسطح المفتوحة، الخطوط، النقاط) ينتج عنها حجم صفر أو يتم رفضها.", "key_params": ["Volume Attribute: اسم عمود الحجم الجديد في جدول البيانات.", "Multiplier: معامل تحويل الوحدات (مثلاً من قدم مكعب إلى متر مكعب).", "Save Volume on Parts: خيار حفظ حجم كل جزء فرعي في المجسمات المركبة."], "pro_tip": "إذا كانت النتيجة المحسوبة صفراً، فهذا مؤشر فوري على أن المجسم غير محكم الإغلاق (ليس Watertight Solid)؛ راجع أسطحك عبر SolidBuilder للتأكد من إغلاقها.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "MeshBuilder", "name": "MeshBuilder", "name_ar": "بانِي الشبكات المضلعة ثلاثية الأبعاد (Mesh Builder)", "category": "meshes_analysis", "category_ar": "الشبكات وحساب الأحجام", "icon": "squares-2x2", "tagline": "ينشئ شبكة مجسمة (Mesh) واحدة من مجموعة وجوه مع مشاركة الرؤوس لتقليل حجم الذاكرة.", "simple_desc": "يحول الوجوه والمثلثات المتفرقة إلى كائن شبكي موحد (Single Mesh Geometry) تشترك فيه الأوجه المتجاورة في نفس الرؤوس (Vertices Pool)، مما يضغط حجم الملف بدرجة هائلة ويسرع التحميل والرندرة.", "gis_use_case": "تجهيز النماذج ثلاثية الأبعاد المعقدة للمدن وتصديرها بصيغ ويب خفيفة وسريعة (glTF, 3D Tiles) لتصفحها على المتصفحات والهواتف.", "input_ports": ["Input: وجوه، مضلعات، وأسطح ثلاثية الأبعاد."], "output_ports": ["Output: كائن شبكي موحد (Mesh)."], "rejected_port": "المعالم الخالية من الهندسة أو غير السطحية.", "key_params": ["Group By: تجميع المعالم لكل مبنى أو قطاع لإنشاء شبكة مخصصة له.", "Vertex Tolerance: نسبة دمج الرؤوس المتطابقة في موضع الفضاء."], "pro_tip": "الشبكات الناتجة تستهلك ذاكرة RAM أقل بنسبة 70% مقارنة بالأسطح التقليدية، وتعتبر الصيغة المعيارية لعرض التوائم الرقمية عبر الويب.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "MeshMerger", "name": "MeshMerger", "name_ar": "دامج الشبكات ثلاثية الأبعاد", "category": "meshes_analysis", "category_ar": "الشبكات وحساب الأحجام", "icon": "puzzle-piece", "tagline": "يدمج شبكات مضلعة متعددة في شبكة مجسمة واحدة مع الحفاظ على الخامات والمواد.", "simple_desc": "يأخذ عدة كائنات شبكية (Meshes) منفصلة ويدمجها في شبكة واحدة متصلة ومتكاملة، مع الحفاظ الكامل على خامات المواد وإحداثيات الإكساء والسمات الخاصة بكل جزء.", "gis_use_case": "دمج آلاف المباني الفردية لحي كامل في شبكة مجمعة واحدة لتقليل استدعاءات الرندرة (Draw Calls) في عوارض الويب ثلاثية الأبعاد.", "input_ports": ["Input: شبكات مضلعة ثلاثية الأبعاد (Meshes)."], "output_ports": ["Output: الشبكة المجمعة الموحدة الكبرى."], "rejected_port": "المعالم غير الشبكية.", "key_params": ["Group By: دمج الشبكات لكل حي أو بلوك عمراني على حدة.", "Preserve Materials: الحفاظ الصارم على مواد وخامات كل شبكة فرعية."], "pro_tip": "تقليل عدد الشبكات في المشهد من 10,000 شبكة إلى شبكة واحدة مجمعة يرفع معدل الإطارات (FPS) في عوارض الويب أضعافاً مضاعفة.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "MeshSimplifier", "name": "MeshSimplifier", "name_ar": "مبسط الشبكات ثلاثية الأبعاد وتقليل المضلعات (LOD Decimator)", "category": "meshes_analysis", "category_ar": "الشبكات وحساب الأحجام", "icon": "adjustments-horizontal", "tagline": "يقلل عدد المثلثات والأوجه في الشبكات المعقدة مع الحفاظ على الشكل الخارجي والخامات.", "simple_desc": "أداة هندسية لتقليل عدد مضلعات ومثلثات النماذج المعمارية والشبكات الضخمة (Mesh Decimation)؛ يمكنك تحديد نسبة التخفيض (مثلاً تخفيض 80% من المثلثات)، لإنشاء مستويات تفاصيل منخفضة وسريعة العرض دون تشويه الهيكل العام.", "gis_use_case": "إنشاء مستويات تفاصيل متعددة للمدينة (LOD Levels: LOD3 عالي للمشاهد القريبة، و LOD1 خفيف جداً للمشاهد البعيدة من الطائرة).", "input_ports": ["Input: شبكات ثلاثية الأبعاد معقدة وعالية الكثافة."], "output_ports": ["Output: الشبكات المبسطة بعد تقليل عدد مثلثاتها."], "rejected_port": "المعالم غير الشبكية.", "key_params": ["Simplification Type: نسبة مئوية (Percentage) أو عدد مثلثات مستهدف (Target Triangle Count).", "Preserve Boundary: الحفاظ الصارم على حواف المجسم الخارجية لمنع الفجوات.", "Preserve Textures: الحفاظ على تماسك صور الإكساء والخامات أثناء التبسيط."], "pro_tip": "عند بناء عارض ويب، أنشئ 3 نسخ من كل مبنى بنسب تبسيط: 100% (أصلي)، 50%، و 15% لاستخدامها في تقنية الشاشات الهرمية (Hierarchical LOD).", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "MRF3DCleaner", "name": "MRF3DCleaner", "name_ar": "منظف ومصحح الشبكات والمجسمات التالفة", "category": "meshes_analysis", "category_ar": "الشبكات وحساب الأحجام", "icon": "shield-check", "tagline": "يفحص ويعالج الأخطاء الهندسية والتداخلات الشاذة في المجسمات والشبكات 3D.", "simple_desc": "يقوم بفحص وتصليح العيوب الهندسية مثل المثلثات المتداخلة، الرؤوس المكررة، الأوجه المقلوبة، والفجوات الميكروسكوبية لضمان سلامة المجسمات هندسياً قبل الطباعة أو التحليل.", "gis_use_case": "تصحيح ملفات الـ 3D التي ترفضها محركات الـ BIM وبرامج النمذجة بسبب عيوب دقيقة في تراكب الأسطح.", "input_ports": ["Input: مجسمات وشبكات 3D."], "output_ports": ["Output: المجسمات بعد تنظيفها وترميمها."], "rejected_port": "المعالم غير القابلة للإصلاح.", "key_params": ["Clean Tolerance: حساسية اكتشاف الأخطاء.", "Fix Inverted Faces: تصحيح الوجوه المقلوبة."], "pro_tip": "خطوة تنظيف ممتازة لحل مشاكل فشل أدوات البولينج (CSG) وحسابات الحجم.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "CityEngineModelGenerator", "name": "CityEngineModelGenerator", "name_ar": "مولد نماذج المدن الإجرائية ثلاثية الأبعاد (Esri CityEngine Rules)", "category": "procedural_city", "category_ar": "النمذجة الإجرائية والمدن", "icon": "building-office", "tagline": "يولد مباني ومدن ثلاثية الأبعاد واقعية بالكامل من مساقط 2D باستخدام حزم قواعد CityEngine (CGA Rules).", "simple_desc": "محول عبقري يدمج محرك Esri CityEngine الإجرائي داخل FME؛ يأخذ مساقط المباني ثنائية الأبعاد ويطبق عليها حزمة قواعد معمارية (.rpk)، لينتج تلقائياً مباني ثلاثية الأبعاد كاملة التفاصيل: جدران، شبابيك، شرفات، أسقف مائلة، وأشجار، مع تكسيتها بالخامات الواقعية بدقة متناهية وبشكل إجرائي.", "gis_use_case": "توليد أحياء ومدن ذكية ثلاثية الأبعاد بالكامل من مجرد مخططات أوتوكاد أو طبقات Shapefile في دقائق معدودة لأغراض التخطيط والتطوير العقاري.", "input_ports": ["Input: مساقط مباني أو قطع أراضٍ ثنائية/ثلاثية الأبعاد."], "output_ports": ["Output: النماذج المعمارية ثلاثية الأبعاد المفصلة المكسوة بالخامات.", "Warnings: تحذيرات قواعد الـ CGA.", "<Rejected>: المعالم التي تفشل القواعد في معالجتها."], "rejected_port": "المعالم غير المتوافقة مع متطلبات حزمة القواعد المحددة.", "key_params": ["Rule Package (.rpk): مسار ملف حزمة قواعد السيتي إنجين.", "Start Rule: القاعدة الابتدائية في كود الـ CGA.", "Attribute Mapping: ربط حقول جدول الـ GIS (مثل الارتفاع وعدد الطوابق) بمتغيرات القواعد."], "pro_tip": "يمكنك ربط سمات الـ GIS مثل (BuildingType = Residential / Commercial) بالقواعد لكي يقوم FME بتوليد واجهات سكنية للمباني السكنية وواجهات زجاجية للأبراج التجارية تلقائياً.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "IFCPropertySetDefinitionCreator", "name": "IFCPropertySetDefinitionCreator", "name_ar": "منشئ مجموعات خصائص BIM (IFC PSet Definition)", "category": "procedural_city", "category_ar": "النمذجة الإجرائية والمدن", "icon": "document-text", "tagline": "يعرّف وينشئ مجموعات الخصائص المعيارية لنماذج الـ BIM بصيغة IFC (BIM-GIS Integration).", "simple_desc": "يسهل التوافق بين نظم المعلومات الجغرافية ونمذجة معلومات البناء؛ يتيح إنشاء مجموعات الخصائص (Property Sets) مثل مواصفات مواد البناء، المقاومة للحرائق، وتاريخ الصيانة وفق معايير buildingSMART العالمية.", "gis_use_case": "تحويل قواعد بيانات المباني الحكومية بالـ GIS إلى ملفات IFC متكاملة وجاهزة للمقاولين ومهندسي الإنشاءات.", "input_ports": ["Input: معالم المباني ثلاثية الأبعاد."], "output_ports": ["Output: المعالم محملة بتعريفات الـ PSet الرسمية."], "rejected_port": "المدخلات غير المتوافقة مع بنية الـ IFC.", "key_params": ["Property Set Name: اسم مجموعة الخصائص.", "Property Definitions: قائمة الخصائص وأنواعها."], "pro_tip": "أساسي لمن يعمل في مشاريع التحول الرقمي وإدارة الأصول الحضرية المشتركة (BIM/GIS).", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "IFCQuantitySetDefinitionCreator", "name": "IFCQuantitySetDefinitionCreator", "name_ar": "منشئ مجموعات حصر الكميات والمقايسات (IFC QSet)", "category": "procedural_city", "category_ar": "النمذجة الإجرائية والمدن", "icon": "calculator", "tagline": "يحدد وينشئ مجموعات قياس الكميات والمكعبات (Quantity Sets) لعناصر الـ IFC المعمارية.", "simple_desc": "يقوم بتسجيل الكميات المحسوبة (مساحات الواجهات، الحجوم الخرسانية، الأطوال الصافية) داخل بنية ملفات الـ IFC المعيارية لاستخدامها في حساب تكلفة المشاريع والمناقصات.", "gis_use_case": "توليد ملفات تسعير المقايسات الهندسية تلقائياً من نماذج المباني ثلاثية الأبعاد في بيئة FME.", "input_ports": ["Input: كتل ومجسمات صلبة."], "output_ports": ["Output: المعالم محملة ببيانات الـ QSet الدقيقة."], "rejected_port": "المعالم بدون قياسات.", "key_params": ["Quantity Set Name: اسم مجموعة الكميات.", "Method of Measurement: وحدة وطريقة الحساب."], "pro_tip": "استخدمه بعد محول VolumeCalculator و AreaCalculator لربط الأرقام المحسوبة بملف الـ IFC مباشرة.", "main_cat": "3d", "main_cat_ar": "ثلاثي الأبعاد (3D Transformers)"}, {"id": "AttributeManager", "name": "AttributeManager", "name_ar": "مدير السمات الشامل (إنشاء، تعديل، حذف، ترتيب)", "category": "attr_core", "category_ar": "إدارة السمات الأساسية", "main_cat": "attributes", "main_cat_ar": "إدارة السمات (Attributes)", "icon": "adjustments-horizontal", "tagline": "الأداة المركزية والأكثر قوة لإدارة أعمدة الجدول: إنشاء، إعادة تسمية، نسخ، حذف، وترتيب الحقول في واجهة واحدة.", "simple_desc": "تعتبر هذه الأداة بمثابة لوحة التحكم الشاملة لجداول البيانات في FME؛ تجمع وظائف 5 محولات في مكان واحد. يمكنك من خلال جدولها التفاعلي إضافة أعمدة جديدة، حذف الأعمدة القديمة، تعديل الأسماء، تغيير ترتيب الحقول، وحساب قيم جديدة أو تعيين قيم مشروطة استناداً لحقول أخرى.", "gis_use_case": "توحيد وتنظيف أسماء وهيكل حقول الطبقات الجغرافية المستوردة من جهات مختلفة لتطابق المعايير الوطنية لقواعد البيانات الجغرافية (Geodatabase Schema).", "input_ports": ["Input: أي معالم جغرافية أو سجلات جدولية."], "output_ports": ["Output: المعالم بعد تحديث وإعادة هيكلة جدول بياناتها بالكامل."], "rejected_port": "لا يوجد منفذ رفض افتراضي، يتم تمرير كافة المعالم.", "key_params": ["Attribute Actions: جدول العمليات (Do Nothing, Rename, Copy, Set Value, Remove).", "Conditional Values: إمكانية كتابة شروط لتحديد القيم بناءً على حقول أخرى (If-Then-Else).", "Reordering: أسهم رفع وخفض لترتيب موقع الأعمدة داخل الجدول."], "pro_tip": "يفضل دائماً استخدام AttributeManager بدلاً من وضع عدة محولات متتالية (AttributeCreator + AttributeRenamer + AttributeRemover) لتسريع المعالجة وجعل مسار العمل نظيفاً ومنظماً."}, {"id": "AttributeCreator", "name": "AttributeCreator", "name_ar": "منشئ السمات والحقول الجديدة", "category": "attr_core", "category_ar": "إدارة السمات الأساسية", "main_cat": "attributes", "main_cat_ar": "إدارة السمات (Attributes)", "icon": "plus-circle", "tagline": "يضيف حقولاً جديدة لجدول البيانات مع تعيين قيم ثابتة أو مشتقة من معادلات أو سمات أخرى.", "simple_desc": "أداة متخصصة وسريعة لإنشاء أعمدة جديدة داخل جدول المعالم؛ يمكنك ملء الحقل الجديد بنص ثابت، أو برقم، أو بقيمة مستنسخة من حقل آخر، أو باستخدام معادلات التعبيرات الرياضية والنصية.", "gis_use_case": "إضافة حقل تاريخ اعتماد المخطط، أو كتابة اسم المهندس المسؤول، أو إنشاء حقل تصنيف جديد للأراضي.", "input_ports": ["Input: معالم جغرافية أو جدولية."], "output_ports": ["Output: نفس المعالم محملة بالأعمدة الجديدة."], "rejected_port": "لا يوجد منفذ رفض.", "key_params": ["New Attribute: اسم الحقل الجديد المراد إنشاؤه.", "Attribute Value: القيمة المراد ملء الحقل بها (نص، رقم، دالة، أو سمة أخرى)."], "pro_tip": "يمكنك إنشاء أكثر من حقل في نفس الأداة بضغطة واحدة، واستخدام الحقل المنشأ حديثاً في حساب الحقول التي تليه في نفس النافذة."}, {"id": "AttributeKeeper", "name": "AttributeKeeper", "name_ar": "حارس ومبقي السمات المحددة (تنظيف الجدول)", "category": "attr_core", "category_ar": "إدارة السمات الأساسية", "main_cat": "attributes", "main_cat_ar": "إدارة السمات (Attributes)", "icon": "shield-check", "tagline": "يحتفظ بقائمة الحقول التي تحددها فقط، ويحذف كل ما عداها من سمات وقوائم دفعة واحدة.", "simple_desc": "يعمل مثل حارس البوابة الذكي؛ تختار له الأعمدة المهمة التي تريد الاحتفاظ بها، فيقوم بحذف وإزالة جميع الحقول الأخرى والقوائم غير المحددة فوراً لتخفيف حجم الطبقة وتنظيفها.", "gis_use_case": "تنظيف الطبقات المستوردة من ملفات AutoCAD أو Shapefiles قديمة تحتوي على 50 حقلاً عشوائياً، والإبقاء فقط على الحقول الـ 5 المعتمدة.", "input_ports": ["Input: أي معالم جغرافية."], "output_ports": ["Output: المعالم محملة فقط بالحقول المحددة في قائمة الإبقاء."], "rejected_port": "لا يوجد منفذ رفض.", "key_params": ["Attributes to Keep: قائمة الاختيار لتحديد الحقول المراد الإبقاء عليها.", "Lists to Keep: خيار تحديد القوائم (Lists) المراد حفظها أو مسحها."], "pro_tip": "استخدمه قبل تصدير البيانات إلى تنسيقات خفيفة مثل GeoJSON لتقليص حجم الملف النهائي بنسبة قد تصل إلى 70%."}, {"id": "AttributeRemover", "name": "AttributeRemover", "name_ar": "مزيل الحقول والسمات غير المرغوبة", "category": "attr_core", "category_ar": "إدارة السمات الأساسية", "main_cat": "attributes", "main_cat_ar": "إدارة السمات (Attributes)", "icon": "trash", "tagline": "يحذف حقولاً معينة ومحددة بالاسم من جدول البيانات مع الاحتفاظ بباقي الأعمدة.", "simple_desc": "الأداة المباشرة لحذف أعمدة معينة لم تعد بحاجة إليها داخل جدول البيانات، مما يمنع انتقال الحقول المؤقتة أو الحساسة للمخرجات النهائية.", "gis_use_case": "إزالة حقول الملاحظات الداخلية للمساحين أو حقول الأرقام السرية أو الحسابات الوسيطة قبل نشر الخريطة للجمهور.", "input_ports": ["Input: معالم جغرافية."], "output_ports": ["Output: نفس المعالم خالية من الحقول المحذوفة."], "rejected_port": "لا يوجد منفذ رفض.", "key_params": ["Attributes to Remove: قائمة لاختيار الحقول المراد التخلص منها."], "pro_tip": "إذا كان لديك عدد كبير جداً من الحقول وتريد حذف أغلبها، فالأفضل استخدام AttributeKeeper؛ أما إذا كنت تريد حذف حقل أو حقلين فقط، فاستخدم AttributeRemover."}, {"id": "AttributeRenamer", "name": "AttributeRenamer", "name_ar": "معيد تسمية السمات والحقول", "category": "attr_core", "category_ar": "إدارة السمات الأساسية", "main_cat": "attributes", "main_cat_ar": "إدارة السمات (Attributes)", "icon": "pencil-square", "tagline": "يغير أسماء الحقول إلى أسماء جديدة محددة مع الحفاظ الكامل على البيانات بداخلها.", "simple_desc": "يقوم بتعديل اسم السمة أو الحقل إلى اسم جديد تحدده أنت، مع بقاء كل البيانات المسجلة بداخل الحقل كما هي دون أي مساس بنوع البيانات أو محتواها.", "gis_use_case": "تعديل أسماء الحقول من لغة إلى لغة (مثل تعريب أسماء الحقول الإنجليزية) أو مطابقة شروط قواعد بيانات الأمانة (مثل تحويل `BLDG_NO` إلى `BuildingNumber`).", "input_ports": ["Input: معالم جغرافية."], "output_ports": ["Output: المعالم بالأسماء الجديدة للحقول."], "rejected_port": "لا يوجد منفذ رفض.", "key_params": ["Old Attribute: اسم الحقل الأصلي.", "New Attribute: الاسم البديل الجديد."], "pro_tip": "تأكد من عدم وجود مسافات أو رموز خاصة في الأسماء الجديدة إذا كنت تستهدف التصدير لقواعد بيانات Oracle أو Shapefile (التي تشترط 10 أحرف كحد أقصى للأسماء)."}, {"id": "AttributeCopier", "name": "AttributeCopier", "name_ar": "ناسخ قيم السمات إلى حقول بديلة", "category": "attr_core", "category_ar": "إدارة السمات الأساسية", "main_cat": "attributes", "main_cat_ar": "إدارة السمات (Attributes)", "icon": "document-duplicate", "tagline": "ينسخ قيمة حقل موجود إلى حقل جديد باسم مختلف مع بقاء الحقل الأصلي بدون تعديل.", "simple_desc": "يقوم بعمل نسخة طبق الأصل من بيانات حقل معين ووضعها في حقل جديد تحدد اسمه، مع بقاء الحقل الأصلي كما هو دون حذف أو تغيير.", "gis_use_case": "عمل نسخة احتياطية من عمود المعرف الفريد `Parcel_ID` قبل تطبيق تحويلات نصية أو تجزئة عليه.", "input_ports": ["Input: معالم جغرافية."], "output_ports": ["Output: المعالم مع الحقل الأصلي والحقل المنسوخ الجديد."], "rejected_port": "لا يوجد منفذ رفض.", "key_params": ["Source Attribute: الحقل المصدر المراد نسخ بياناته.", "Destination Attribute: اسم الحقل الجديد الهدف."], "pro_tip": "مفيد جداً عند الحاجة لربط بيانات جدولية مع نظامين خارجيين يتطلب كل منهما اسماً مختلفاً لنفس المعرف."}, {"id": "AttributeSplitter", "name": "AttributeSplitter", "name_ar": "مجزئ وقاطع النصوص والسمات المركبة", "category": "attr_transform", "category_ar": "تحويل وتعيين القيم والنصوص", "main_cat": "attributes", "main_cat_ar": "إدارة السمات (Attributes)", "icon": "scissors", "tagline": "يقطع النصوص المركبة بناءً على رمز فاصل (Delimiter) ويوزعها في قائمة (List) أو حقول مستقلة.", "simple_desc": "يقوم بفصل السلسلة النصية الطويلة إلى أجزاء منفصلة عند وجود رمز معين (مثل الفاصلة `,` أو الشرطة `-` أو المسافة)، ويخزن الأجزاء الناتجة في مصفوفة قائمة (`_list{}`) ليسهل استخراج كل عنصر بمفرده.", "gis_use_case": "تجزئة حقل العنوان المكتوب في خانة واحدة (مثل: `الرياض - حي النرجس - شارع رقم 15`) إلى ثلاثة حقول مستقلة: المدينة، الحي، والشارع.", "input_ports": ["Input: معالم تحتوي على حقول نصية مركبة."], "output_ports": ["Output: المعالم محملة بقائمة الأجزاء المقطوعة."], "rejected_port": "لا يوجد منفذ رفض.", "key_params": ["Attribute to Split: الحقل النصي المراد تجزئته.", "Delimiter: رمز الفصل (فاصلة، مسافة، شرطة، نقطة، أو رمز مخصص).", "List Name: اسم القائمة الناتجة (افتراضياً `_list`)."], "pro_tip": "إذا كنت تقسم إحداثيات مكتوبة كنص مثل `24.7136, 46.6753`، استخدم بعدها محول VertexCreator لقراءة العنصر `_list{0}` و `_list{1}` وتحويلهما لنقطة جغرافية فوراً."}, {"id": "AttributeExploder", "name": "AttributeExploder", "name_ar": "مفجر السمات (تحويل الأعمدة إلى صفوف)", "category": "attr_transform", "category_ar": "تحويل وتعيين القيم والنصوص", "main_cat": "attributes", "main_cat_ar": "إدارة السمات (Attributes)", "icon": "sparkles", "tagline": "يحول كل حقل في المعلم إلى سجل مستقل يحمل اسم الحقل وقيمته (Data Normalization).", "simple_desc": "يقوم بتفكيك وتفجير الجدول العريض أفقياً إلى جدول رأسي طويل؛ لكل عمود في المعلم، ينشئ سجلاً منفصلاً يحتوي على عمودين أساسيين: `_attr_name` (اسم الحقل) و `_attr_value` (قيمة الحقل).", "gis_use_case": "تطبيع وتجهيز بيانات القياسات المتعددة لتصديرها إلى لوحات مؤشرات الأداء (Power BI / Tableau) ورسم الرسوم البيانية الإحصائية.", "input_ports": ["Input: أي معالم بجدول عريض."], "output_ports": ["Output: معالم متعددة لكل حقل (صفوف Name/Value)."], "rejected_port": "لا يوجد منفذ رفض.", "key_params": ["Attribute Name: اسم الحقل الذي سيحمل أسماء الأعمدة الأصلية.", "Attribute Value: اسم الحقل الذي سيحمل القيم الأصلية.", "Ignoring Attributes: استثناء حقول معينة كالمعرفات الهندسية من التفجير."], "pro_tip": "انتبه: إذا كان المعلم يحتوي على 20 حقلاً وكان لديك 1000 معلم، سينتج عن هذا المحول 20,000 معلم جديد؛ لذا استثنِ الحقول غير المطلوبة."}, {"id": "AttributeExposer", "name": "AttributeExposer", "name_ar": "مظهر السمات المخفية وتنسيقات الملفات", "category": "attr_transform", "category_ar": "تحويل وتعيين القيم والنصوص", "main_cat": "attributes", "main_cat_ar": "إدارة السمات (Attributes)", "icon": "eye", "tagline": "يُظهر السمات الداخلية غير المعرفة في بيئة FME لتصبح مرئية وقابلة للاستخدام في المحولات التالية.", "simple_desc": "تأتي العديد من صيغ الملفات (مثل AutoCAD DWG, MicroStation DGN, KML) بسمات داخلية مخفية (مثل رقم اللون `autocad_color` أو اسم الطبقة أو التنسيق) لا تظهر افتراضياً في FME Workbench. هذه الأداة تجعل هذه السمات مرئية في القوائم المنسدلة للتعامل معها برمجياً.", "gis_use_case": "كشف وإظهار سمة اسم الطبقة `autocad_layer` لتوزيع عناصر ملف الأوتوكاد على طبقات الـ GIS الصحيحة بحسب تصنيفها.", "input_ports": ["Input: معالم تحمل سمات مخفية أو داخلية."], "output_ports": ["Output: نفس المعالم مع إظهار السمات في الواجهة."], "rejected_port": "لا يوجد منفذ رفض.", "key_params": ["Attributes to Expose: كتابة أو استيراد أسماء السمات المطلوب إظهارها في شجرة العمل."], "pro_tip": "يمكنك الضغط على زر (Import) لاختيار ملف مماثل وسيقوم FME بقراءة واكتشاف جميع السمات المخفية تلقائياً دون كتابتها يدوياً."}, {"id": "AttributeValueMapper", "name": "AttributeValueMapper", "name_ar": "محول ومطابق القيم (جدول المطابقة Lookup Table)", "category": "attr_transform", "category_ar": "تحويل وتعيين القيم والنصوص", "main_cat": "attributes", "main_cat_ar": "إدارة السمات (Attributes)", "icon": "arrows-right-left", "tagline": "يطابق ويستبدل قيم الحقول بقيم جديدة بناءً على جدول مطابقة مخصص (Lookup Table).", "simple_desc": "يعمل كقاموس ترجمة للبيانات؛ يقرأ قيمة حقل معين ويستبدلها بقيمة مقابلة من جدول محدد (مثلاً: إذا كانت القيمة `R` يحولها إلى `سكني Residential`، وإذا كانت `C` يحولها إلى `تجاري Commercial`) مع خيار وضع قيمة افتراضية لما لم يتطابق.", "gis_use_case": "توحيد أكواد استخدامات الأراضي في المخططات العمرانية ومطابقة رموز الأمانة القديمة بنظام التصنيف الوطني الموحد الجديد.", "input_ports": ["Input: معالم تحمل أكواد أو رموز تحتاج مطابقة."], "output_ports": ["Output: المعالم بعد ترجمة واستبدال قيم الحقول."], "rejected_port": "لا يوجد منفذ رفض.", "key_params": ["Source / Destination Attributes: الحقل المصدر والحقل الهدف.", "Value Mapping Table: جدول الأزواج (القيمة الأصلية -> القيمة البديلة).", "Default Value: القيمة الافتراضية إذا لم تتطابق القيمة مع أي صف في الجدول."], "pro_tip": "يمكنك تصدير جدول المطابقة واستيراده من ملف CSV خارجي، مما يتيح لفريق العمل تحديث مصفوفة الترجمة بدون لمس مسار FME."}, {"id": "AttributePivoter", "name": "AttributePivoter", "name_ar": "منشئ الجداول المحورية والإحصائية (Pivot Table)", "category": "attr_transform", "category_ar": "تحويل وتعيين القيم والنصوص", "main_cat": "attributes", "main_cat_ar": "إدارة السمات (Attributes)", "icon": "table-cells", "tagline": "يعيد تجميع وهيكلة البيانات لإنشاء جداول محورية تحسب الإحصائيات والتكرارات لكل تصنيف.", "simple_desc": "يقوم بتلخيص البيانات وإعادة هيكلتها تماماً مثل خاصية Pivot Table في برنامج Excel؛ يجمع السجلات بناءً على حقول تجميع ويحسب المجاميع أو المتوسطات أو التكرارات لكل فئة.", "gis_use_case": "توليد تقرير إحصائي يوضح إجمالي مساحات الأراضي وعدد المباني ومعدل الارتفاعات لكل حي سكني في المدينة.", "input_ports": ["Input: معالم جغرافية أو جدولية."], "output_ports": ["Output: جداول ملخصة محورية وتقارير مجمعة."], "rejected_port": "البيانات التي تفتقد قيم التجميع.", "key_params": ["Rows / Columns Attributes: تحديد الحقول التي ستشكل الصفوف والأعمدة.", "Aggregation Function: الدالة الإحصائية (Sum, Count, Average, Min, Max)."], "pro_tip": "مثالي لإنشاء الملخصات التنفيذية التي تُعرض على متخذي القرار دون إرهاقهم بآلاف السجلات الفردية."}, {"id": "AttributeFileReader", "name": "AttributeFileReader", "name_ar": "قارئ محتوى الملفات إلى سمة جدولية", "category": "attr_bulk_files", "category_ar": "المعالجة الجماعية والملفات", "main_cat": "attributes", "main_cat_ar": "إدارة السمات (Attributes)", "icon": "arrow-down-tray", "tagline": "يقرأ محتوى ملف خارجي من القرص (نص، JSON، XML، أو بايتات ثنائية) ويخزنه داخل سمة في الجدول.", "simple_desc": "يقوم بالوصول إلى مسار ملف مخزن على جهازك أو على الشبكة، ويقرأ كامل محتواه الداخلي ويضعه في عمود نصي داخل المعلم، مما يسهل معالجة المستندات والنصوص الكبيرة داخل بيئة FME.", "gis_use_case": "قراءة ملفات عقود الملكية النصية أو ملفات أكواد الـ GeoJSON الخارجية وتخزينها في حقل بالـ Geodatabase.", "input_ports": ["Input: معالم تحتوي على مسار الملف المطلوب قراءته."], "output_ports": ["Output: نفس المعالم محملة بنص أو محتوى الملف."], "rejected_port": "المسارات غير الصحيحة أو الملفات غير القابلة للقراءة.", "key_params": ["Source Filename: مسار الملف على القرص.", "Target Attribute: اسم الحقل الذي سيخزن محتوى الملف.", "Encoding: ترميز النص (UTF-8, ANSI, Binary)."], "pro_tip": "تأكد من اختيار UTF-8 عند قراءة ملفات تحتوي على نصوص عربية لضمان عدم تشوه الأحرف."}, {"id": "AttributeFileWriter", "name": "AttributeFileWriter", "name_ar": "كاتب ومصدر السمات إلى ملفات على القرص", "category": "attr_bulk_files", "category_ar": "المعالجة الجماعية والملفات", "main_cat": "attributes", "main_cat_ar": "إدارة السمات (Attributes)", "icon": "arrow-up-tray", "tagline": "يأخذ المحتوى المخزن في حقل بالجدول ويكتبه وينشئه كملف خارجي مستقل على القرص.", "simple_desc": "عكس الأداة السابقة؛ تأخذ النص أو الكود أو البيانات الثنائية المخزنة داخل عمود وتنشئ منها ملفاً مستقلاً بالاسم والامتداد الذي تحدده في مسار على القرص.", "gis_use_case": "توليد ملفات إعدادات XML مستقلة لكل مبنى، أو استخراج صور Base64 وتفريغها كملفات صور JPG/PNG مستقلة.", "input_ports": ["Input: معالم تحتوي على البيانات المطلوب تصديرها كملفات."], "output_ports": ["Output: المعالم بعد كتابة الملفات بنجاح."], "rejected_port": "حالات فشل الكتابة بسبب الصلاحيات أو امتلاء القرص.", "key_params": ["Source Attribute: الحقل الذي يحتوي على النص أو البيانات.", "Target Filename: مسار واسم الملف الناتج على القرص.", "Write Mode: الكتابة من البداية (Overwrite) أو الإلحاق بالنهاية (Append)."], "pro_tip": "يمكنك جعل اسم الملف ديناميكياً بدمج اسم المعلم مثل `C:/Reports/@Value(Parcel_ID).txt` لتوليد ملف لكل قطعة أرض تلقائياً."}, {"id": "BulkAttributeRemover", "name": "BulkAttributeRemover", "name_ar": "مزيل السمات الجماعي (بالنمط والبادئة)", "category": "attr_bulk_files", "category_ar": "المعالجة الجماعية والملفات", "main_cat": "attributes", "main_cat_ar": "إدارة السمات (Attributes)", "icon": "trash", "tagline": "يحذف مجموعات كاملة من الحقول دفعة واحدة باستخدام نمط نصي أو بادئة مشتركة (Regex).", "simple_desc": "بدلاً من حذف الحقول واحداً تلو الآخر، يتيح لك هذا المحول كتابة قاعدة نمطية لحذف كل الحقول التي تبدأ أو تنتهي بكلمة معينة (مثل حذف جميع الحقول التي تبدأ بـ `temp_` أو `fme_`).", "gis_use_case": "حذف جميع الحقول الفنية الناتجة من قراءة ملفات الكاد والأوتوكاد التي تبدأ بالبادئة `autocad_` بضغطة زر واحدة.", "input_ports": ["Input: معالم تحتوي على حقول متعددة غير مرغوبة."], "output_ports": ["Output: المعالم بعد الحذف الجماعي للحقول المطابقة للنمط."], "rejected_port": "لا يوجد منفذ رفض.", "key_params": ["Remove Pattern: النمط النصي أو البادئة (Prefix / Suffix / Wildcard).", "Match Mode: مطابقة عادية أو تعبير نمطي متقدم (Regular Expression)."], "pro_tip": "يوفر وقتاً هائلاً عند التعامل مع قواعد بيانات تاريخية تحتوي على مئات الحقول المؤقتة."}, {"id": "BulkAttributeRenamer", "name": "BulkAttributeRenamer", "name_ar": "معيد التسمية الجماعي للسمات (بادئة، لاحقة، استبدال)", "category": "attr_bulk_files", "category_ar": "المعالجة الجماعية والملفات", "main_cat": "attributes", "main_cat_ar": "إدارة السمات (Attributes)", "icon": "pencil-square", "tagline": "يعدل أسماء عشرات الحقول دفعة واحدة (إضافة بادئة، لاحقة، تغيير حالة الأحرف، استبدال نص).", "simple_desc": "أداة إنتاجية جبارة لإعادة التسمية الجماعية؛ تتيح إضافة بادئة لكل الأعمدة (مثل إضافة `NEW_` قبل كل حقل)، أو تحويل كل الأسماء إلى أحرف صغيرة (lowercase) أو كبيرة (UPPERCASE)، أو استبدال كلمة بأخرى في جميع الحقول.", "gis_use_case": "إضافة البادئة `GIS_` إلى جميع حقول الطبقة قبل دمجها مع بيانات نظام المساحة لتجنب تضارب الأسماء المتشابهة.", "input_ports": ["Input: معالم يراد تعديل أسماء حقولها جماعياً."], "output_ports": ["Output: المعالم بالأسماء المعدلة موحدة النمط."], "rejected_port": "لا يوجد منفذ رفض.", "key_params": ["Action: نوع العملية (Add Prefix, Add Suffix, Change Case, Regular Expression).", "Text: النص المراد إضافته أو استبداله."], "pro_tip": "استخدم خيار Change Case إلى Lowercase لتوحيد أسماء الحقول قبل التصدير لقواعد بيانات PostgreSQL / PostGIS التي تفضل الحروف الصغيرة."}, {"id": "NullAttributeMapper", "name": "NullAttributeMapper", "name_ar": "معالج ومحول القيم الفارغة (Null & Missing Handler)", "category": "attr_join", "category_ar": "الربط والتجميع ومعالجة القيم", "main_cat": "attributes", "main_cat_ar": "إدارة السمات (Attributes)", "icon": "exclamation-circle", "tagline": "يفحص ويعالج الحقول الفارغة ويستبدل قيم Null أو Missing بقيم افتراضية أو العكس.", "simple_desc": "يقوم بفحص الحقول للبحث عن القيم المفقودة (Missing) أو الفارغة (Null) أو النصوص البيضاء (Empty Strings)، ويستبدلها بقيمة محددة (مثل `0` أو `غير متوفر`)، أو العكس (تحويل النصوص الفارغة إلى Null حقيقي).", "gis_use_case": "تجهيز وتصحيح بيانات العقارات قبل إدخالها لقاعدة بيانات لا تقبل الحقول الفارغة (Not Null Constraints) لتفادي فشل عملية الحفظ.", "input_ports": ["Input: معالم تحتوي على بيانات ناقصة أو فارغة."], "output_ports": ["Output: المعالم بعد معالجة وتوحيد القيم الفارغة."], "rejected_port": "لا يوجد منفذ رفض.", "key_params": ["Map: تحديد نوع الفراغ المراد علاجه (Null, Missing, Empty String).", "New Value: القيمة البديلة (قيمة ثابتة أو سمة أخرى).", "Selected Attributes: الحقول المستهدفة بالفحص."], "pro_tip": "في نظم المعلومات الجغرافية، الفارق بين Null و 0 كبير جداً؛ Null تعني القيمة مجهولة، بينما 0 تعني القيمة صفر فعلياً. هذا المحول يضمن ضبط المعنى بدقة."}, {"id": "ListBuilder", "name": "ListBuilder", "name_ar": "بانِي ومجمع القوائم المنظمة (List Attribute)", "category": "attr_lists", "category_ar": "القوائم والمصفوفات", "main_cat": "attributes", "main_cat_ar": "إدارة السمات (Attributes)", "icon": "list-bullet", "tagline": "يجمع سمات المعالم أو السجلات المرتبطة في قائمة مصفوفة منظمة (List{} Attribute).", "simple_desc": "يتيح بناء مصفوفة قائمة (Array List) داخل المعلم لتخزين قيم متعددة في نفس السجل؛ يفيد في تجميع البيانات الفرعية المتعلقة بنفس المعلم الأصلي.", "gis_use_case": "تجميع أرقام رخص البناء المتعددة أو أسماء الملاك المتشاركين في نفس العقار داخل قائمة واحدة مرتبطة بقطعة الأرض.", "input_ports": ["Input: معالم يراد تجميع سماتها في قائمة."], "output_ports": ["Output: المعالم محملة بالقائمة المنظمة."], "rejected_port": "لا يوجد منفذ رفض.", "key_params": ["List Name: اسم القائمة المراد بناؤها (مثل `Owners{}`).", "Attributes to Add: الحقول المراد إدراجها داخل عناصر القائمة."], "pro_tip": "القوائم في FME مميزة جداً لأنها تمكنك من التعامل مع علاقات (واحد إلى متعدد One-to-Many) دون تكرار رسم المعلم الجغرافي."}, {"id": "ListExploder", "name": "ListExploder", "name_ar": "مفجر القوائم (تحويل عناصر القائمة إلى معالم مستقلة)", "category": "attr_lists", "category_ar": "القوائم والمصفوفات", "main_cat": "attributes", "main_cat_ar": "إدارة السمات (Attributes)", "icon": "squares-plus", "tagline": "يفكك عناصر القائمة لإنتاج معلم وسجل مستقل لكل عنصر مع استنساخ باقي السمات والهندسة.", "simple_desc": "العملية العكسية لتجميع القوائم؛ إذا كان المعلم يحتوي على قائمة بداخلها 4 عناصر، يقوم هذا المحول باستخراج 4 معالم مستقلة، كل معلم يحمل عنصراً من القائمة كحقل عادي مع تكرار الهندسة والسمات الأخرى.", "gis_use_case": "تحويل قائمة الشقق والوحدات السكنية داخل المبنى الواحد إلى سجلات مستقلة لكل شقة لخدمة أنظمة التسجيل العقاري.", "input_ports": ["Input: معالم تحتوي على سمة قائمة (List)."], "output_ports": ["Output: معالم فردية لكل عنصر من عناصر القائمة."], "rejected_port": "المعالم التي لا تحتوي على القائمة المحددة.", "key_params": ["List Attribute: اسم القائمة المراد تفجيرها.", "Element Index Attribute: سمة لحفظ رقم ترتيب العنصر في القائمة الأصلية."], "pro_tip": "احرص على حفظ رقم المؤشر (Index) لتعرف الترتيب الأصلي للعنصر عند الحاجة لإعادة التجميع لاحقاً."}, {"id": "ListConcatenator", "name": "ListConcatenator", "name_ar": "دامج عناصر القائمة في سلسلة نصية واحدة", "category": "attr_lists", "category_ar": "القوائم والمصفوفات", "main_cat": "attributes", "main_cat_ar": "إدارة السمات (Attributes)", "icon": "link", "tagline": "يدمج عناصر القائمة المنفصلة في حقل نصي واحد مع وضع فاصل محدد بينها.", "simple_desc": "يأخذ مصفوفة القائمة ويقوم بربط كافة عناصرها جنباً إلى جنب في نص واحد مفصول برمز من اختيارك (مثل فاصلة أو واو العطف أو شرطة).", "gis_use_case": "دمج أسماء الشركاء في ملكية الأرض المخزنين في قائمة إلى نص واحد مقروء في صك الملكية: `محمد، أحمد، وخالد`.", "input_ports": ["Input: معالم تحمل سمة قائمة."], "output_ports": ["Output: المعالم مع إضافة الحقل النصي المدمج."], "rejected_port": "المعالم الخالية من القائمة المحددة.", "key_params": ["List Attribute: القائمة المصدر.", "Separator Character: الرمز الفاصل بين الكلمات (فاصلة، مسافة، إلخ).", "Destination Attribute: اسم الحقل الجديد للنص المدمج."], "pro_tip": "مفيد جداً لتحويل القوائم المعقدة إلى حقول نصية بسيطة تقبلها ملفات Shapefile والتطبيقات التي لا تدعم الجداول المرتبطة."}, {"id": "ListSorter", "name": "ListSorter", "name_ar": "فارز ومرتب عناصر القوائم (أبجدياً أو رقمياً)", "category": "attr_lists", "category_ar": "القوائم والمصفوفات", "main_cat": "attributes", "main_cat_ar": "إدارة السمات (Attributes)", "icon": "bars-arrow-up", "tagline": "يرتب عناصر القوائم تصاعدياً أو تنازلياً استناداً إلى القيم الرقمية أو الحروف الأبجدية.", "simple_desc": "يقوم بإعادة ترتيب العناصر داخل مصفوفة القائمة؛ يمكنك الترتيب تصاعدياً أو تنازلياً، وسواء كان الترتيب رقمياً (للمقاسات والمناسيب) أو ألفبائياً (للأسماء).", "gis_use_case": "ترتيب تواريخ المعاملات العقارية داخل سجل المبنى من الأحدث إلى الأقدم، أو ترتيب أسماء الملاك أبجدياً.", "input_ports": ["Input: معالم تحتوي على قوائم غير مرتبة."], "output_ports": ["Output: المعالم بعد إعادة ترتيب القوائم بداخلها."], "rejected_port": "لا يوجد منفذ رفض.", "key_params": ["List Attribute: اسم القائمة المراد ترتيبها.", "Sort Order: تصاعدي (Ascending) أو تنازلي (Descending).", "Sort Type: أبجدي (Alphabetic) أو رقمي (Numeric)."], "pro_tip": "إذا كانت القائمة تحتوي على أرقام، تأكد من اختيار Numeric حتى يتم الترتيب الصحيح (مثال: 2 قبل 10 وليس العكس)."}, {"id": "ListIndexer", "name": "ListIndexer", "name_ar": "مستخرج عناصر القوائم بالمؤشر والرقم", "category": "attr_lists", "category_ar": "القوائم والمصفوفات", "main_cat": "attributes", "main_cat_ar": "إدارة السمات (Attributes)", "icon": "cursor-arrow-rays", "tagline": "يستخرج عنصراً محدداً من القائمة بناءً على رقم ترتيبه (Index) ويحفظه في حقل مستقل.", "simple_desc": "يتيح لك الوصول لعنصر معين داخل القائمة (مثل أول عنصر `0` أو ثاني عنصر `1` أو آخر عنصر `-1`) واستخراجه كحقل عادي مستقل يسهل استخدامه في التحليلات.", "gis_use_case": "استخراج اسم المالك الرئيسي (أول مالك في القائمة `Owners{0}`) وحفظه في عمود منفصل باسم `Primary_Owner`.", "input_ports": ["Input: معالم تحمل قوائم مصفوفة."], "output_ports": ["Output: المعالم محملة بالحقل المستخرج المستقل."], "rejected_port": "إذا كان رقم الفهرس المطلوب غير موجود في القائمة.", "key_params": ["List Attribute: اسم القائمة المصدر.", "List Index: رقم المؤشر (0 للعنصر الأول، 1 للثاني، إلخ).", "Destination Attribute: اسم الحقل الذي ستخزن فيه القيمة المستخرجة."], "pro_tip": "تذكر أن الفهرسة في FME تبدأ من الرقم 0 وليس 1."}, {"id": "DatabaseJoiner", "name": "DatabaseJoiner", "name_ar": "رابط قواعد البيانات الخارجية (Database Join)", "category": "attr_join", "category_ar": "الربط والتجميع ومعالجة القيم", "main_cat": "attributes", "main_cat_ar": "إدارة السمات (Attributes)", "icon": "circle-stack", "tagline": "يربط معالم الـ GIS بجداول في قواعد بيانات خارجية (SQL Server, Oracle, Excel) ويجلب البيانات التابعة.", "simple_desc": "يقوم بمطابقة المعلم الجغرافي مع جدول مخزن في قاعدة بيانات خارجية بناءً على مفتاح ربط مشترك (Foreign Key)، ويجلب الحقول التابعة ويدمجها في المعلم فوراً دون الحاجة لقراءة كل قاعدة البيانات.", "gis_use_case": "ربط خريطة قطع الأراضي بقاعدة بيانات الضرائب العقارية أو نظام الفواتير لجلب اسم المالك وقيمة المستحقات المالية الحالية.", "input_ports": ["Input: معالم جغرافية تحمل كود الربط."], "output_ports": ["Joined: المعالم التي وجدت سجلاً مطابقاً في قاعدة البيانات الخارجية وتم دمج بياناتها.", "Unjoined: المعالم التي لم يُعثر على كودها في قاعدة البيانات الخارجية."], "rejected_port": "أخطاء الاتصال بقاعدة البيانات أو انقطاع الشبكة.", "key_params": ["Database Connection: معلومات الاتصال بالسيرفر وقاعدة البيانات.", "Join Keys: حقل الربط في المعلم وحقل الربط المقابل في جدول قاعدة البيانات.", "Fields to Add: اختيار الأعمدة المراد استيرادها ودمجها."], "pro_tip": "استخدم منفذ Unjoined لاكتشاف السجلات المفقودة في نظام الفواتير وعمل تقرير تدقيق دوري لنظام الـ GIS."}, {"id": "AreaCalculator", "name": "AreaCalculator", "name_ar": "حاسب المساحات الهندسية للمضلعات والأسطح", "category": "calc_geometry", "category_ar": "حسابات الهندسة والمساحات", "main_cat": "calculated_values", "main_cat_ar": "الحسابات والقيم المشتقة (Calculated Values)", "icon": "calculator", "tagline": "يحسب المساحة الهندسية الحقيقية للمضلعات والأسطح ثلاثية الأبعاد ويخزنها كسمة رقمية.", "simple_desc": "يقوم بحساب مساحة المعلم المغلق (مضلع، دونات، سطح، أو وجه) بدقة متناهية بناءً على إحداثيات الخريطة، ويحفظ الناتج في حقل رقمي جديد. يدعم حساب المساحة ثنائية الأبعاد (2D) أو المساحة السطحية الحقيقية ثلاثية الأبعاد المائلة (3D Surface Area).", "gis_use_case": "حساب المساحة الإجمالية لقطع الأراضي في المخططات الكاداسترالية بالأمتار المربعة لتقدير القيمة العقارية والرسوم البلدية.", "input_ports": ["Input: مضلعات، وجوه، أو أسطح مغلقة."], "output_ports": ["Output: المعالم محملة بحقل المساحة المحسوبة (افتراضياً `_area`)."], "rejected_port": "المعالم النقطية والخطية والمضلعات المفتوحة.", "key_params": ["Area Attribute: اسم الحقل الذي ستخزن فيه المساحة.", "Type: نوع الحساب (Plane 2D مسطح، أو Sloped 3D مائل).", "Multiplier: معامل ضرب لتحويل الوحدات (مثلاً الضرب في 0.0001 للتحويل من متر مربع لهكتار)."], "pro_tip": "إذا كنت تقيس مناطق جبلية مائلة، فإن خيار Sloped Area يعطيك المساحة الحقيقية الفعلية لسطح الأرض وليس مجرد المسقط الأفقي المسطح."}, {"id": "LengthCalculator", "name": "LengthCalculator", "name_ar": "حاسب الأطوال والمحيطات الهندسية", "category": "calc_geometry", "category_ar": "حسابات الهندسة والمساحات", "main_cat": "calculated_values", "main_cat_ar": "الحسابات والقيم المشتقة (Calculated Values)", "icon": "arrows-pointing-out", "tagline": "يقيس ويحسب أطوال الخطوط ومحيطات المضلعات بدقة هندسية بوحدات الخريطة.", "simple_desc": "يقيس الطول الإجمالي للمسارات الخطية أو المحيط الخارجي للمضلعات؛ يدعم الحساب ثنائي الأبعاد أو ثلاثي الأبعاد (آخذاً الارتفاعات وفروق المناسيب بالحسبان).", "gis_use_case": "حساب أطوال خطوط شبكات المياه، ومسارات الطرق السريعة، وأطوال الأسوار المحيطة بالمزارع والمنشآت.", "input_ports": ["Input: خطوط، مسارات، أو مضلعات."], "output_ports": ["Output: المعالم مضافاً إليها حقل الطول المحسوب (افتراضياً `_length`)."], "rejected_port": "المعالم النقطية التي ليس لها طول.", "key_params": ["Length Attribute: اسم الحقل الجديد لتخزين الطول.", "Dimension: الأبعاد المحسوبة (2D أو 3D الطول الفضائي المائل).", "Multiplier: معامل تحويل الوحدات (مثلاً من متر إلى كيلومتر)."], "pro_tip": "في شبكات الصرف الصحي ذات الانحدارات الكبيرة، اختيار 3D يضمن حساب الطول المائل الحقيقي للأنابيب بدقة متناهية."}, {"id": "ExpressionEvaluator", "name": "ExpressionEvaluator", "name_ar": "مقيّم المعادلات والعمليات الرياضية (الآلة الحاسبة الذكية)", "category": "calc_math_stats", "category_ar": "الحسابات الرياضية والإحصائية", "main_cat": "calculated_values", "main_cat_ar": "الحسابات والقيم المشتقة (Calculated Values)", "icon": "variable", "tagline": "الآلة الحاسبة المركزية لـ FME؛ ينفذ معادلات رياضية معقدة بين السمات والأرقام والدوال الهندسية.", "simple_desc": "يتيح لك كتابة أي معادلة حسابية مهما كان تعقيدها باستخدام العمليات الحسابية (`+`, `-`, `*`, `/`, `^`) والدوال الرياضية (جذور، لوغاريتمات، دوال مثلثية، قيم مطلقة) وتطبيقها على حقول الجدول لتخزين الناتج في حقل جديد.", "gis_use_case": "حساب القيمة الإجمالية للعقار بضرب مساحة الأرض في سعر المتر وإضافة نسبة الضريبة: `(@Value(Area) * @Value(Price)) * 1.15`.", "input_ports": ["Input: أي معالم تحتوي على بيانات رقمية."], "output_ports": ["Output: المعالم محملة بنتيجة العملية الحسابية."], "rejected_port": "حالات القسمة على صفر أو الأخطاء الرياضية التالفة.", "key_params": ["Evaluation Expression: المعادلة الحسابية المراد تطبيقها.", "Target Attribute: الحقل الذي ستخزن فيه النتيجة."], "pro_tip": "يمكنك استخدام المعامل الشرطي `@if` داخل المعادلة لتطبيق حسابات متغيرة بحسب نوع العقار أو المنطقة."}, {"id": "StatisticsCalculator", "name": "StatisticsCalculator", "name_ar": "حاسب الإحصائيات التجميعية المتقدمة", "category": "calc_math_stats", "category_ar": "الحسابات الرياضية والإحصائية", "main_cat": "calculated_values", "main_cat_ar": "الحسابات والقيم المشتقة (Calculated Values)", "icon": "chart-pie", "tagline": "يحسب المؤشرات الإحصائية لمجموعات البيانات: المجموع، المتوسط، الوسيط، المنوال، والانحراف المعياري.", "simple_desc": "يقوم بالتحليل الإحصائي الرقمي للقيم عبر مجموعة المعالم أو لكل فئة (Group By)؛ يحسب المجموع الكلي (Total Sum)، المتوسط الحسابي (Mean)، الوسيط (Median)، المنوال (Mode)، الحد الأدنى والأقصى (Min / Max)، والتباين والانحراف المعياري.", "gis_use_case": "حساب متوسط أسعار الأراضي في كل بلدية، وتحديد أقصى وأدنى مساحة لقطع الأراضي، وحساب إجمالي المساحة الخضراء في المحافظة.", "input_ports": ["Input: معالم تحتوي على قيم رقمية."], "output_ports": ["Complete: المعالم الأصلية مع إضافة السمات الإحصائية المحسوبة لكل معلم.", "Summary: سجل ملخص وحيد يحتوي فقط على الإحصائيات الكلية للطبقة."], "rejected_port": "المعالم ذات القيم غير الرقمية.", "key_params": ["Attributes to Analyze: الحقل الرقمي المراد تحليله إحصائياً.", "Group By: تجميع الإحصائيات لكل منطقة أو حي على حدة.", "Statistics: تفعيل المؤشرات المطلوبة (Total Count, Sum, Mean, Median, etc.)."], "pro_tip": "استخدم منفذ Summary إذا كنت تريد إنتاج سطر تقرير واحد نهائي، واستخدم منفذ Complete إذا كنت تريد استكمال معالجة المعالم الأصلية."}, {"id": "Counter", "name": "Counter", "name_ar": "العداد التسلسلي التلقائي (Auto-Increment Unique ID)", "category": "calc_math_stats", "category_ar": "الحسابات الرياضية والإحصائية", "main_cat": "calculated_values", "main_cat_ar": "الحسابات والقيم المشتقة (Calculated Values)", "icon": "numbered-list", "tagline": "يولد أرقاماً تسلسلية تصاعدية فريدة (1, 2, 3...) لكل معلم يمر عبر المحول.", "simple_desc": "الأداة المعيارية لإنشاء مفاتيح تعريفية فريدة (Primary Key IDs)؛ تعطي كل معلم يمر بها رقماً تسلسلياً فريداً يبدأ من رقم محدد (مثلاً من 1 أو 1000) مع إمكانية الترقيم المستقل لكل مجموعة (Group By).", "gis_use_case": "توليد كود ترقيم تلقائي موحد لقطع الأراضي الجديدة في المخطط المساحي (مثل `Parcel_001`, `Parcel_002`).", "input_ports": ["Input: أي معالم جغرافية أو جدولية."], "output_ports": ["Output: نفس المعالم مضافاً إليها حقل العداد التسلسلي الجديد."], "rejected_port": "لا يوجد منفذ رفض.", "key_params": ["Counter Name: اسم العداد لتمييزه عند استخدام عدة عدادات في نفس المشروع.", "Count Output Attribute: اسم الحقل الذي سيخزن الرقم التسلسلي (افتراضياً `_count`).", "Initial Value: رقم البداية للعداد."], "pro_tip": "إذا كنت تقسم المباني حسب الحي وتريد أن يبدأ الترقيم من 1 في كل حي، فعل خيار Group By واختَر حقل اسم الحي."}, {"id": "ModuloCounter", "name": "ModuloCounter", "name_ar": "العداد الدوري الدائري (Modulo Sequence)", "category": "calc_math_stats", "category_ar": "الحسابات الرياضية والإحصائية", "main_cat": "calculated_values", "main_cat_ar": "الحسابات والقيم المشتقة (Calculated Values)", "icon": "arrow-path", "tagline": "يولد أرقاماً تسلسلية تدور وتتكرر ضمن نطاق دوري محدد (من 1 إلى N ثم العودة لـ 1).", "simple_desc": "يعمل مثل عقرب الساعة؛ يعد المعالم تصاعدياً حتى يصل إلى أقصى رقم تحدده (مثلاً 5)، ثم يعود ليعيد العد من البداية، وهكذا بالتكرار لكل المعالم.", "gis_use_case": "توزيع قطع الأراضي والمهام الميدانية بالتساوي على 4 فرق مساحية (فريق 1، 2، 3، 4، ثم إعادة الدورة).", "input_ports": ["Input: أي معالم جغرافية."], "output_ports": ["Output: المعالم محملة برقم الدورة الدائرية."], "rejected_port": "لا يوجد منفذ رفض.", "key_params": ["Maximum Count: الحد الأقصى للدورة الرقمية قبل إعادة التصفير.", "Output Attribute: اسم الحقل الناتج."], "pro_tip": "طريقة عبقرية لتوزيع أحمال المعالجة (Load Balancing) بين عدة مسارات متوازية في FME."}, {"id": "BoundsExtractor", "name": "BoundsExtractor", "name_ar": "مستخرج إحداثيات الحدود القصوى (Bounding Box Extractor)", "category": "calc_geometry", "category_ar": "حسابات الهندسة والمساحات", "main_cat": "calculated_values", "main_cat_ar": "الحسابات والقيم المشتقة (Calculated Values)", "icon": "arrows-pointing-in", "tagline": "يحسب الصندوق المحيط بالمعلم ويستخرج حدوده الدنيا والقصوى (MinX, MaxX, MinY, MaxY).", "simple_desc": "يحسب إحداثيات المستطيل أو الصندوق المحيط بأي معلم هندسي، ويستخرج القيم القصوى والدنيا كأعمدة مستقلة (`_xmin`, `_ymin`, `_xmax`, `_ymax`, `_zmin`, `_zmax`).", "gis_use_case": "تحديد نطاق الامتداد المكاني (BBOX Extent) لكل بلدية لتوجيه الكاميرا والخرائط تلقائياً في بوابات الـ GIS.", "input_ports": ["Input: أي معالم ذات هندسة."], "output_ports": ["Output: نفس المعالم محملة بحدود الصندوق المحيط."], "rejected_port": "المعالم بدون هندسة (Null).", "key_params": ["Coordinate System: الإحداثيات بوحدات الخريطة الأصلية.", "Prefix: بادئة أسماء الحقول الناتجة لتجنب التكرار."], "pro_tip": "بمعرفة `_xmax - _xmin` و `_ymax - _ymin` يمكنك حساب عرض وطول المعلم الحقيقي في خطوة واحدة."}, {"id": "CenterPointExtractor", "name": "CenterPointExtractor", "name_ar": "مستخرج إحداثيات نقطة المركز الهندسي (Centroid Extractor)", "category": "calc_geometry", "category_ar": "حسابات الهندسة والمساحات", "main_cat": "calculated_values", "main_cat_ar": "الحسابات والقيم المشتقة (Calculated Values)", "icon": "viewfinder-circle", "tagline": "يحسب إحداثيات مركز الثقل الهندسي للمضلع أو الخط (X, Y, Z) ويحفظها كسمات جدولية.", "simple_desc": "يقوم بحساب موضع نقطة المركز الهندسي (Centroid) للمعلم، ويخزن إحداثياتها (`_inside_x`, `_inside_y`, `_inside_z`) في حقول جدولية، مع الحفاظ الكامل على هندسة المضلع أو الخط الأصلي دون تحويله لنقطة.", "gis_use_case": "تحديد إحداثيات موضع تثبيت بطاقات التسمية (Map Labels) في قلب قطع الأراضي والمباني.", "input_ports": ["Input: معالم خطية ومضلعات."], "output_ports": ["Output: نفس المعالم مع إضافة حقول إحداثيات النقطة المركزية."], "rejected_port": "المعالم الخالية من الهندسة.", "key_params": ["Center Point Type: مركز الثقل الرياضي (Center of Gravity) أو نقطة مؤكدة بالداخل (Point Inside)."], "pro_tip": "اختر Point Inside للمضلعات المعقدة على شكل حرف U أو الهلال للتأكد من أن نقطة المركز تقع داخل حدود المبنى وليس في الفراغ الخارجي."}, {"id": "CoordinateCounter", "name": "CoordinateCounter", "name_ar": "عداد نقاط ورؤوس المعلم الهندسي (Vertex Counter)", "category": "calc_geometry", "category_ar": "حسابات الهندسة والمساحات", "main_cat": "calculated_values", "main_cat_ar": "الحسابات والقيم المشتقة (Calculated Values)", "icon": "hashtag", "tagline": "يعد ويحسب عدد الرؤوس والنقاط (Vertices) المكونة للمعلم الهندسي ويخزنها كسمة.", "simple_desc": "يقوم بعد جميع النقاط والإحداثيات التي ترسم الخط أو المضلع، ويخزن العدد الكلي في حقل بالجدول (افتراضياً `_num_coords`).", "gis_use_case": "فحص جودة البيانات (QA/QC) واكتشاف المضلعات التالفة التي تقل عن 3 نقاط، أو الخطوط شديدة التعقيد التي تتطلب التبسيط والتنعيم.", "input_ports": ["Input: أي معالم جغرافية."], "output_ports": ["Output: المعالم محملة بعدد النقاط والرؤوس."], "rejected_port": "المعالم بدون هندسة.", "key_params": ["Output Attribute: اسم الحقل الذي سيخزن عدد الرؤوس."], "pro_tip": "تصفية المعالم التي تحتوي على أكثر من 50,000 نقطة لتمريرها إلى محول Generalizer لتقليل نقاطها وتسريع الرسم في خرائط الويب."}, {"id": "DateTimeCalculator", "name": "DateTimeCalculator", "name_ar": "حاسب التواريخ والفروق والمدد الزمنية", "category": "calc_datetime", "category_ar": "حسابات الوقت والتواريخ", "main_cat": "calculated_values", "main_cat_ar": "الحسابات والقيم المشتقة (Calculated Values)", "icon": "calendar", "tagline": "يحسب الفروق الزمنية بين تاريخين (بالأيام أو الساعات) أو يضيف ويطرح مدة زمنية محددة.", "simple_desc": "المحول المخصص للحسابات الزمنية في FME؛ يتيح حساب الفارق بين تاريخين (مثلاً: كم يوماً أو شهراً مضى بين تاريخ إصدار الرخصة واليوم)، أو إضافة مدة زمنية (مثلاً: تاريخ اليوم + 30 يوماً).", "gis_use_case": "حساب عمر المبنى أو تحديد رخص البناء المنتهية بحساب الفرق بالأيام بين تاريخ انتهاء الرخصة وتاريخ اليوم الحالي.", "input_ports": ["Input: معالم تحتوي على حقول تواريخ."], "output_ports": ["Output: المعالم محملة بنتيجة الحساب الزمني."], "rejected_port": "التواريخ غير الصالحة أو المكتوبة بصيغ غير مفهومة.", "key_params": ["Mode: نمط الحساب (Calculate Interval الفرق بين تاريخين، أو Add/Subtract إلحاق مدة).", "Units: وحدة الناتج (Years, Months, Days, Hours, Minutes, Seconds).", "Result Attribute: اسم الحقل الذي ستخزن فيه النتيجة."], "pro_tip": "يدعم التقويم الميلادي بدقة فائقة ويأخذ السنوات الكبيسة وفروق الشهور في الحسبان تلقائياً."}, {"id": "DateTimeConverter", "name": "DateTimeConverter", "name_ar": "محول وتوحيد صيغ التواريخ والأوقات", "category": "calc_datetime", "category_ar": "حسابات الوقت والتواريخ", "main_cat": "calculated_values", "main_cat_ar": "الحسابات والقيم المشتقة (Calculated Values)", "icon": "clock", "tagline": "يحول صيغ التواريخ والأوقات المختلفة وغير المتناسقة إلى صيغة معيارية دولية موحدة (ISO 8601).", "simple_desc": "يقوم بقراءة التواريخ المكتوبة بصيغ مختلفة (مثل: `2024/05/18`, `18-05-2024`, `May 18, 2024`, أو طوابع الوقت الرقمية Epoch)، ويحولها إلى صيغة قياسية دولية موحدة تناسب قواعد البيانات.", "gis_use_case": "توحيد تواريخ المعاملات العقارية المستوردة من ملفات Excel و Shapefiles لتتوافق مع معيار `YYYY-MM-DD` في قواعد بيانات Geodatabase.", "input_ports": ["Input: معالم تحمل حقول تواريخ بصيغ متنوعة."], "output_ports": ["Output: المعالم بتواريخ موحدة قياسية."], "rejected_port": "النصوص غير القابلة للتفسير كتواريخ صالحة.", "key_params": ["Input Attributes: الحقول التي تحتوي على التواريخ المراد تحويلها.", "Output Format: الصيغة المستهدفة (مثل ISO Date `%Y-%m-%d` أو ISO DateTime).", "Input Format: صيغة الإدخال (يمكن تركها Auto-Detect ليكتشفها FME تلقائياً)."], "pro_tip": "اترك خيار Input Format على الوضع التلقائي وسينجح FME في فك رموز أغلب صيغ التواريخ العالمية الشائعة تلقائياً."}, {"id": "DateTimeStamper", "name": "DateTimeStamper", "name_ar": "واضع الطابع الزمني الفوري لتشغيل العملية", "category": "calc_datetime", "category_ar": "حسابات الوقت والتواريخ", "main_cat": "calculated_values", "main_cat_ar": "الحسابات والقيم المشتقة (Calculated Values)", "icon": "bell", "tagline": "يضيف تاريخ ووقت تشغيل العملية الجغرافية فوراً بدقة اللحظة الحالية إلى كل معلم.", "simple_desc": "يسجل اللحظة الزمنية الحالية (تاريخ ووقت تشغيل الـ Workspace) ويختمها في عمود جديد داخل كل معلم يمر عبره، مما يثبت وقت معالجة وتصدير البيانات بدقة.", "gis_use_case": "تسجيل تاريخ آخر تحديث `Last_Updated` في قاعدة البيانات الجغرافية لأغراض التدقيق والمتابعة الإدارية (Audit Tracking).", "input_ports": ["Input: أي معالم جغرافية."], "output_ports": ["Output: المعالم محملة بختم التاريخ والوقت الحالي."], "rejected_port": "لا يوجد منفذ رفض.", "key_params": ["DateTime Attribute: اسم الحقل الذي سيخزن الختم الزمني.", "Format: صيغة الطابع الزمني (تاريخ فقط، وقت فقط، أو تاريخ ووقت كامل بالثواني).", "Time Zone: توقيت محلي (Local) أو توقيت غرينتش العالمي (UTC)."], "pro_tip": "ضعه دائماً في نهاية مسار العمل قبل محولات الكتابة (Writers) لتوثيق تاريخ ووقت إنتاج كل طبقة بدقة."}, {"id": "AttributeRounder", "name": "AttributeRounder", "name_ar": "مقرب الأرقام والكسور العشرية (Decimal Rounder)", "category": "calc_math_stats", "category_ar": "الحسابات الرياضية والإحصائية", "main_cat": "calculated_values", "main_cat_ar": "الحسابات والقيم المشتقة (Calculated Values)", "icon": "calculator", "tagline": "يقرب الأرقام العشرية إلى عدد محدد من الخانات بعد الفاصلة مع التحكم بأسلوب التقريب.", "simple_desc": "يقوم بتقريب الأرقام ذات الكسور العشرية الطويلة إلى عدد محدد من المنازل العشرية (مثلاً تقريب `125.67894` إلى `125.68`)، مما يجعل الجداول أنيقة ويقلل حجم تخزين الأرقام.", "gis_use_case": "تقريب قيم المساحات والمناسيب إلى خانتين عشريتين (أقرب سنتيمتر مربع) في تقارير الصكوك والمخططات الرسمية.", "input_ports": ["Input: معالم تحتوي على حقول رقمية عشرية."], "output_ports": ["Output: المعالم بالأرقام المقربة."], "rejected_port": "القيم غير الرقمية.", "key_params": ["Attributes to Round: الحقول المطلوب تقريبها.", "Decimal Places: عدد الخانات العشرية بعد الفاصلة (0 للعدد الصحيح، 2 لرقمين، إلخ).", "Rounding Method: أسلوب التقريب (Round to Nearest, Round Up لأعلى, Round Down لأسفل)."], "pro_tip": "تقريب الإحداثيات إلى 6 خانات عشرية يعطي دقة 10 سنتيمترات ويخفض حجم ملفات GeoJSON إلى النصف تقريباً."}, {"id": "DecimalDegreesCalculator", "name": "DecimalDegreesCalculator", "name_ar": "محول الدرجات والدقائق والثواني إلى درجات عشرية (DMS to DD)", "category": "calc_angles_coords", "category_ar": "الزوايا والتحويلات والإحداثيات", "main_cat": "calculated_values", "main_cat_ar": "الحسابات والقيم المشتقة (Calculated Values)", "icon": "globe-americas", "tagline": "يحول إحداثيات الدرجات والدقائق والثواني (DMS) إلى درجات عشرية (Decimal Degrees).", "simple_desc": "يقوم بالتحويل الرياضي للإحداثيات الجغرافية المكتوبة بصيغة الدرجات والدقائق والثواني (مثل خط طول `46° 40' 32\" E`) إلى رقم عشري نقي (`46.675556°`) يسهل رسمه واستخدامه في أنظمة الـ GIS.", "gis_use_case": "تحويل إحداثيات نقاط الرفع المساحي المسجلة في تقارير قديمة أو مأخوذة من أجهزة ملاحة كلاسيكية لتوقيعها على خريطة الـ GIS بدقة.", "input_ports": ["Input: معالم تحتوي على إحداثيات DMS مقسمة أو مجمعة."], "output_ports": ["Output: المعالم محملة بحقول الدرجات العشرية الصافية."], "rejected_port": "القيم الزاوية غير المنطقية (أكثر من 60 دقيقة أو ثانية).", "key_params": ["Input Mode: إحداثيات مجمعة في نص واحد أو مقسمة في 3 حقول (درجات، دقائق، ثواني).", "Direction Attribute: تحديد الاتجاه الجغرافي (شمال N، جنوب S، شرق E، غرب W)."], "pro_tip": "المحول يعالج تلقائياً إشارات السالب لخطوط العرض الجنوبية وخطوط الطول الغربية."}, {"id": "AngleCalculator", "name": "AngleCalculator", "name_ar": "حاسب زوايا الميل والانحراف الزاوي للخطوط", "category": "calc_angles_coords", "category_ar": "الزوايا والتحويلات والإحداثيات", "icon": "variable", "tagline": "يحسب زاوية اتجاه الخطوط أو انحرافها بالنسبة للشمال الجغرافي (Azimuth / Bearing).", "simple_desc": "يقيس زاوية ميل أو انحراف الخطوط الهندسية بالدرجات بالنسبة للمحور الأفقي أو زاوية السمت بالنسبة للشمال الجغرافي (من 0 إلى 360 درجة)، ويخزن الزاوية في حقل بالجدول.", "gis_use_case": "تحديد اتجاه سريان خطوط شبكات الصرف الصحي، أو حساب زاوية انحراف واجهات المباني بالنسبة للشمال لحساب كفاءة العزل الحراري.", "input_ports": ["Input: خطوط ومسارات هندسية."], "output_ports": ["Output: نفس الخطوط محملة بزاوية الاتجاه المحسوبة."], "rejected_port": "المعالم النقطية أو غير الخطية.", "key_params": ["Angle Type: زاوية ميل الخط أو زاوية سمت الشمال (Azimuth).", "Units: وحدات القياس (درجات Degrees أو راديان Radians)."], "pro_tip": "مفيد جداً لتدوير رموز الأسهم (Directional Arrows) على الخريطة لتشير بدقة لاتجاه تدفق السير أو المياه.", "main_cat": "calculated_values", "main_cat_ar": "الحسابات والقيم المشتقة (Calculated Values)"}, {"id": "CircularityCalculator", "name": "CircularityCalculator", "name_ar": "حاسب معامل دائرية الأشكال (Circularity / Roundness)", "category": "calc_angles_coords", "category_ar": "الزوايا والتحويلات والإحداثيات", "icon": "circle-stack", "tagline": "يقيس مدى اقتراب المضلع من الدائرة التامة ويعطي قيمة قياسية بين 0 و 1.", "simple_desc": "يحسب النسبة الرياضية بين مساحة المضلع ومحيطه ليحدد مدى استدارته؛ المضلعات الدائرية تماماً تأخذ القيمة `1.0`، بينما الأشكال الطولية والنحيفة تقترب قيمتها من `0`.", "gis_use_case": "التصنيف التلقائي للمعالم في صور الأقمار الصناعية لتمييز خزانات المياه الدائرية وصوامع الحبوب عن المباني المستطيلة.", "input_ports": ["Input: مضلعات مغلقة."], "output_ports": ["Output: المعالم محملة بمعامل الدائرية (افتراضياً `_circularity`)."], "rejected_port": "المعالم غير المساحية.", "key_params": ["Circularity Attribute: اسم الحقل الذي ستخزن فيه القيمة."], "pro_tip": "فلترة المعالم التي تزيد دائريتها عن `0.9` تعزل الخزانات والصوامع الدائرية بدقة تفوق 95%.", "main_cat": "calculated_values", "main_cat_ar": "الحسابات والقيم المشتقة (Calculated Values)"}, {"id": "CRCCalculator", "name": "CRCCalculator", "name_ar": "حاسب بصمة الفحص والتطابق (Checksum / Hash Code)", "category": "calc_math_stats", "category_ar": "الحسابات الرياضية والإحصائية", "main_cat": "calculated_values", "main_cat_ar": "الحسابات والقيم المشتقة (Calculated Values)", "icon": "shield-check", "tagline": "يولد كود بصمة مشفرة فريدة للسمات أو الهندسة لاكتشاف أي تغيير أو تكرار في البيانات.", "simple_desc": "يقوم بإنشاء كود بصمة رقمي فريد (Hash Code: CRC32, MD5, SHA) لخصائص المعلم أو إحداثياته؛ إذا تغير أي حرف أو رقم أو إحداثي في المعلم تتغير البصمة فوراً.", "gis_use_case": "اكتشاف السجلات والتعديلات المكررة أو فحص التغييرات التي طرأت على قطع الأراضي بين نسختين من قاعدة البيانات (Change Detection).", "input_ports": ["Input: أي معالم جغرافية."], "output_ports": ["Output: المعالم محملة ببصمة الـ CRC الفريدة."], "rejected_port": "لا يوجد منفذ رفض.", "key_params": ["CRC Type: نوع البصمة (CRC32, MD5, SHA256).", "Calculate On: حساب البصمة بناءً على (الهندسة والسمات معاً، أو السمات فقط، أو الهندسة فقط)."], "pro_tip": "مقارنة حقل الـ CRC بين قاعدة بيانات اليوم وقاعدة بيانات الشهر الماضي يتيح لك عزل المعالم المعدلة فقط في ثوانٍ معدودة."}, {"id": "NetworkTopologyCalculator", "name": "NetworkTopologyCalculator", "name_ar": "حاسب طوبولوجيا اتصالات الشبكات (Network Connectivity)", "category": "calc_angles_coords", "category_ar": "الزوايا والتحويلات والإحداثيات", "main_cat": "calculated_values", "main_cat_ar": "الحسابات والقيم المشتقة (Calculated Values)", "icon": "share", "tagline": "يحلل اتصال خطوط الشبكة ويحسب عدد الخطوط الملتقية عند كل تقاطع وعقدة طوبولوجية.", "simple_desc": "يفحص شبكات الطرق أو شبكات المرافق المتصلة، ويحسب عدد الخطوط المتصلة عند كل عقدة (Node Degree) ويحدد مسارات الاتصال ونقاط النهايات الميتة (Dead Ends).", "gis_use_case": "فحص سلامة شبكات مياه الشرب وتحديد غرف التفتيش التي تشهد تقاطع أكثر من 3 خطوط، واكتشاف الخطوط غير المتصلة بالشبكة.", "input_ports": ["Input: خطوط شبكات متصلة."], "output_ports": ["Output: الخطوط محملة بسمات الاتصال الطوبولوجي وأكواد العقد."], "rejected_port": "المعالم غير الخطية.", "key_params": ["Tolerance: نسبة التسامح الهندسي بين نهايات الخطوط الملتقية."], "pro_tip": "خطوة فحص طوبولوجي أساسية قبل استخدام محول NetworkTopologyCalculator أو بناء شبكات التوجيه الملاحي (Routing Networks)."}, {"id": "MeasureGenerator", "name": "MeasureGenerator", "name_ar": "مولد مقاييس الأبعاد الخطية المترية (M-Values)", "category": "calc_angles_coords", "category_ar": "الزوايا والتحويلات والإحداثيات", "main_cat": "calculated_values", "main_cat_ar": "الحسابات والقيم المشتقة (Calculated Values)", "icon": "map-pin", "tagline": "يولد ويحدد قياسات المسافات التراكمية (M-Values) على طول مسارات الطرق والسكك الحديدية.", "simple_desc": "يقوم بإنشاء نظام الإسناد الخطي (Linear Referencing) على الخطوط؛ يضيف قياسات المسافة التراكمية الحقيقية (M-Coordinates) عند كل نقطة ورأس على طول الخط، لتمكين تحديد مواقع الحوادث والصيانة بدلالة الكيلومترات.", "gis_use_case": "تحديد مواقع الحوادث المرورية على الطرق السريعة بدلالة الكيلومتر (مثلاً: حادث عند الكيلو 84.5 على طريق الرياض - الدمام السريع).", "input_ports": ["Input: خطوط طرق أو سكك حديدية."], "output_ports": ["Output: خطوط محملة بقيم M-Values تراكمية دقيقة."], "rejected_port": "المعالم غير الخطية.", "key_params": ["Measure Type: الحساب بناءً على الطول الحقيقي أو نسبة مئوية (0 إلى 1).", "Multiplier: معامل تحويل وحدات المسافة."], "pro_tip": "الخطوة الأساسية والضرورية قبل استخدام محولات الإسناد الخطي مثل MeasureExtractor و MeasureSetter."}, {"id": "AttributeDereferencer", "name": "AttributeDereferencer", "name_ar": "الوصول غير المباشر للسمات (Attribute Pointer)", "category": "attr_transform", "category_ar": "تحويل وتعيين القيم والنصوص", "main_cat": "attributes", "main_cat_ar": "إدارة السمات (Attributes)", "icon": "cursor-arrow-rays", "tagline": "يقرأ أو يعدل قيمة حقل عبر استخدام اسم الحقل المخزن داخل حقل آخر (مؤشر ديناميكي).", "simple_desc": "أداة برمجية متقدمة تتيح لك الإشارة غير المباشرة (Indirect Reference) للحقول؛ فإذا كان الحقل (A) يحتوي على النص 'Parcel_ID'، فإن هذا المحول يمكنه قراءة أو تعديل القيمة الموجودة داخل الحقل 'Parcel_ID' ديناميكياً.", "gis_use_case": "التعامل مع ملفات التكوين المتغيرة واستدعاء الحقول ديناميكياً بحسب كود المحافظة أو نوع المعلم دون تعديل مسار العمل.", "input_ports": ["Input: معالم تحمل أسماء حقول كقيم."], "output_ports": ["Output: المعالم بعد حل الإشارة وقراءة القيمة."], "rejected_port": "إذا كان اسم الحقل المشار إليه غير موجود أصلاً.", "key_params": ["Pointer Attribute: الحقل الذي يحمل اسم الحقل المستهدف.", "Target Attribute: اسم الحقل الذي ستخزن فيه القيمة المقروءة."], "pro_tip": "يشبه المؤشرات (Pointers) في لغات البرمجة، ويوفر مرونة هائلة في بناء نماذج FME القابلة لإعادة الاستخدام."}, {"id": "Deaggregator", "name": "Deaggregator", "name_ar": "مفكك التجميعات والكتل المعقدة (Deaggregator)", "category": "attr_join", "category_ar": "الربط والتجميع ومعالجة القيم", "main_cat": "attributes", "main_cat_ar": "إدارة السمات (Attributes)", "icon": "squares-2x2", "tagline": "يفكك المعالم المجمعة (Multi-part Geometries) والكتل إلى معالم مفردة مع الحفاظ على السمات.", "simple_desc": "يقوم بفصل المعالم المتعددة الأجزاء (مثل MultiPolygon أو كتل الأوتوكاد Blocks) إلى عناصرها الهندسية المستقلة، مع توزيع سمات المعلم الأب على جميع الأجزاء المنفصلة وتوليد مؤشر ترقيمي لكل جزء.", "gis_use_case": "تفكيك جزر المحافظات أو المجمعات السكنية متعددة القطع إلى مضلعات أراضٍ فردية لكل قطعة.", "input_ports": ["Input: معالم متعددة الأجزاء (Aggregates / Multi-parts)."], "output_ports": ["Output: المعالم الفردية المفككة."], "rejected_port": "لا يوجد منفذ رفض.", "key_params": ["Explode Mode: تفكيك المستوى الأول فقط أو تفكيك كامل هرمي (Recursive).", "Part Number: سمة لتخزين رقم الجزء."], "pro_tip": "خطوة لا غنى عنها قبل حساب المساحات الفردية للمباني أو قطع الأراضي في ملفات الـ CAD."}, {"id": "ListSearcher", "name": "ListSearcher", "name_ar": "باحث القوائم والمصفوفات (List Searcher)", "category": "attr_lists", "category_ar": "القوائم والمصفوفات (Lists)", "main_cat": "attributes", "main_cat_ar": "إدارة السمات (Attributes)", "icon": "magnifying-glass", "tagline": "يبحث داخل عناصر القائمة عن قيمة معينة ويعيد رقم ترتيبها (Index) فور العثور عليها.", "simple_desc": "يقوم بالبحث السريع داخل عناصر مصفوفة القائمة (`List{}`) عن نص أو رقم محدد، ويخبرك هل القيمة موجودة أم لا، وما هو رقم موقعها (Index) داخل القائمة.", "gis_use_case": "فحص قائمة ملاك العقار لمعرفة هل اسم شخص معين مسجل كشريك في الصك وتحديد ترتيبه.", "input_ports": ["Input: معالم تحتوي على سمة قائمة."], "output_ports": ["Found: إذا تم العثور على القيمة داخل القائمة مع تسجيل موضعها.", "NotFound: إذا لم تكن القيمة المطلوبة موجودة في القائمة."], "rejected_port": "المعالم بدون قائمة.", "key_params": ["List to Search: اسم القائمة المراد فحصها.", "Search Value: القيمة المطلوبة البحث عنها."], "pro_tip": "استخدم منفذي Found و NotFound لفرز وتصنيف المعالم المشروطة بسهولة وسرعة فائقة."}, {"id": "ListRenamer", "name": "ListRenamer", "name_ar": "معيد تسمية القوائم والمصفوفات", "category": "attr_lists", "category_ar": "القوائم والمصفوفات (Lists)", "main_cat": "attributes", "main_cat_ar": "إدارة السمات (Attributes)", "icon": "pencil-square", "tagline": "يغير اسم سمة القائمة ومصفوفة عناصرها إلى اسم بديل جديد مع الحفاظ على الترتيب.", "simple_desc": "يتيح إعادة تسمية القائمة بالكامل (مثل تحويل `_list{}` إلى `Parcels{}`) بضغطة زر دون تفكيك عناصرها أو التأثير على ترتيبها الداخلي.", "gis_use_case": "توحيد مسميات القوائم بعد عمليات الربط المكاني (SpatialRelator) لتتوافق مع متطلبات المسارات التالية.", "input_ports": ["Input: معالم تحمل قوائم."], "output_ports": ["Output: المعالم بالاسم الجديد للقائمة."], "rejected_port": "لا يوجد منفذ رفض.", "key_params": ["Old List: اسم القائمة الأصلي.", "New List: الاسم الجديد للقائمة."], "pro_tip": "يسهل إدارة المشاريع المعقدة التي تحتوي على عدة قوائم متتالية لمنع تداخل الأسماء."}, {"id": "AngularityCalculator", "name": "AngularityCalculator", "name_ar": "حاسب تعرج وتكسر الخطوط والحدود (Sinuosity)", "category": "calc_angles_coords", "category_ar": "الزوايا والتحويلات والإحداثيات", "main_cat": "calculated_values", "main_cat_ar": "الحسابات والقيم المشتقة (Calculated Values)", "icon": "variable", "tagline": "يحسب معدل التغير المفاجئ في زوايا الخطوط ومقدار التعرج الطوبوغرافي.", "simple_desc": "يقوم بحساب التعرج والانعطافات الحادة في المسارات؛ يقيس نسبة الانحراف الزاوي لكل نقطة ويعطي مؤشراً لمدى استقامة أو تعرج الخط.", "gis_use_case": "التمييز بين قنوات تصريف السيول المستقيمة المصممة بشرياً ومجاري الأودية الطبيعية شديدة التعرج والانحدار.", "input_ports": ["Input: خطوط ومسارات هندسية."], "output_ports": ["Output: الخطوط محملة بقيمة معامل التعرج الزاوي."], "rejected_port": "المعالم غير الخطية.", "key_params": ["Output Attribute: اسم الحقل الذي سيخزن معامل التعرج."], "pro_tip": "مفيد في دراسات السلامة المرورية لتحديد المنحنيات الخطرة على الطرق السريعة."}, {"id": "Classifier", "name": "Classifier", "name_ar": "مصنف القيم إلى فئات ونطاقات رقمية", "category": "calc_math_stats", "category_ar": "الحسابات الرياضية والإحصائية", "main_cat": "calculated_values", "main_cat_ar": "الحسابات والقيم المشتقة (Calculated Values)", "icon": "bars-3-bottom-left", "tagline": "يصنف القيم الرقمية المستمرة إلى فئات ونطاقات ومجموعات محددة (Ranges / Bins).", "simple_desc": "يقوم بتقسيم وتصنيف الأرقام المتصلة إلى فئات ومجالات (مثلاً: مساحات صغيرة من 0 إلى 200 م²، متوسطة من 201 إلى 500 م²، كبيرة أكبر من 500 م²)، ويضع التصنيف في حقل جديد.", "gis_use_case": "تصنيف قطع الأراضي بحسب القيمة التقديرية أو المساحة لإنشاء خرائط ثيماتية (Thematic Maps) ملونة.", "input_ports": ["Input: معالم تحتوي على حقول رقمية."], "output_ports": ["Output: المعالم محملة باسم فئة التصنيف."], "rejected_port": "القيم غير الرقمية.", "key_params": ["Class Breaks: حدود ونطاقات الفئات الرقمية.", "Target Attribute: اسم الحقل الذي سيخزن الفئة."], "pro_tip": "طريقة أسرع وأبسط من كتابة جمل شرطية معقدة متعددة الشروط."}, {"id": "BaseConverter", "name": "BaseConverter", "name_ar": "محول الأنظمة العددية (ثنائي، عشري، سداسي عشر)", "category": "calc_math_stats", "category_ar": "الحسابات الرياضية والإحصائية", "main_cat": "calculated_values", "main_cat_ar": "الحسابات والقيم المشتقة (Calculated Values)", "icon": "calculator", "tagline": "يحول الأرقام بين الأنظمة العددية المختلفة (Decimal, Binary, Hexadecimal, Octal).", "simple_desc": "يقوم بتحويل الأرقام بين القواعد العددية؛ من نظام عشري (Base 10) إلى سداسي عشر (Hex Base 16) أو ثنائي (Binary Base 2) أو العكس.", "gis_use_case": "معالجة وتحويل أكواد ألوان الأوتوكاد السداسية عشرية وأرقام عناوين الـ MAC لأجهزة الاستشعار الحضري الذكية (IoT).", "input_ports": ["Input: معالم تحمل أرقاماً بأنظمة عددية مختلفة."], "output_ports": ["Output: المعالم بالقيمة المحولة للنظام المطلوب."], "rejected_port": "الأرقام غير الصالحة للنظام المختار.", "key_params": ["Input Base: نظام الإدخال (2, 8, 10, 16).", "Output Base: نظام الإخراج المستهدف."], "pro_tip": "ضروري جداً لمطابقة أكواد الألوان بين الـ Web (Hex `#FFFFFF`) ونظم الـ GIS العشرية."}, {"id": "DateTimeRounder", "name": "DateTimeRounder", "name_ar": "مقرب التواريخ والأوقات (DateTime Rounder)", "category": "calc_datetime", "category_ar": "حسابات الوقت والتواريخ", "main_cat": "calculated_values", "main_cat_ar": "الحسابات والقيم المشتقة (Calculated Values)", "icon": "clock", "tagline": "يقرب قيم التواريخ والأوقات إلى أقرب ساعة، يوم، أسبوع، أو شهر محدد.", "simple_desc": "يتيح تقريب التوقيتات الدقيقة إلى أقرب فاصل زمني منتظم (مثلاً تقريب الساعة `14:23:45` إلى `14:00:00` أو إلى اليوم التالي)، مما يسهل تجميع البيانات الزمنية.", "gis_use_case": "تجميع بيانات رحلات المركبات أو بلاغات الطوارئ الجغرافية بالساعة لدراسة ساعات الذروة المرورية.", "input_ports": ["Input: معالم تحتوي على حقول تواريخ وأوقات."], "output_ports": ["Output: المعالم بالتواريخ المقربة."], "rejected_port": "التواريخ غير الصالحة.", "key_params": ["Round To: التقريب لأقرب (Hour, Day, Week, Month, Year).", "Direction: تقريب لأقرب، لأعلى (Ceil)، أو لأسفل (Floor)."], "pro_tip": "تجميع البيانات بالتقريب الزمني يقلل ضوضاء البيانات ويسهل عمل الرسوم البيانية المتدرجة."}, {"id": "ArcPropertyExtractor", "name": "ArcPropertyExtractor", "name_ar": "مستخرج الخصائص الهندسية للأقواس الدائرية", "category": "calc_geometry", "category_ar": "حسابات الهندسة والمساحات", "main_cat": "calculated_values", "main_cat_ar": "الحسابات والقيم المشتقة (Calculated Values)", "icon": "arrow-path", "tagline": "يستخرج الخصائص الدقيقة للأقواس الهندسية: نصف القطر، المركز، زاوية البداية، وطول القوس.", "simple_desc": "يقوم بقراءة هندسة الأقواس والدوائر ويستخرج جميع قياساتها الهندسية كأعمدة جدولية: نصف القطر (Radius)، إحداثيات نقطة المركز (Center X, Y, Z)، زاوية البداية وزاوية الامتداد، وطول القوس المنحني.", "gis_use_case": "فحص انحناءات منعطفات الطرق وأقواس كباري المشاة للتأكد من مطابقتها لكود التصميم الهندسي للمرور.", "input_ports": ["Input: أقواس ومنحنيات دائرية."], "output_ports": ["Output: المعالم محملة بخصائص القوس الهندسية."], "rejected_port": "المعالم غير القوسية.", "key_params": ["Prefix: بادئة أسماء الحقول الناتجة.", "Extract Attributes: اختيار الخصائص المطلوب استخراجها."], "pro_tip": "مفيد جداً في فحص جودة مخططات شبكات الطرق المستوردة من مكاتب التصميم الهندسي."}];
+        const sidebarCategories = [{"id": "all", "name_en": "All Transformers", "name_ar": "جميع المحولات (عرض الكل)", "count": 95, "status": "active", "icon": "sparkles"}, {"id": "3d", "name_en": "3D", "name_ar": "ثلاثي الأبعاد (3D)", "count": 45, "status": "active", "icon": "cube", "doc_url": "https://docs.safe.com/fme/html/FME-Form-Documentation/FME-Transformers/Categories/3d.htm"}, {"id": "attributes", "name_en": "Attributes", "name_ar": "إدارة السمات (Attributes)", "count": 26, "status": "active", "icon": "table-cells", "doc_url": "https://docs.safe.com/fme/html/FME-Form-Documentation/FME-Transformers/Categories/attributes.htm"}, {"id": "calculated_values", "name_en": "Calculated Values", "name_ar": "الحسابات والقيم المشتقة", "count": 24, "status": "active", "icon": "calculator", "doc_url": "https://docs.safe.com/fme/html/FME-Form-Documentation/FME-Transformers/Categories/calculated_values.htm"}, {"id": "cartography_reports", "name_en": "Cartography and Reports", "name_ar": "الخرائط والتقارير", "count": 0, "status": "upcoming", "icon": "document-chart-bar", "doc_url": "https://docs.safe.com/fme/html/FME-Form-Documentation/FME-Transformers/Categories/cartography_and_reports.htm"}, {"id": "coordinates", "name_en": "Coordinates", "name_ar": "أنظمة الإحداثيات والإسقاط", "count": 0, "status": "upcoming", "icon": "globe-americas", "doc_url": "https://docs.safe.com/fme/html/FME-Form-Documentation/FME-Transformers/Categories/coordinates.htm"}, {"id": "data_quality", "name_en": "Data Quality", "name_ar": "جودة وتدقيق البيانات", "count": 0, "status": "upcoming", "icon": "shield-check", "doc_url": "https://docs.safe.com/fme/html/FME-Form-Documentation/FME-Transformers/Categories/data_quality.htm"}, {"id": "database", "name_en": "Database", "name_ar": "قواعد البيانات والـ SQL", "count": 0, "status": "upcoming", "icon": "circle-stack", "doc_url": "https://docs.safe.com/fme/html/FME-Form-Documentation/FME-Transformers/Categories/database.htm"}, {"id": "filters_joins", "name_en": "Filters and Joins", "name_ar": "التصفية والربط المكاني والجدولي", "count": 0, "status": "upcoming", "icon": "funnel", "doc_url": "https://docs.safe.com/fme/html/FME-Form-Documentation/FME-Transformers/Categories/filters_and_joins.htm"}, {"id": "format_specific", "name_en": "Format-Specific", "name_ar": "تنسيقات الملفات المتخصصة", "count": 0, "status": "upcoming", "icon": "folder-arrow-down", "doc_url": "https://docs.safe.com/fme/html/FME-Form-Documentation/FME-Transformers/Categories/format_specific.htm"}, {"id": "geometries", "name_en": "Geometries", "name_ar": "الهندسة ومعالجة الأشكال", "count": 0, "status": "upcoming", "icon": "shapes", "doc_url": "https://docs.safe.com/fme/html/FME-Form-Documentation/FME-Transformers/Categories/geometries.htm"}, {"id": "integrations", "name_en": "Integrations", "name_ar": "التكامل والربط البرمجي", "count": 0, "status": "upcoming", "icon": "arrows-right-left", "doc_url": "https://docs.safe.com/fme/html/FME-Form-Documentation/FME-Transformers/Categories/integrations.htm"}, {"id": "point_clouds", "name_en": "Point Clouds", "name_ar": "سحب النقاط والـ LiDAR", "count": 0, "status": "upcoming", "icon": "sparkles", "doc_url": "https://docs.safe.com/fme/html/FME-Form-Documentation/FME-Transformers/Categories/point_clouds.htm"}, {"id": "rasters", "name_en": "Rasters", "name_ar": "البيانات النقطية والصور الجوية", "count": 0, "status": "upcoming", "icon": "photo", "doc_url": "https://docs.safe.com/fme/html/FME-Form-Documentation/FME-Transformers/Categories/rasters.htm"}, {"id": "spatial_analysis", "name_en": "Spatial Analysis", "name_ar": "التحليل المكاني المتقدم", "count": 0, "status": "upcoming", "icon": "map", "doc_url": "https://docs.safe.com/fme/html/FME-Form-Documentation/FME-Transformers/Categories/spatial_analysis.htm"}, {"id": "strings", "name_en": "Strings", "name_ar": "معالجة النصوص وسلاسل المحارف", "count": 0, "status": "upcoming", "icon": "document-text", "doc_url": "https://docs.safe.com/fme/html/FME-Form-Documentation/FME-Transformers/Categories/strings.htm"}, {"id": "web", "name_en": "Web", "name_ar": "خدمات الويب والـ APIs", "count": 0, "status": "upcoming", "icon": "globe-alt", "doc_url": "https://docs.safe.com/fme/html/FME-Form-Documentation/FME-Transformers/Categories/web.htm"}, {"id": "workflows", "name_en": "Workflows", "name_ar": "إدارة مسارات وسير العمل", "count": 0, "status": "upcoming", "icon": "play", "doc_url": "https://docs.safe.com/fme/html/FME-Form-Documentation/FME-Transformers/Categories/workflows.htm"}];
+        const subCategoriesMeta = [{"id": "coord_transform", "main_cat": "3d", "name": "رفع وتعديل الإحداثيات", "count": 8}, {"id": "solids_extrude", "main_cat": "3d", "name": "البثق وتكوين المجسمات الصلبة", "count": 8}, {"id": "appearance_textures", "main_cat": "3d", "name": "المظهر والخامات والإكساء", "count": 7}, {"id": "surfaces_terrain", "main_cat": "3d", "name": "السطوح ونمذجة التضاريس (DEM & TIN)", "count": 14}, {"id": "meshes_analysis", "main_cat": "3d", "name": "الشبكات وحساب الأحجام والـ LOD", "count": 5}, {"id": "procedural_city", "main_cat": "3d", "name": "النمذجة الإجرائية وتكامل BIM", "count": 3}, {"id": "attr_core", "main_cat": "attributes", "name": "إدارة السمات الأساسية", "count": 6}, {"id": "attr_transform", "main_cat": "attributes", "name": "تحويل وتعيين القيم والنصوص", "count": 6}, {"id": "attr_bulk_files", "main_cat": "attributes", "name": "المعالجة الجماعية والملفات", "count": 4}, {"id": "attr_lists", "main_cat": "attributes", "name": "القوائم والمصفوفات (Lists)", "count": 7}, {"id": "attr_join", "main_cat": "attributes", "name": "الربط والتجميع ومعالجة القيم", "count": 3}, {"id": "calc_geometry", "main_cat": "calculated_values", "name": "حسابات الهندسة والمساحات", "count": 6}, {"id": "calc_math_stats", "main_cat": "calculated_values", "name": "الحسابات الرياضية والإحصائية", "count": 8}, {"id": "calc_datetime", "main_cat": "calculated_values", "name": "حسابات الوقت والتواريخ", "count": 4}, {"id": "calc_angles_coords", "main_cat": "calculated_values", "name": "الزوايا والتحويلات والإحداثيات", "count": 6}];
+
+        let currentActiveCategory = 'all';
+        let currentSubCategory = 'all';
+        let searchQuery = '';
+
+        // DOM Elements
+        const sidebarMenu = document.getElementById('sidebarMenu');
+        const categoryHeroBanner = document.getElementById('categoryHeroBanner');
+        const subCategoriesRow = document.getElementById('subCategoriesRow');
+        const grid = document.getElementById('transformersGrid');
+        const searchInput = document.getElementById('searchInput');
+        const clearSearchBtn = document.getElementById('clearSearchBtn');
+        const resultsCountEl = document.getElementById('resultsCount');
+        const activeFilterDescEl = document.getElementById('activeFilterDesc');
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeText = document.getElementById('themeText');
+        const toast = document.getElementById('toast');
+
+        // Mobile drawer elements
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+
+        // Modal Elements
+        const modal = document.getElementById('detailModal');
+        const modalCloseBtn = document.getElementById('modalCloseBtn');
+        const modalName = document.getElementById('modalName');
+        const modalNameAr = document.getElementById('modalNameAr');
+        const modalMainCategory = document.getElementById('modalMainCategory');
+        const modalCategory = document.getElementById('modalCategory');
+        const modalSimpleDesc = document.getElementById('modalSimpleDesc');
+        const modalGisCase = document.getElementById('modalGisCase');
+        const modalPortsList = document.getElementById('modalPortsList');
+        const modalParamsList = document.getElementById('modalParamsList');
+        const modalProTip = document.getElementById('modalProTip');
+        const modalCopyBtn = document.getElementById('modalCopyBtn');
+
+        let currentActiveTransformer = null;
+
+        // Render Sidebar Menu
+        function renderSidebar() {
+            sidebarMenu.innerHTML = sidebarCategories.map(cat => {
+                const isActive = cat.id === currentActiveCategory;
+                const isPopulated = cat.status === 'active';
+                const countBadge = isPopulated ? `<span class="sidebar-badge ${isActive ? 'highlight' : ''}">${cat.count}</span>` : `<span class="sidebar-badge dimmed">قريباً</span>`;
+
+                return `
+                    <li class="sidebar-item">
+                        <div class="sidebar-link ${isActive ? 'active' : ''}" onclick="selectCategory('${cat.id}')">
+                            <div class="sidebar-item-content">
+                                <span class="sidebar-item-en">${cat.name_en}</span>
+                                <span class="sidebar-item-ar">${cat.name_ar}</span>
+                            </div>
+                            ${countBadge}
+                        </div>
+                    </li>
+                `;
+            }).join('');
+        }
+
+        // Render Category Hero Banner
+        function renderHeroBanner() {
+            const catObj = sidebarCategories.find(c => c.id === currentActiveCategory) || sidebarCategories[0];
+            
+            let badgeText = "فئة رئيسية معتمدة في FME";
+            let descText = "";
+            let docButton = "";
+
+            if (catObj.id === 'all') {
+                badgeText = "الموسوعة الكاملة الشاملة";
+                descText = "استعراض وبحث في كافة محولات FME البالغ عددها 95 أداة في مكان واحد، مقسمة ومصنفة بحسب المعايير الرسمية لشركة Safe Software.";
+            } else if (catObj.id === '3d') {
+                badgeText = "Category: 3D Transformers";
+                descText = "أدوات بناء ومعالجة النماذج ثلاثية الأبعاد، السطوح والشبكات، البثق الرأسي (Extrusion)، المجسمات الصلبة (Solids)، الخامات والتكسية الواقعية، ونماذج الارتفاع الرقمية DEM.";
+                docButton = `<a href="${catObj.doc_url}" target="_blank" rel="noopener noreferrer" class="hero-doc-btn"><span>🔗 التوثيق الرسمي لـ 3D</span></a>`;
+            } else if (catObj.id === 'attributes') {
+                badgeText = "Category: Attributes";
+                descText = "أدوات إدارة وهيكلة جداول البيانات: إنشاء الحقول، حذفها، إعادة التسمية، تجزئة النصوص، معالجة القيم الفارغة (Nulls)، والتعامل الاحترافي مع القوائم والمصفوفات (Lists).";
+                docButton = `<a href="${catObj.doc_url}" target="_blank" rel="noopener noreferrer" class="hero-doc-btn"><span>🔗 التوثيق الرسمي لـ Attributes</span></a>`;
+            } else if (catObj.id === 'calculated_values') {
+                badgeText = "Category: Calculated Values";
+                descText = "أدوات الحسابات الهندسية والإحصائية المشتقة: حساب المساحات، الأطوال، المحيطات، المعادلات الرياضية التعبيرية، الترقيم التسلسلي التلقائي، والعمليات الزمنية للتواريخ.";
+                docButton = `<a href="${catObj.doc_url}" target="_blank" rel="noopener noreferrer" class="hero-doc-btn"><span>🔗 التوثيق الرسمي لـ Calculated Values</span></a>`;
+            } else {
+                badgeText = `Category: ${catObj.name_en}`;
+                descText = `أدوات فئة (${catObj.name_ar}) في FME Form. يمكنك تصفح التوثيق الرسمي لها أو استعراض باقي الفئات المشروحة حالياً في القائمة الجانبية.`;
+                docButton = `<a href="${catObj.doc_url}" target="_blank" rel="noopener noreferrer" class="hero-doc-btn"><span>🔗 التوثيق الرسمي لـ ${catObj.name_en}</span></a>`;
+            }
+
+            categoryHeroBanner.innerHTML = `
+                <div class="hero-cat-tag">${badgeText}</div>
+                <h2 class="hero-cat-title">${catObj.name_en} <span style="font-size: 1.3rem; color: var(--accent-orange); font-weight: 700;">(${catObj.name_ar})</span></h2>
+                <p class="hero-cat-desc">${descText}</p>
+                <div class="hero-meta-row">
+                    <div style="display: flex; gap: 16px; align-items: center;">
+                        <span class="hero-stat-pill">📦 عدد الأدوات المتوفرة: <strong style="color: var(--accent-cyan); font-family: var(--font-code);">${catObj.count}</strong></span>
+                        <span class="hero-stat-pill">🏷️ الحالة: <span style="color: ${catObj.status === 'active' ? 'var(--accent-emerald)' : 'var(--text-muted)'};">${catObj.status === 'active' ? 'مكتمل ومفصل بالعربية' : 'مدرج بالتوثيق'}</span></span>
+                    </div>
+                    ${docButton}
+                </div>
+            `;
+        }
+
+        // Render Sub-Categories Filter Row
+        function renderSubCategories() {
+            let availableSubCats = subCategoriesMeta;
+            if (currentActiveCategory !== 'all') {
+                availableSubCats = subCategoriesMeta.filter(s => s.main_cat === currentActiveCategory);
+            }
+
+            if (availableSubCats.length === 0) {
+                subCategoriesRow.innerHTML = `<span style="font-size: 0.85rem; color: var(--text-muted);">لا توجد تصنيفات فرعية إضافية لهذه الفئة حالياً.</span>`;
+                return;
+            }
+
+            const currentSubStillAvailable = currentSubCategory === 'all' || availableSubCats.some(s => s.id === currentSubCategory);
+            if (!currentSubStillAvailable) {
+                currentSubCategory = 'all';
+            }
+
+            let html = `
+                <button class="sub-cat-pill ${currentSubCategory === 'all' ? 'active' : ''}" onclick="selectSubCategory('all')">
+                    <span>الكل</span>
+                    <span class="sub-cat-count">${currentActiveCategory === 'all' ? transformersData.length : transformersData.filter(t => t.main_cat === currentActiveCategory).length}</span>
+                </button>
+            `;
+
+            html += availableSubCats.map(sub => `
+                <button class="sub-cat-pill ${sub.id === currentSubCategory ? 'active' : ''}" onclick="selectSubCategory('${sub.id}')">
+                    <span>${sub.name}</span>
+                    <span class="sub-cat-count">${sub.count}</span>
+                </button>
+            `).join('');
+
+            subCategoriesRow.innerHTML = html;
+        }
+
+        // Render Cards Grid
+        function renderCards() {
+            const filtered = transformersData.filter(t => {
+                const matchesMain = currentActiveCategory === 'all' || t.main_cat === currentActiveCategory;
+                const matchesSub = currentSubCategory === 'all' || t.category === currentSubCategory;
+
+                const q = searchQuery.trim().toLowerCase();
+                if (!q) return matchesMain && matchesSub;
+
+                const matchesSearch = 
+                    t.name.toLowerCase().includes(q) ||
+                    t.name_ar.toLowerCase().includes(q) ||
+                    t.tagline.toLowerCase().includes(q) ||
+                    t.simple_desc.toLowerCase().includes(q) ||
+                    t.gis_use_case.toLowerCase().includes(q) ||
+                    t.category_ar.toLowerCase().includes(q) ||
+                    t.main_cat_ar.toLowerCase().includes(q);
+
+                return matchesMain && matchesSub && matchesSearch;
+            });
+
+            resultsCountEl.textContent = `عرض المحولات المطابقة: ${filtered.length} من أصل ${transformersData.length}`;
+            
+            const activeCatObj = sidebarCategories.find(c => c.id === currentActiveCategory);
+            const activeSubObj = subCategoriesMeta.find(s => s.id === currentSubCategory);
+            activeFilterDescEl.textContent = `الفئة النشطة: ${activeCatObj ? activeCatObj.name_en : 'All'} ${activeSubObj ? ' > ' + activeSubObj.name : ''}`;
+
+            if (filtered.length === 0) {
+                const isUpcoming = activeCatObj && activeCatObj.status === 'upcoming';
+                grid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; background: var(--bg-card); border-radius: 20px; border: 1px dashed var(--border-color);">
+                        <div style="font-size: 3rem; margin-bottom: 14px;">${isUpcoming ? '⏳' : '🔍'}</div>
+                        <h3 style="font-size: 1.4rem; margin-bottom: 8px;">${isUpcoming ? `فئة ${activeCatObj.name_en} (${activeCatObj.name_ar})` : 'لم يتم العثور على محولات مطابقة'}</h3>
+                        <p style="color: var(--text-secondary); max-width: 540px; margin: 0 auto 20px;">
+                            ${isUpcoming ? `هذه الفئة مدرجة ضمن هيكل FME الرسمي. الفئات المكتملة حالياً بالشرح العربي الكامل هي: <strong>3D</strong> (45 أداة)، <strong>Attributes</strong> (26 أداة)، و <strong>Calculated Values</strong> (24 أداة).` : `لم نجد أي محول يطابق عبارة البحث "${searchQuery}". جرب البحث باسم المحول بالإنجليزي أو إلغاء التصفية.`}
+                        </p>
+                        <button class="card-details-btn" style="display: inline-flex; width: auto;" onclick="selectCategory('all')">عرض جميع المحولات المكتملة (95)</button>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(t => {
+                let badgeClass = 'cat-3d';
+                if (t.main_cat === 'attributes') badgeClass = 'cat-attributes';
+                if (t.main_cat === 'calculated_values') badgeClass = 'cat-calculated';
+
+                return `
+                <div class="transformer-card">
+                    <div>
+                        <div class="card-top">
+                            <span class="card-category-tag ${badgeClass}">${t.main_cat_ar.split(' ')[0]} | ${t.category_ar}</span>
+                            <button class="copy-btn" onclick="copyToolName('${t.name}', event)" title="نسخ اسم الأداة لـ FME">
+                                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                            </button>
+                        </div>
+
+                        <div>
+                            <div class="card-name-en">${t.name}</div>
+                            <div class="card-name-ar">${t.name_ar}</div>
+                        </div>
+
+                        <p class="card-tagline">${t.tagline}</p>
+
+                        <div class="card-usecase">
+                            <strong>تطبيق الـ GIS العملي:</strong>
+                            ${t.gis_use_case}
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="card-ports-preview">
+                            ${t.input_ports.map(p => `<span class="port-pill" title="منفذ الدخل">📥 ${p.split(':')[0]}</span>`).join('')}
+                            ${t.output_ports.map(p => `<span class="port-pill" title="منفذ الخرج">📤 ${p.split(':')[0]}</span>`).join('')}
+                        </div>
+
+                        <button class="card-details-btn" onclick="openDetails('${t.id}')">
+                            <span>عرض الشرح الكامل والإعدادات</span>
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+                        </button>
+                    </div>
+                </div>
+            `;
+            }).join('');
+        }
+
+        function selectCategory(catId) {
+            currentActiveCategory = catId;
+            currentSubCategory = 'all';
+            renderSidebar();
+            renderHeroBanner();
+            renderSubCategories();
+            renderCards();
+
+            // Close mobile sidebar if open
+            closeMobileSidebar();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function selectSubCategory(subId) {
+            currentSubCategory = subId;
+            renderSubCategories();
+            renderCards();
+        }
+
+        function resetSearch() {
+            searchInput.value = '';
+            searchQuery = '';
+            clearSearchBtn.style.display = 'none';
+            renderCards();
+        }
+
+        // Search Events
+        searchInput.addEventListener('input', (e) => {
+            searchQuery = e.target.value;
+            clearSearchBtn.style.display = searchQuery ? 'block' : 'none';
+            renderCards();
+        });
+
+        clearSearchBtn.addEventListener('click', resetSearch);
+
+        // Mobile Sidebar Drawer
+        function openMobileSidebar() {
+            sidebar.classList.add('open');
+            sidebarBackdrop.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileSidebar() {
+            sidebar.classList.remove('open');
+            sidebarBackdrop.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        mobileMenuBtn.addEventListener('click', openMobileSidebar);
+        sidebarBackdrop.addEventListener('click', closeMobileSidebar);
+
+        // Copy Helper
+        function copyToolName(name, event) {
+            if (event) event.stopPropagation();
+            navigator.clipboard.writeText(name).then(() => {
+                showToast(`تم نسخ "${name}" للحافظة! يمكنك لصقها الآن في FME Workbench.`);
+            }).catch(() => {
+                const temp = document.createElement('input');
+                temp.value = name;
+                document.body.appendChild(temp);
+                temp.select();
+                document.execCommand('copy');
+                document.body.removeChild(temp);
+                showToast(`تم نسخ "${name}" للحافظة!`);
+            });
+        }
+
+        function showToast(msg) {
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Modal Logic
+        function openDetails(toolId) {
+            const tool = transformersData.find(t => t.id === toolId);
+            if (!tool) return;
+            currentActiveTransformer = tool;
+
+            modalName.textContent = tool.name;
+            modalNameAr.textContent = tool.name_ar;
+            modalMainCategory.textContent = tool.main_cat_ar;
+            modalCategory.textContent = tool.category_ar;
+            modalSimpleDesc.textContent = tool.simple_desc;
+            modalGisCase.textContent = tool.gis_use_case;
+
+            modalPortsList.innerHTML = `
+                ${tool.input_ports.map(p => `<div class="port-item"><strong>📥 دخل (Input):</strong> ${p}</div>`).join('')}
+                ${tool.output_ports.map(p => `<div class="port-item"><strong>📤 خرج (Output):</strong> ${p}</div>`).join('')}
+                ${tool.rejected_port ? `<div class="port-item" style="border-color: rgba(239, 68, 68, 0.3);"><strong>⚠️ مرفوضات (&lt;Rejected&gt;):</strong> ${tool.rejected_port}</div>` : ''}
+            `;
+
+            modalParamsList.innerHTML = tool.key_params.map(param => `
+                <div class="param-item">
+                    <strong>⚙️ ${param.split(':')[0]}:</strong>
+                    ${param.split(':').slice(1).join(':')}
+                </div>
+            `).join('');
+
+            modalProTip.innerHTML = `<strong>نصيحة المهندس:</strong> ${tool.pro_tip}`;
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        modalCloseBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (modal.classList.contains('active')) closeModal();
+                if (sidebar.classList.contains('open')) closeMobileSidebar();
+            }
+            if (e.key === '/' && document.activeElement !== searchInput) {
+                e.preventDefault();
+                searchInput.focus();
+            }
+        });
+
+        modalCopyBtn.addEventListener('click', () => {
+            if (currentActiveTransformer) {
+                copyToolName(currentActiveTransformer.name);
+            }
+        });
+
+        // Theme Toggle
+        let currentTheme = localStorage.getItem('fme_sidebar_theme') || 'dark';
+        function applyTheme(theme) {
+            currentTheme = theme;
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('fme_sidebar_theme', theme);
+            if (theme === 'light') {
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'الوضع الليلي';
+            } else {
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'الوضع النهاري';
+            }
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        });
+
+        // Initial Boot
+        applyTheme(currentTheme);
+        renderSidebar();
+        renderHeroBanner();
+        renderSubCategories();
+        renderCards();
+    </script>
+</body>
+</html>
